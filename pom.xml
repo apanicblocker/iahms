@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cn.apkr</groupId>
+	<artifactId>Iahms</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>IuvenisAquilaeHMS</name>
+	<description>IuvenisAquilae Hotel Manager System</description>
+
+	<properties>
+		<java.version>17</java.version>
+		<iahms.version>0.0.1-SNAPSHOT</iahms.version>
+	</properties>
+
+    <modules>
+        <module>iahms-framework</module>
+		<module>iahms-common</module>
+		<module>iahms-system</module>
+		<module>iahms-admin</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- SpringBoot的依赖配置 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>3.2.5</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- 数据库连接池 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

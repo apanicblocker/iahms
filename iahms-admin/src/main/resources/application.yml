@@ -1,0 +1,4 @@
+# 数据库配置
+database:
+  username: test
+  password: test
