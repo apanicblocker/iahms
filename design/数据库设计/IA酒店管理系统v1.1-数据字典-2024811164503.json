@@ -1,0 +1,25 @@
+{
+  "dicts": [
+    {
+      "defKey": "hotel_room_type",
+      "defName": "房态",
+      "sort": "",
+      "intro": "",
+      "id": "7ECD94BF-9EBA-4785-AEF4-11596710AF8E",
+      "items": [
+        {
+          "defKey": "0",
+          "defName": "none",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "ACBA356C-8E89-413C-951C-B22AC24BF872"
+        }
+      ]
+    }
+  ]
+}
