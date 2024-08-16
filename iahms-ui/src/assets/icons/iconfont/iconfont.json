@@ -1,0 +1,86 @@
+{
+  "id": "4435548",
+  "name": "iahms",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "36622454",
+      "name": "moon",
+      "font_class": "moon1",
+      "unicode": "ee0b",
+      "unicode_decimal": 60939
+    },
+    {
+      "icon_id": "24501114",
+      "name": "down",
+      "font_class": "down",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "24501213",
+      "name": "up",
+      "font_class": "up",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "39118531",
+      "name": "angle-up-l",
+      "font_class": "angle-up-l",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "39118564",
+      "name": "angle-down-l",
+      "font_class": "angle-down-l",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "24501112",
+      "name": "command-01",
+      "font_class": "command-01",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "39118533",
+      "name": "briefcase-l",
+      "font_class": "briefcase-l",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "39118552",
+      "name": "image-l",
+      "font_class": "image-l",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "39118557",
+      "name": "image",
+      "font_class": "image",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "39118566",
+      "name": "user-l",
+      "font_class": "user-l",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "39118569",
+      "name": "talk-l",
+      "font_class": "talk-l",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+// by: https://aicolors.co/
+:root {
+  --base-c-primary-1: #d4eaf7;
+  --base-c-primary-2: #b6ccd8;
+  --base-c-primary-3: #3b3c3d;
+  --base-c-accent-1: #71c4ef;
+  --base-c-accent-2: #00668c;
+  --base-c-text-1: #1d1c1c;
+  --base-c-text-2: #313d44;
+  --base-c-bg-1: #fffefb;
+  --base-c-bg-2: #f5f4f1;
+  --base-c-bg-3: #cccbc8;
+
+  --border-c-divider: #e9e8e6;
+}
+
+#app[data-theme="light"] {
+  --base-c-primary-1: #d4eaf7;
+  --base-c-primary-2: #b6ccd8;
+  --base-c-primary-3: #3b3c3d;
+  --base-c-accent-1: #71c4ef;
+  --base-c-accent-2: #00668c;
+  --base-c-text-1: #1d1c1c;
+  --base-c-text-2: #313d44;
+  --base-c-bg-1: #fffefb;
+  --base-c-bg-2: #f5f4f1;
+  --base-c-bg-3: #cccbc8;
+
+  --border-c-divider: #e9e8e6;
+}
+
+#app[data-theme="dark"] {
+  --base-c-primary-1: #0085ff;
+  --base-c-primary-2: #69b4ff;
+  --base-c-primary-3: #e0ffff;
+  --base-c-accent-1: #006fff;
+  --base-c-accent-2: #e1ffff;
+  --base-c-text-1: #FFFFFF;
+  --base-c-text-2: #9e9e9e;
+  --base-c-bg-1: #1e1e1e;
+  --base-c-bg-2: #2d2d2d;
+  --base-c-bg-3: #454545;
+}
