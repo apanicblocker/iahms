@@ -8,9 +8,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ButtonToIndex: typeof import('./components/button-to-index.vue')['default']
+    Chart: typeof import('./components/chart.vue')['default']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    LineChart: typeof import('./components/line-chart.vue')['default']
     PageHeader: typeof import('./components/page-header.vue')['default']
     PageHeaderNav: typeof import('./components/page-header-nav.vue')['default']
     PageHeaderTitle: typeof import('./components/page-header-title.vue')['default']

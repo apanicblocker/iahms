@@ -1,7 +1,7 @@
 <script>
 
 export default {
-  name: 'AboutPage',
+  name: 'DashboardPage',
   components: {
 
   },
@@ -12,8 +12,8 @@ export default {
 </script>
 
 <template>
-  <div class="page-box">
-    <h1>关于我们</h1>
+  <div class="section">
+    <h1>主面板</h1>
   </div>
 </template>
 

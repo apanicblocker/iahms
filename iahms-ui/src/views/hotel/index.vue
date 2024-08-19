@@ -1,8 +1,8 @@
 <script>
-import PageHeader from '@/components/page-header.vue'
+import PageHeader from '@/views/hotel/components/page-header.vue'
 
 export default {
-  name: 'IndexPage',
+  name: 'HotelIndex',
   components: {
     PageHeader
   },
@@ -13,9 +13,9 @@ export default {
 </script>
 
 <template>
-  <PageHeader />
-  <div class="section">
-    <h1>Section</h1>
+  <div class="hotel-index">
+    <PageHeader />
+    <router-view />
   </div>
 </template>
 

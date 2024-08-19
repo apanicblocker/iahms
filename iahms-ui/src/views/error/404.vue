@@ -1,5 +1,5 @@
 <script>
-import ButtonToIndex from '@/components/button-to-index.vue'
+import ButtonToIndex from './components/button-to-index.vue'
 
 export default {
   components: {

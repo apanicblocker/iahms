@@ -1,7 +1,7 @@
 <script>
 
 export default {
-  name: 'AboutPage',
+  name: 'CustomerPage',
   components: {
 
   },
@@ -12,8 +12,8 @@ export default {
 </script>
 
 <template>
-  <div class="page-box">
-    <h1>关于我们</h1>
+  <div class="">
+    <h1>客户管理</h1>
   </div>
 </template>
 

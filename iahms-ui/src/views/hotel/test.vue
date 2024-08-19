@@ -1,10 +1,8 @@
 <script>
-import ThemeToggler from '../components/theme-toggler.vue';
 
 export default {
   name: 'TestPage',
   components: {
-    ThemeToggler
   },
   data() {
     return {
@@ -15,9 +13,7 @@ export default {
 
 <template>
   <div class="test-page">
-    <ThemeToggler />
   </div>
-
 </template>
 
 <style scoped>

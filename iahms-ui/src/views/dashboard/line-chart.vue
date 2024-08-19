@@ -1,10 +1,6 @@
 <script>
-
 export default {
-  name: 'AboutPage',
-  components: {
-
-  },
+  name: 'LineChart',
   data() {
     return {}
   }
@@ -12,9 +8,7 @@ export default {
 </script>
 
 <template>
-  <div class="page-box">
-    <h1>关于我们</h1>
-  </div>
+  <div class=""></div>
 </template>
 
 <style scoped>

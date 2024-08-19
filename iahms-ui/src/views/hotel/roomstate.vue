@@ -1,9 +1,8 @@
 <script>
 
 export default {
-  name: 'AboutPage',
+  name: 'RoomStatePage',
   components: {
-
   },
   data() {
     return {}
@@ -12,8 +11,8 @@ export default {
 </script>
 
 <template>
-  <div class="page-box">
-    <h1>关于我们</h1>
+  <div class="">
+    <h1>房态管理</h1>
   </div>
 </template>
 

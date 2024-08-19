@@ -15,19 +15,27 @@ export default {
       navList: [
         {
           name: '首页',
-          path: '/hotel-index'
+          path: '/hotel/dashboard'
         },
         {
           name: '房态',
-          path: '/hotel-state'
+          path: '/hotel/roomstate'
         },
         {
-          name: '渠道',
-          path: '/hotel-channel'
+          name: '订单',
+          path: '/hotel/order'
+        },
+        {
+          name: '客户',
+          path: '/hotel/customer'
+        },
+        {
+          name: '设置',
+          path: '/hotel/settings'
         },
         {
           name: '关于',
-          path: '/hotel-about'
+          path: '/hotel/about'
         },
         {
           name: '组件测试',

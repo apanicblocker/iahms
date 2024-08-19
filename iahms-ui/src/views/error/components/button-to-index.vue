@@ -6,8 +6,8 @@ export default {
   },
   methods: {
     handleClick() {
-      // window.location.reload();  // 结果是跟下面一样的。。。
-      this.$router.push('/hotel-index')
+      window.location.reload();  // 结果是跟下面一样的。。。
+      // this.$router.replace('/hotel-index')
     }
   }
 }
@@ -15,7 +15,7 @@ export default {
 
 <template>
   <button class="button-to-index">
-    <router-link to="/hotel-index">返回首页</router-link>
+    <router-link to="/">返回首页</router-link>
   </button>
 </template>
 
