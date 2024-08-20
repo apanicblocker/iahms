@@ -5,9 +5,6 @@ export default {
   name: 'HotelIndex',
   components: {
     PageHeader
-  },
-  data() {
-    return {}
   }
 }
 </script>
@@ -15,9 +12,20 @@ export default {
 <template>
   <div class="hotel-index">
     <PageHeader />
-    <router-view />
+    <div class="section">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.hotel-index {
+  height: 100%;
+  background-color: var(--base-c-bg-2);
+}
+.section {
+  /* 当内容溢出时，该标签会自动展示滚动条 */
+  overflow: auto;
+  height: calc(100% - 56px);
+}
 </style>

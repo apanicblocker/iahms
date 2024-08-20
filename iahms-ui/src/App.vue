@@ -3,7 +3,7 @@
 
 <template>
   <router-view :key="$route.fullPath"/>
-  {{ $route.path }}
+  <!-- {{ $route.path }} -->
 </template>
 
 <style scoped>

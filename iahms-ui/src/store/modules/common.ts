@@ -1,23 +1,27 @@
 
 
 const state = () => ({
-  // currentPage: '/',
+  theme: 'dark',
 })
 
 const getters = {
-  // currentPage: (state: any) => state.currentPage,
+  theme: (state: any) => state.theme,
 }
 
 const mutations = {
-  // setCurrentPage(state: any, page: string) {
-  //   state.currentPage = page
-  // },
+  setTheme(state: any, theme: string) {
+    state.theme = theme
+    // 把主题存到localStorage
+    localStorage.setItem('theme', theme)
+    // 修改#app data-theme属性更改主题
+    document.getElementById('app')?.setAttribute('data-theme', theme)
+  }
 }
 
 const actions = {
-  // setCurrentPage({ commit }: any, page: string) {
-  //   commit('setCurrentPage', page)
-  // },
+  setTheme({ commit }: any, theme: string) {
+    commit('setTheme', theme)
+  }
 }
 
 export default {

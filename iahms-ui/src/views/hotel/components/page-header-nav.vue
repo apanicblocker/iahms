@@ -68,11 +68,16 @@ export default {
   line-height: 56px;
   font-size: 14px;
   padding: 0 16px;
-  color: var(--base-c-text-1)
+  color: var(--base-c-text-1);
 }
 
 .active {
-  color: var(--base-c-accent-2);
-  border-bottom: 4px solid var(--base-c-accent-2);
+  color: var(--base-c-accent-1);
+  font-weight: 600;
+  border-bottom: 4px solid var(--base-c-accent-1);
+  /* 如果想增强导航栏字段的文字部分可以解开下面的注释 */
+  /* color: var(--base-c-text-1);
+  background-color: var(--base-c-primary-1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04); */
 }
 </style>

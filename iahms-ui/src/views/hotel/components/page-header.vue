@@ -46,6 +46,15 @@ export default {
       darkTheme: false,
     }
   },
+  watch: {
+    darkTheme(val) {
+      if (val) {
+        this.$store.commit('setTheme', 'dark')
+      } else {
+        this.$store.commit('setTheme', 'light')
+      }
+    }
+  },
   mounted() {
     // this.test()
   },

@@ -7,7 +7,7 @@ import {
 
 const routes: RouteRecordRaw[] = [
   // 根页面路由
-  { path: '/', redirect: '/hotel' },
+  { path: '/', redirect: '/hotel/dashboard' },
   {
     path: '/hotel',
     component: () => import('@/views/hotel/index.vue'),
