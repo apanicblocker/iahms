@@ -70,9 +70,11 @@ export default {
     <div class="flex-full"></div>
     <div class="start-center">
       <!-- 其他功能快捷入口 -->
-      <div class="quick-function"></div>
+      <div class="quick-function">
+        <!-- TODO -->
+      </div>
       <el-divider direction="vertical" />
-      <!-- 光暗模式切换 -->
+      <!-- 光暗模式切换开关 -->
       <div class="theme-toggler">
         <el-switch
           v-model="darkTheme"
@@ -135,6 +137,7 @@ export default {
 }
 
 .quick-function {
+  display: flex;
   /* TODO */
 }
 
