@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'DataCard',
+  name: 'DataCards',
   props: {
     cardDataList: {
       type: Array,
@@ -14,19 +14,11 @@ export default {
     }
   },
   emits: ['clickCard'],
-  data() {
-    return {}
-  },
-  mounted() {
-    console.log(this.cardDataList);
-  },
-  methods: {
-  }
 }
 </script>
 
 <template>
-  <div class="data-card">
+  <div class="data-cards">
     <div
       class="data-card-item"
       v-for="(item, index) in cardDataList"
@@ -40,7 +32,7 @@ export default {
 </template>
 
 <style scoped>
-.data-card {
+.data-cards {
   display: flex;
 }
 
@@ -54,7 +46,6 @@ export default {
   background-color: var(--base-c-bg-1);
   text-align: left;
   color: var(--base-c-text-1);
-  transition: all 0.3s;
 
   &:hover {
     background-color: var(--base-c-accent-1);

@@ -10,6 +10,7 @@ declare module 'vue' {
     ButtonToIndex: typeof import('./components/button-to-index.vue')['default']
     Chart: typeof import('./components/chart.vue')['default']
     ElDivider: typeof import('element-plus/es')['ElDivider']
+    ElInput: typeof import('element-plus/es')['ElInput']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     LineChart: typeof import('./components/line-chart.vue')['default']
