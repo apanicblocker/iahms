@@ -2,10 +2,13 @@
 export default {
   name: 'MemoNote',
   props: {
+    // 之所以是once是因为传入的数据是一次性的，
+    // 他无法双向更新，只是单次给他设置值
     setMemoOnce: {
       type: String,
       default: ''
     },
+    // 用来显示保存的时间等信息
     tipsText: {
       type: String,
       default: ''

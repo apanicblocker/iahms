@@ -1,7 +1,7 @@
 <script>
 import PageHeaderTitle from './page-header-title.vue';
 import PageHeaderNav from './page-header-nav.vue';
-import ThemeSwitch from './page-header-theme-switch.vue';
+import ThemeSwitch from './theme-switch.vue';
 
 export default {
   name: 'PageHeader',

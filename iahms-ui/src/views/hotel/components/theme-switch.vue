@@ -12,7 +12,7 @@ export default {
     switchState(val) {
       this.$store.commit('SET_THEME', val ? 'dark' : 'light')
     }
-  }
+  },
 }
 </script>
 
