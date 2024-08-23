@@ -37,12 +37,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/hotel/settings.vue')
       },
       {
-        path: '/hotel/about',
+        path: '/hotel/aboutUs',
         component: () => import('@/views/hotel/about.vue')
       },
     ]
   },
 
+  {
+    path: '/hotel/helpCenter',
+    component: () => import('@/views/hotel/help.vue')
+  },
   {
     path: '/component-test',
     component: () => import('@/views/hotel/test.vue')

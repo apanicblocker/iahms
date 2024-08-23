@@ -18,6 +18,11 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 // 注册全局变量
 app.config.globalProperties.$echarts = echarts
 
+// 从 localStorage 加载主题
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.getElementById('#app')?.setAttribute('data-theme', savedTheme)
+store.commit('SET_THEME', savedTheme);
+
 // 注册插件
 app.use(router)
 app.use(store)

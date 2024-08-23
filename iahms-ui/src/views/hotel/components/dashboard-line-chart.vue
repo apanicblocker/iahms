@@ -2,7 +2,7 @@
 import { markRaw } from 'vue'
 
 export default {
-  name: 'HomeLineChart',
+  name: 'DashboardLineChart',
   props: {
     title: {
       type: String,
@@ -19,6 +19,12 @@ export default {
     formatter: {
       type: String,
       default: '{value}'
+    },
+    valueFormatter: {
+      type: Function,
+      default: (value) => {
+        return value
+      }
     }
   },
   data() {
@@ -26,10 +32,6 @@ export default {
       chart: null,
       // 图表配置
       option: {
-        notMerge: true,
-        tooltip: {
-          trigger: 'axis'
-        },
         grid: {
           left: '3%',
           right: '3%',
@@ -51,6 +53,10 @@ export default {
             formatter: this.formatter
           }
         },
+        tooltip: {
+          trigger: 'axis',
+          valueFormatter: this.valueFormatter,
+        },
         series: [
           {
             name: '入住率',
@@ -59,12 +65,14 @@ export default {
             smooth: true,
             lineStyle: {
               width: 5,
-              shadowColor: 'rgba(0,0,0,0.3)',
+              shadowColor: 'rgba(0,0,0,0.2)',
               shadowBlur: 16,
               shadowOffsetY: 16
             },
             areaStyle: {
-              color: 'rgba(255,255,255,0.25)',
+              color: 'rgba(255,255,255,0.2)',
+              shadowColor: 'rgba(0,0,0,0.2)',
+              shadowBlur: 16,
             }
           },
         ]
@@ -82,7 +90,9 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = markRaw(this.$echarts.init(this.$el.querySelector('#chart')))
+      const chartEl = this.$el.querySelector('#chart')
+      this.chart = markRaw(this.$echarts.init(chartEl))
+      // 判断this.option是否存在
       if (this.option && typeof this.option === 'object') {
         this.chart.setOption(this.option)
       }
@@ -95,14 +105,14 @@ export default {
 </script>
 
 <template>
-  <div class="home-line-chart">
+  <div class="dashboard-line-chart">
     <div class="title">{{ title }}</div>
     <div id="chart"></div>
   </div>
 </template>
 
 <style scoped>
-.home-line-chart {
+.dashboard-line-chart {
   display: flex;
   flex-direction: column;
   height: 100%;

@@ -2,10 +2,10 @@
 import ButtonToIndex from './components/button-to-index.vue'
 
 export default {
+  name: '404',
   components: {
     ButtonToIndex,
   },
-  name: '404',
 }
 </script>
 

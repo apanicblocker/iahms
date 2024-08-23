@@ -9,7 +9,7 @@ const getters = {
 }
 
 const mutations = {
-  setTheme(state: any, theme: string) {
+  SET_THEME(state: any, theme: string) {
     state.theme = theme
     // 把主题存到localStorage
     localStorage.setItem('theme', theme)
@@ -19,8 +19,8 @@ const mutations = {
 }
 
 const actions = {
-  setTheme({ commit }: any, theme: string) {
-    commit('setTheme', theme)
+  SET_THEME({ commit }: any, theme: string) {
+    commit('SET_THEME', theme)
   }
 }
 

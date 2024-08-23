@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'DataCards',
+  name: 'DashboardDataCards',
   props: {
     cardDataList: {
       type: Array,
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-  <div class="data-cards">
+  <div class="dashboard-data-cards">
     <div
       class="data-card-item"
       v-for="(item, index) in cardDataList"
@@ -32,7 +32,7 @@ export default {
 </template>
 
 <style scoped>
-.data-cards {
+.dashboard-data-cards {
   display: flex;
 }
 

@@ -1,9 +1,9 @@
 <script>
 export default {
+  name: '401',
   components: {
     ButtonToIndex: () => import('./components/button-to-index')
   },
-  name: '401',
   data() {
     return {}
   }

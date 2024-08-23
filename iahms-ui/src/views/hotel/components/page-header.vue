@@ -1,12 +1,14 @@
 <script>
 import PageHeaderTitle from './page-header-title.vue';
 import PageHeaderNav from './page-header-nav.vue';
+import ThemeSwitch from './page-header-theme-switch.vue';
 
 export default {
   name: 'PageHeader',
   components: {
     PageHeaderTitle,
     PageHeaderNav,
+    ThemeSwitch
   },
   data() {
     return {
@@ -35,35 +37,16 @@ export default {
         },
         {
           name: '关于',
-          path: '/hotel/about'
+          path: '/hotel/aboutUs'
         },
         {
           name: '组件测试',
           path: '/component-test'
         }
       ],
-
-      darkTheme: false,
     }
   },
-  watch: {
-    darkTheme(val) {
-      if (val) {
-        this.$store.commit('setTheme', 'dark')
-      } else {
-        this.$store.commit('setTheme', 'light')
-      }
-    }
-  },
-  mounted() {
-    // this.test()
-  },
-  methods: {
-    // test() {
-    //   this.$store.commit('increment')
-    //   console.log(this.$store.state.count);
-    // }
-  }
+  mounted() {},
 }
 </script>
 
@@ -84,26 +67,7 @@ export default {
       </div>
       <el-divider direction="vertical" />
       <!-- 光暗模式切换开关 -->
-      <div class="theme-toggler">
-        <el-switch
-          v-model="darkTheme"
-          inline-prompt
-          style="
-            --el-switch-on-color: var(--base-c-bg-3);
-            --el-switch-off-color: var(--base-c-bg-3);
-            --el-switch-border-color: var(--base-c-bg-2);
-            font-size: 18px;"
-        >
-          <template #active-action>
-            <svg class="icon switch-icon" aria-hidden="true">
-              <use xlink:href="#icon-moon1"></use>
-            </svg>
-          </template>
-          <template #inactive-action>
-            <Sunny class="switch-icon"/>
-          </template>
-        </el-switch>
-      </div>
+      <ThemeSwitch />
       <el-divider direction="vertical" />
       <!-- 用户头像 -->
       <div class="user-avatar">
