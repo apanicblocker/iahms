@@ -71,7 +71,7 @@ export default {
 </script>
 
 <template>
-  <div class="dashboard-content">
+  <div class="page-content">
     <main>
       <div class="data-card-content">
         <DashboardDataCards :cardDataList="cardDataList" @clickCard="routeTo" />
@@ -109,7 +109,7 @@ export default {
 </template>
 
 <style scoped>
-.dashboard-content {
+.page-content {
   display: flex;;
   margin: 16px;
 

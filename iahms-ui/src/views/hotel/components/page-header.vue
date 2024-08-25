@@ -14,36 +14,6 @@ export default {
     return {
       titleText: '小鸟公寓',
       imgPath: '/src/assets/vue.svg',
-      navList: [
-        {
-          name: '首页',
-          path: '/hotel/dashboard'
-        },
-        {
-          name: '房态',
-          path: '/hotel/roomstate'
-        },
-        {
-          name: '订单',
-          path: '/hotel/order'
-        },
-        {
-          name: '客户',
-          path: '/hotel/customer'
-        },
-        {
-          name: '设置',
-          path: '/hotel/settings'
-        },
-        {
-          name: '关于',
-          path: '/hotel/aboutUs'
-        },
-        {
-          name: '组件测试',
-          path: '/component-test'
-        }
-      ],
     }
   },
   mounted() {},
@@ -88,7 +58,8 @@ export default {
   height: 56px;
   padding: 0 24px;
   background-color: var(--base-c-bg-1);
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--base-c-bg-2);
+  box-shadow: 0 2px 12px 0 var(--base-c-bg-2);
 }
 
 .el-divider {

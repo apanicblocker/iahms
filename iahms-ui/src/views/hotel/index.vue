@@ -10,20 +10,20 @@ export default {
 </script>
 
 <template>
-  <div class="hotel-index">
+  <div class="page-content">
     <PageHeader />
-    <div class="section">
+    <main>
       <router-view />
-    </div>
+    </main>
   </div>
 </template>
 
 <style scoped>
-.hotel-index {
+.page-content {
   height: 100%;
   background-color: var(--base-c-bg-2);
 }
-.section {
+main {
   /* 当内容溢出时，该标签会自动展示滚动条 */
   overflow: auto;
   height: calc(100% - 56px);

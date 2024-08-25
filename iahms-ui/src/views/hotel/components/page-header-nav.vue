@@ -1,36 +1,53 @@
 <script>
 export default {
   name: 'PageHeaderNav',
-  props: {
-    navList: {
-      type: Array,
-      default: () => [
-        {
-          name: '根目录',
-          path: '/'
-        },
-      ]
-    },
-  },
   data() {
-    return {}
+    return {
+      navList: [],
+    }
+  },
+  created() {
+    this.getRoutes()
   },
   mounted() {
     this.initNav()
   },
   methods: {
-    initNav() {
-      // 根据路由初始化选中项
-      let currentPath = this.$route.fullPath
-      for (let i = 0; i < this.navList.length; i++) {
-        if (currentPath === this.navList[i].path) {
-          this.setActive(i)
-          return
+    // 获取当前页面需要的路由参数
+    getRoutes() {
+      let routes = this.$store.state.common.routes
+      for (let i = 0; i < routes.length; i++) {
+        if (routes[i].path === '/hotel') {
+          // 只取hotel模块下的子路由
+          let hotelRouters = routes[i].children
+          for (let routerItem of hotelRouters) {
+            let tempNode = {name: '', path: ''}
+            tempNode.name = routerItem.meta?.title
+            tempNode.path = routerItem.path
+            // 如果 name和 path都存在，则添加到navList中
+            if (tempNode.name && tempNode.path) {
+              this.navList.push(tempNode)
+            }
+          }
+          break
         }
       }
-      // 没有匹配到，默认选中第一个
+    },
+    // 根据路由初始化选中项
+    initNav() {
+      let currentPath = this.$route.matched[1]?.path
+      if (currentPath) {
+        // 如果是根目录，则默认选中第一个
+        for (let i = 0; i < this.navList.length; i++) {
+          if (currentPath === this.navList[i].path) {
+            this.setActive(i)
+            return
+          }
+        }
+      }
       this.setActive(0)
     },
+    // 点击导航栏
     setActive(index) {
       // 清除所有active
       let navItems = document.getElementsByClassName('nav-item')
