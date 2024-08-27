@@ -12,11 +12,10 @@ export default {
   },
   data() {
     return {
-      titleText: '小鸟公寓',
-      imgPath: '/src/assets/vue.svg',
+      titleText: '呆逼bad头欣',
+      imgPath: '/public/vite.svg',
     }
   },
-  mounted() {},
 }
 </script>
 
@@ -28,6 +27,8 @@ export default {
       <el-divider direction="vertical" />
       <!-- 导航列表 -->
       <PageHeaderNav />
+      <!-- 测试页面 -->
+      <RouterLink to="/component-test" >测试页面</RouterLink>
     </div>
     <div class="flex-full"></div>
     <div class="start-center">

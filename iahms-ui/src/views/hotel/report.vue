@@ -31,7 +31,9 @@ export default {
   height: 100%;
 
   main {
+    width: 100%;
     padding: 16px;
+    overflow: auto;
   }
 }
 </style>

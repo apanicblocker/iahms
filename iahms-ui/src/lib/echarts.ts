@@ -1,7 +1,8 @@
 import * as echarts from 'echarts/core';
 import {
   BarChart,
-  LineChart
+  LineChart,
+  PieChart,
 } from 'echarts/charts';
 import {
   TitleComponent,
@@ -10,7 +11,11 @@ import {
   // 数据集组件
   DatasetComponent,
   // 内置数据转换器组件 (filter, sort)
-  TransformComponent
+  TransformComponent,
+  // 图例组件
+  LegendComponent,
+  // 标签组件
+  GraphicComponent,
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -47,8 +52,11 @@ echarts.use([
   GridComponent,
   DatasetComponent,
   TransformComponent,
+  LegendComponent,
+  GraphicComponent,
   BarChart,
   LineChart,
+  PieChart,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer

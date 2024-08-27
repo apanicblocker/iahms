@@ -1,8 +1,11 @@
 <script>
+import TestChart from './report/components/test-chart.vue';
+
 
 export default {
   name: 'TestPage',
   components: {
+    TestChart
   },
   data() {
     return {
@@ -19,6 +22,7 @@ export default {
 
 <template>
   <div class="test-page">
+    <TestChart />
   </div>
 </template>
 

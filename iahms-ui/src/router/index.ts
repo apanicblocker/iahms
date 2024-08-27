@@ -186,22 +186,4 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-// // 在路由守卫中添加逻辑（跳转相同路径变为刷新）
-// router.afterEach((to, from) => {
-//   // 如果目标路由的路径与当前路由的路径相同
-//   if (to.path === from.path && to.hash === from.hash) {
-//     // 执行页面刷新
-//     window.location.reload()
-//   }
-// });
-// router.beforeEach((to, from, next) => {
-//   if (to.path === from.path && to.hash === from.hash) {
-//     // 如果路由相同，可以选择导航到首页或其他页面
-//     next('/') // 先导航到根路径
-//     from.path === '/' ? window.location.reload() : router.replace({ path: '/' }) // 如果已经是根路径，则刷新页面
-//   } else {
-//     next()
-//   }
-// })
-
 export default router
