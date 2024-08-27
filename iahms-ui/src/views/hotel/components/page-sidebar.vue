@@ -117,6 +117,8 @@ export default {
   height: 100%;
   padding: 8px 0 40px 0;
   background-color: var(--base-c-bg-1);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .menu-content {

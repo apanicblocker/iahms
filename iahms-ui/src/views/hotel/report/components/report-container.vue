@@ -17,10 +17,10 @@ export default {
   <div class="report-container">
     <div class="header">
       <div class="title">{{ title }}</div>
-      <div class="sub-title">
+      <div class="sub-title" v-if="$slots['sub-title']">
         <slot name="sub-title"></slot>
       </div>
-      <div class="option">
+      <div class="option" v-if="$slots['option']">
         <slot name="option"></slot>
       </div>
     </div>
@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
 .report-container {
-  /* background-color: aqua; */
+
 }
 
 .header {

@@ -11,7 +11,10 @@ export default {
   data() {
     return {
       value: '',
-      defaultTime: [Date.now(), Date.now()]
+      defaultTime: ref<[Date, Date]>([
+        new Date(2000, 1, 1, 0, 0, 0),
+        new Date(2000, 2, 1, 23, 59, 59),
+      ])
     }
   }
 }
@@ -34,22 +37,14 @@ export default {
         <span>统计说明 ?</span>
       </template>
       <template #content>
-        <ReportPieChart/>
+        <!-- TODO -->
       </template>
     </ReportContainer>
-
-    <div class="pie-chart-list">
-      <ReportContainer class="container" title="总收款">
-        <template #content>
-          <ReportPieChart/>
-        </template>
-      </ReportContainer>
-      <ReportContainer class="container" title="总退款">
-        <template #content>
-          <ReportPieChart/>
-        </template>
-      </ReportContainer>
-    </div>
+    <ReportContainer class="container" title="营业汇总统计">
+      <template #content>
+        <ReportPieChart :legendPosition="'down'"/>
+      </template>
+    </ReportContainer>
   </div>
 </template>
 
@@ -61,14 +56,5 @@ export default {
 
 .container {
   margin-top: 16px;
-}
-
-.pie-chart-list {
-  display: flex;
-  justify-content: space-between;
-
-  .container {
-    width: calc(50% - 8px);
-  }
 }
 </style>

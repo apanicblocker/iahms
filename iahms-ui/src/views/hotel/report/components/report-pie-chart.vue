@@ -3,20 +3,39 @@
 export default {
   name: 'ReportPieChart',
   props: {
+    titleText: {
+      type: String,
+      default: '请输入标题'
+    },
     chartData: {
       type: Array,
       default: () => [
-        { value: 1048, name: 'Search Engine' },
-        { value: 735, name: 'Direct' },
-        { value: 580, name: 'Email' },
-        { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' }
+        { value: 1048, name: 'Test Search' },
+        { value: 735, name: 'Test Direct' },
+        { value: 580, name: 'Test Email' },
+        { value: 484, name: 'Test Union Ads' },
+        { value: 300, name: 'Test Video Ads' }
       ]
+    },
+    legendPosition: {
+      type: String,
+      default: 'right'
     }
   },
   data() {
     return {
       chart: null,
+      legend: {},
+      rightLegend: {
+        orient: 'vertical',
+        left: '280px',
+        bottom: 'center',
+      },
+      downLegend: {
+        orient: 'horizontal',
+        left: '0',
+        bottom: '0',
+      }
     }
   },
   mounted() {
@@ -27,13 +46,23 @@ export default {
   },
   methods: {
     initChart() {
+      if (this.legendPosition === 'right') {
+        this.legend = this.rightLegend
+      } else {
+        this.legend = this.downLegend
+      }
       let chartData = this.chartData
+      let total = chartData.reduce((sum, item) => sum + item.value, 0)
       let chartOption = {
         title: {
-          text: '总收入\n\n¥120.00',
+          text: this.titleText + '\n\n¥' + total,
           textAlign: 'center',
           left: '120px',
           top: 'center',
+        },
+        grip: {
+          bottom: '20px',
+          containLabel: true
         },
         tooltip: {
           trigger: 'item',
@@ -49,18 +78,16 @@ export default {
               '   border-radius:50%;' +
               '   background-color:'+params.color + ';">' +
               '</div>' +
-              ' ' + '￥'+ params.value.toFixed(2) +
-              ' ' + params.percent + '%'
+              ' | ' + '¥' + params.value.toFixed(2) +
+              ' | ' + params.percent + '%'
           }
         },
         legend: {
           show: true,
-          orient: 'vertical',
-          top: 'center',
-          left: '290px',
+          orient: this.legend.orient,
+          left: this.legend.left,
+          bottom: this.legend.bottom,
           formatter: function(name) {
-            let total = chartData.reduce((sum, item) => sum + item.value, 0)
-            console.log(total);
             let value = chartData.find(item => item.name === name).value;
             let percentAge = ((value / total) * 100).toFixed(2) + '%'
             return name + '\t\t\t\t\t\t\t\t' + percentAge
@@ -69,7 +96,7 @@ export default {
         series: [
           {
             type: 'pie',
-            radius: ['66%', '90%'],
+            radius: ['56%', '80%'],
             center: ['125px', 'center'],
             label: { show: false },
             data: chartData,
@@ -94,8 +121,8 @@ export default {
 <style scoped>
 .report-pie-chart {
   box-sizing: content-box;
-  /* width: 250px; */
-  height: 250px;
+  min-width: 465px;
+  min-height: 250px;
   padding: 40px;
 }
 </style>

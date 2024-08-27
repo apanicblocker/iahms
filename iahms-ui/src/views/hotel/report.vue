@@ -33,7 +33,8 @@ export default {
   main {
     width: 100%;
     padding: 16px;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }
 </style>
