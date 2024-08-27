@@ -15,21 +15,15 @@ export default {
   methods: {
     // 获取当前页面需要的路由参数
     getRoutes() {
-      let routes = this.$store.state.common.routes
-      for (let i = 0; i < routes.length; i++) {
-        if (routes[i].path === '/hotel') {
-          // 只取hotel模块下的子路由
-          let hotelRouters = routes[i].children
-          for (let routerItem of hotelRouters) {
-            let tempNode = {name: '', path: ''}
-            tempNode.name = routerItem.meta?.title
-            tempNode.path = routerItem.path
-            // 如果 name和 path都存在，则添加到navList中
-            if (tempNode.name && tempNode.path) {
-              this.navList.push(tempNode)
-            }
-          }
-          break
+      let hotelRoutes = this.$store.state.common.hotelRoutes
+      for (let routerItem of hotelRoutes) {
+        let tempNode = {
+          name: routerItem.meta?.title,
+          path: routerItem.path
+        }
+        // 如果 name和 path都存在，则添加到navList中
+        if (tempNode.name && tempNode.path) {
+          this.navList.push(tempNode)
         }
       }
     },
@@ -85,13 +79,12 @@ export default {
   line-height: 56px;
   font-size: 14px;
   padding: 0 16px;
-  color: var(--base-c-text-1);
 }
 
 .active {
-  color: var(--base-c-accent-1);
-  font-weight: 600;
   border-bottom: 4px solid var(--base-c-accent-1);
+  font-weight: 600;
+  color: var(--base-c-accent-1);
   /* 如果想增强导航栏字段的文字部分可以解开下面的注释 */
   /* color: var(--base-c-text-1);
   background-color: var(--base-c-primary-1);

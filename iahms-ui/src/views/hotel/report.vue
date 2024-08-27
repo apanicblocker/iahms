@@ -2,21 +2,22 @@
 import PageSidebar from './components/page-sidebar.vue';
 
 export default {
-  name: 'OrderPage',
+  name: 'ReportPage',
   components: {
     PageSidebar,
   },
   data() {
     return {
+      pageName: 'report',
     }
-  }
+  },
 }
 </script>
 
 <template>
-  <div class="order-page">
+  <div class="report-page">
     <div class="sidebar">
-      <PageSidebar :pageName="'order'"/>
+      <PageSidebar :pageName="this.pageName" />
     </div>
     <main>
       <router-view />
@@ -25,7 +26,7 @@ export default {
 </template>
 
 <style scoped>
-.order-page {
+.report-page {
   display: flex;
   height: 100%;
 
@@ -33,5 +34,4 @@ export default {
     padding: 16px;
   }
 }
-
 </style>

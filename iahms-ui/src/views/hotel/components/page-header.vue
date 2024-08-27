@@ -27,7 +27,7 @@ export default {
       <PageHeaderTitle :titleText="titleText" :imgPath="imgPath"/>
       <el-divider direction="vertical" />
       <!-- 导航列表 -->
-      <PageHeaderNav :navList="navList" />
+      <PageHeaderNav />
     </div>
     <div class="flex-full"></div>
     <div class="start-center">
@@ -87,7 +87,6 @@ export default {
 
 .theme-toggler {
   .switch-icon {
-    color: var(--base-c-text-1);
     background-color: var(--base-c-bg-2);
     border-radius: 10px;
   }
@@ -104,7 +103,6 @@ export default {
   > svg {
     width: 24px;
     height: 24px;
-    color: var(--base-c-text-1);
   }
 }
 </style>

@@ -37,18 +37,28 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/hotel/order',
         component: () => import('@/views/hotel/order.vue'),
-        redirect: '/hotel/order/list',
+        redirect: '/hotel/order/orderManage',
         meta: {
           title: '订单',
           role: 'admin',
         },
         children: [
           {
-            path: '/hotel/order/list',
-            component: () => import('@/views/hotel/order/order-list.vue'),
+            path: '/hotel/order/orderManage',
+            redirect: '/hotel/order/orderManage/list',
             meta: {
-              title: '住宿订单',
-            }
+              icon: 'DocumentChecked',
+              title: '订单管理',
+            },
+            children: [
+              {
+                path: '/hotel/order/orderManage/list',
+                component: () => import('@/views/hotel/order/order-list.vue'),
+                meta: {
+                  title: '住宿订单',
+                }
+              },
+            ]
           },
         ],
       },
@@ -61,12 +71,53 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
-        path: '/hotel/room',
-        component: () => import('@/views/hotel/statistics.vue'),
+        path: '/hotel/report',
+        component: () => import('@/views/hotel/report.vue'),
+        redirect: '/hotel/report/dataGather',
         meta: {
           title: '统计',
           role: 'admin',
-        }
+        },
+        children: [
+          {
+            path: '/hotel/report/dataGather',
+            redirect: '/hotel/report/dataGather/revenueReport',
+            meta: {
+              icon: 'DocumentChecked',
+              title: '数据汇总',
+            },
+            children: [
+              {
+                path: '/hotel/report/dataGather/revenueReport',
+                component: () => import('@/views/hotel/report/report-revenue.vue'),
+                meta: {
+                  title: '营收汇总'
+                }
+              },
+              {
+                path: '/hotel/report/dataGather/receiveReport',
+                component: () => import('@/views/hotel/report/report-receive.vue'),
+                meta: {
+                  title: '收款汇总'
+                }
+              },
+              {
+                path: '/hotel/report/dataGather/channelReport',
+                component: () => import('@/views/hotel/report/report-channel.vue'),
+                meta: {
+                  title: '渠道汇总'
+                }
+              },
+              {
+                path: '/hotel/report/dataGather/roomRevenueReport',
+                component: () => import('@/views/hotel/report/report-room-revenue.vue'),
+                meta: {
+                  title: '客房营业汇总'
+                }
+              },
+            ],
+          },
+        ]
       },
       {
         path: '/hotel/settings',
@@ -104,7 +155,18 @@ const routes: RouteRecordRaw[] = [
 ];
 
 // 将路由数据存到 Vuex 中
-store.commit('SET_ROUTES', routes);
+function initRoutes() {
+  store.commit('SET_ROUTES', routes);
+  for (let i = 0; i < routes.length; i++) {
+    if (routes[i].path === '/hotel') {
+      // 只取hotel模块下的子路由
+      const hotelRoutes = routes[i].children || []
+      store.commit('SET_HOTEL_ROUTES', hotelRoutes.slice())
+      break
+    }
+  }
+}
+initRoutes()
 
 const router = createRouter({
   // history: createMemoryHistory(),
@@ -120,7 +182,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // do something
   // 打印2级路径
-  console.log('path: ', to.matched[1]?.path);
+  console.log('path: ', to.matched[1]?.path ? to.matched[1].path : to.path);
   next()
 })
 

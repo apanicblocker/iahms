@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'StatisticsPage',
+  name: 'ReportChannel',
   data() {
     return {}
   }
@@ -8,8 +8,8 @@ export default {
 </script>
 
 <template>
-  <div class="statistics-page">
-
+  <div class="report-channel">
+    渠道汇总
   </div>
 </template>
 

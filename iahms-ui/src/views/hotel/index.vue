@@ -22,6 +22,7 @@ export default {
 .page-content {
   height: 100%;
   background-color: var(--base-c-bg-2);
+  color: var(--base-c-text-1);
 }
 main {
   /* 当内容溢出时，该标签会自动展示滚动条 */

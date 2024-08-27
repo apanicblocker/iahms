@@ -7,25 +7,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ButtonToIndex: typeof import('./components/button-to-index.vue')['default']
-    Chart: typeof import('./components/chart.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElInput: typeof import('element-plus/es')['ElInput']
-    ElMenu: typeof import('element-plus/es')['ElMenu']
-    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
-    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    LineChart: typeof import('./components/line-chart.vue')['default']
-    PageHeader: typeof import('./components/page-header.vue')['default']
-    PageHeaderNav: typeof import('./components/page-header-nav.vue')['default']
-    PageHeaderTitle: typeof import('./components/page-header-title.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    ThemeToggler: typeof import('./components/theme-toggler.vue')['default']
   }
 }
