@@ -27,7 +27,7 @@ const mutations = {
     // 把主题存到localStorage
     localStorage.setItem('theme', theme)
     // 修改#app data-theme属性更改主题
-    document.getElementById('app')?.setAttribute('data-theme', theme)
+    document.getElementsByTagName('html')[0]?.setAttribute('data-theme', theme)
   },
   // 设置路由列表
   SET_ROUTES(state: any, routes: any) {

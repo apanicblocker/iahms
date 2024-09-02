@@ -5,6 +5,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
 
@@ -43,6 +44,8 @@ export default defineConfig({
     }),
     Components({
       resolvers: [
+        // // 自动导入 PrimeVue 组件
+        // PrimeVueResolver(),
         // 自动导入 Element Plus 组件
         ElementPlusResolver(),
         // 自动注册图标组件

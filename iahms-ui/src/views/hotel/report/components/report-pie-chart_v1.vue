@@ -1,7 +1,7 @@
 <script>
 
 export default {
-  name: 'ReportPieChart',
+  name: 'ReportPieChartV1',
   props: {
     titleText: {
       type: String,
@@ -21,50 +21,31 @@ export default {
   data() {
     return {
       chart: null,
-      chartTitleColor: ref(''),
-    }
-  },
-  watch: {
-    '$store.state.common.theme': {
-      handler(newVal) {
-        this.adjustChartTitleColor('--base-c-text-1')
-        this.setChartOption()
-      },
-      deep: true,
+      total: ref(0)
     }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.$nextTick(() => {
       this.initChart()
-      this.setChartOption()
     })
   },
   methods: {
     initChart() {
-      this.chart = markRaw(this.$echarts.init(this.$el))
-    },
-    setChartOption() {
-      // 饼图中间标题的 颜色（为了自适应主题，只能这样麻烦了）
-      this.adjustChartTitleColor('--base-c-text-1')
       let chartData = this.chartData
-      // 饼图中间标题的 总数
-      let total = chartData.reduce((sum, item) => sum + item.value, 0)
+      this.total = chartData.reduce((sum, item) => sum + item.value, 0)
+      let total = this.total
       let chartOption = {
-        title: {
-          text: this.titleText + '\n\n¥' + total,
-          textAlign: 'center',
-          left: '120px',
-          top: '100px',
-          textStyle: {
-            color: this.chartTitleColor,
-          }
-        },
+        // title: {
+        //   text: this.titleText + '\n\n¥' + total,
+        //   left: 'center',
+        //   top: '110px',
+        // },
         tooltip: {
           trigger: 'item',
-          // valueFormatter: (value) => '¥' + value.toFixed(2),
           textStyle: { color: 'var(--base-c-text-1)' },
           backgroundColor: 'var(--base-c-bg-1)',
+          // valueFormatter: (value) => '¥' + value.toFixed(2),
           formatter: function(params) {
             return params.name +
               '<br/>' +
@@ -76,41 +57,32 @@ export default {
               '   border-radius:50%;' +
               '   background-color:'+params.color + ';">' +
               '</div>' +
-              ' ¥' + params.value.toFixed(2) +
+              ' | ' + '¥' + params.value.toFixed(2) +
               ' | ' + params.percent + '%'
           }
         },
         legend: {
-          orient: 'vertical',
-          left: '280px',
-          bottom: 'center',
-          textStyle: {
-            color: 'var(--base-c-text-1)'
-          },
+          left: 'center',
+          bottom: '0',
+          textStyle: { color: 'var(--base-c-text-1)' },
           formatter: function(name) {
             let value = chartData.find(item => item.name === name).value;
             let percentAge = ((value / total) * 100).toFixed(2) + '%'
-            return name + '\t\t\t\t\t\t\t\t' + percentAge
+            return name + '（ '+ percentAge +' ）'
           }
         },
         series: [
           {
             type: 'pie',
-            radius: ['66%', '90%'],
-            center: ['125px', 'center'],
+            radius: ['90px', '125px'],
+            center: ['center', '130px'],
             label: { show: false },
             data: chartData,
           }
         ],
       }
+      this.chart = markRaw(this.$echarts.init(this.$refs.chart))
       this.chart.setOption(chartOption)
-    },
-    adjustChartTitleColor(cssName) {
-      // 获取根元素的计算样式
-      let element = document.getElementById('app')
-      let styles = window.getComputedStyle(element);
-      // 获取 CSS 变量值
-      this.chartTitleColor = styles.getPropertyValue(cssName);
     },
     handleResize() {
       this.chart.resize()
@@ -121,14 +93,32 @@ export default {
 
 <template>
   <div class="report-pie-chart">
+    <div class="title" style="text-align: center;">
+      <div class="text">{{ titleText }}</div>
+      <br/>
+      <div class="number">{{ '¥' + total }}</div>
+    </div>
+    <div class="chart" ref="chart"></div>
   </div>
 </template>
 
 <style scoped>
 .report-pie-chart {
-  box-sizing: content-box;
-  min-width: 465px;
-  min-height: 250px;
-  padding: 40px;
+  position: relative;
+
+  .title {
+    position: absolute;
+    top: 145px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    .number { font-weight: bold; }
+  }
+
+  .chart {
+    box-sizing: content-box;
+    min-width: 465px;
+    height: 342px;
+    padding: 40px;
+  }
 }
 </style>

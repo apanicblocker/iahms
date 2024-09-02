@@ -8,6 +8,7 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 import echarts from './lib/echarts.js'
+// import Primevue from 'primevue/config'
 
 const app = createApp(App)
 // 注册ElementPlusIcon全局组件(全部图标)
@@ -20,10 +21,11 @@ app.config.globalProperties.$echarts = echarts
 
 // 从 localStorage 加载主题
 const savedTheme = localStorage.getItem('theme') || 'light';
-document.getElementById('#app')?.setAttribute('data-theme', savedTheme)
+// document.getElementById('#app')?.setAttribute('data-theme', savedTheme)
 store.commit('SET_THEME', savedTheme);
 
 // 注册插件
+// app.use(Primevue)
 app.use(router)
 app.use(store)
 app.mount('#app')

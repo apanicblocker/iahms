@@ -47,7 +47,7 @@ export default {
   .sub-title {
     margin-left: 8px;
     font-size: 12px;
-    color: #999;
+    color: var(--base-c-text-3);
   }
   .option{
     flex: 1;
