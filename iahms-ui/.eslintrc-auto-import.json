@@ -62,6 +62,19 @@
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,
-    "watchSyncEffect": true
+    "watchSyncEffect": true,
+    "onBeforeRouteLeave": true,
+    "onBeforeRouteUpdate": true,
+    "useLink": true,
+    "useRoute": true,
+    "useRouter": true,
+    "createLogger": true,
+    "createNamespacedHelpers": true,
+    "createStore": true,
+    "mapActions": true,
+    "mapGetters": true,
+    "mapMutations": true,
+    "mapState": true,
+    "useStore": true
   }
 }

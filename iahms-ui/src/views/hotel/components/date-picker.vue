@@ -1,18 +1,24 @@
 <script>
 export default {
   name: 'DatePicker',
+  emits: ['change'],
   data() {
     return {
-      value: ''
+      selectedDate: this.selectedDate = [Date.now(), Date.now()]
     }
-  }
+  },
+  watch: {
+    selectedDate(newVal) {
+      this.$emit('change', newVal)
+    },
+  },
 }
 </script>
 
 <template>
   <div class="date-picker">
     <el-date-picker
-      v-model="value"
+      v-model="selectedDate"
       type="daterange"
       range-separator="至"
       start-placeholder="开始日期"

@@ -9,7 +9,7 @@ import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
 
-const pathSrc = path.resolve(__dirname, 'src')
+const pathSrc = path.resolve(__dirname, './src')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,7 +26,9 @@ export default defineConfig({
     // 按需自动导入插件（form element-plus）
     AutoImport({
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
-      imports: ['vue'],
+      imports: [
+        'vue',
+      ],
       eslintrc: {
         enabled: true, // 此处为 true 时，会生成 .eslintrc-auto-import.json 文件，需要添加 eslint 配置支持
         filepath: './.eslintrc-auto-import.json', // 配置文件路径

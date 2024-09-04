@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 import ReportContainer from './components/report-container.vue'
 
 import DatePicker from '@/views/hotel/components/date-picker.vue'
-import ReportDataCards from './components/report-data-cards.vue';
+import ReportDataCards from './report-revenue-data-cards.vue';
 import ReportPieChartV1 from './components/report-pie-chart_v1.vue';
 import ReportLineChart from './components/report-line-chart.vue';
 import BaseTable from '@/views/hotel/components/base-table.vue';
@@ -19,7 +19,36 @@ export default {
   },
   data() {
     return {
-      value: '',
+      // 营业额概况
+      otherParams: {
+        seriesData: [120, 132, 101, 134, 90, 230, 210]
+      },
+      cardDataList: [
+        {
+          title: '住宿总营业额',
+          value: 1200.00,
+          tips: 10,
+        },
+        {
+          icon: 'HomeFilled',
+          title: '客房收入',
+          value: 1200.00,
+          tips: 10,
+        },
+        {
+          icon: 'HomeFilled',
+          title: '餐饮收入',
+          value: 1200.00,
+          tips: 10,
+        },
+        {
+          icon: 'HomeFilled',
+          title: '其他收入',
+          value: 1200.00,
+          tips: 10,
+        }
+      ],
+      // 表格数据
       spanData: [2, -2],
       theadData: [
         {
@@ -71,7 +100,7 @@ export default {
         <span>统计说明 ?</span>
       </template>
       <template #content>
-        <ReportDataCards />
+        <ReportDataCards :useHead="true" :dataList="cardDataList" :otherParams="otherParams"/>
       </template>
     </ReportContainer>
     <div class="charts-content">

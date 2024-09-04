@@ -22,6 +22,11 @@ export default [
       parserOptions: {
         parser: tseslint.parser
       }
-    }
+    },
+  },
+  {
+    extends: [
+      './.eslintrc-auto-import.json'
+    ]
   },
 ];

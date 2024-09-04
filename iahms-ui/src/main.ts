@@ -25,7 +25,6 @@ const savedTheme = localStorage.getItem('theme') || 'light';
 store.commit('SET_THEME', savedTheme);
 
 // 注册插件
-// app.use(Primevue)
 app.use(router)
 app.use(store)
 app.mount('#app')

@@ -28,6 +28,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/auto-imports.d.ts" // 引入自动生成的类型声明文件
+    // "src/auto-imports.d.ts", // 引入自动生成的类型声明文件
+    // "src/components.d.ts"
   ]
 }

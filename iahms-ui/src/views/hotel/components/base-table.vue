@@ -120,9 +120,9 @@ const getSummaries = (param: SummaryMethodProps) => {
         :summary-method="getSummaries"
         border
         style="
-          --el-table-header-bg-color: var(--base-c-bg-3);
+          --el-table-header-bg-color: var(--base-c-bg-2);
           --el-table-header-text-color: var(--base-c-text-1);
-          --el-table-border-color: var(--base-c-text-3);
+          --el-table-border-color: var(--base-c-bg-3);
           --el-table-text-color: var(--base-c-text-1);
           --el-table-tr-bg-color: var(--base-c-bg-1);
           --el-table-row-hover-bg-color: var(--base-c-accent-1);

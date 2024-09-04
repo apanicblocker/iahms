@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       chart: null,
-      chartTitleColor: ref(''),
+      chartTitleColor: '',
     }
   },
   watch: {
