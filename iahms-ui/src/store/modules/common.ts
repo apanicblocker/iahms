@@ -6,6 +6,7 @@ const state = () => ({
   sidebarCollapsed: false, // 侧边栏是否折叠
   defaultOpeneds: {    // 侧边栏默认展开的菜单index列表
     order: [],      // 订单页面
+    customer: [],
     report: [],
   }
 })

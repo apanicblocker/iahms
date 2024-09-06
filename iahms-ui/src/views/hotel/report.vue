@@ -19,9 +19,9 @@ export default {
     <div class="sidebar">
       <PageSidebar :pageName="this.pageName" />
     </div>
-    <main>
+    <div class="main">
       <router-view />
-    </main>
+    </div>
   </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
   display: flex;
   height: 100%;
 
-  main {
+  .main {
     width: 100%;
     padding: 16px;
     overflow-x: hidden;

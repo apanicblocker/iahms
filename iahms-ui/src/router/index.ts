@@ -65,10 +65,37 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/hotel/customer',
         component: () => import('@/views/hotel/customer.vue'),
+        redirect: '/hotel/customer/customerManage',
         meta: {
           title: '客户',
           role: 'admin',
         },
+        children: [
+          {
+            path: '/hotel/customer/customerManage',
+            redirect: '/hotel/customer/customerManage/customerList',
+            meta: {
+              icon: 'HomeFilled',
+              title: '客户管理'
+            },
+            children: [
+              {
+                path: '/hotel/customer/customerManage/customerList',
+                component: () => import('@/views/hotel/customer/customer-list.vue'),
+                meta: {
+                  title: '客户列表'
+                }
+              }
+            ]
+          },
+          {
+            path: '/hotel/customer/smsManager',
+            redirect: '/hotel/customer/smsManager/smsBalance',
+            meta: {
+              title: '短信余额'
+            }
+          }
+        ],
       },
       {
         path: '/hotel/report',

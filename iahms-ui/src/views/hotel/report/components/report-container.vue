@@ -16,13 +16,15 @@ export default {
 <template>
   <div class="report-container">
     <div class="header">
-      <div class="title">{{ title }}</div>
-      <div class="sub-title" v-if="$slots['sub-title']">
-        <slot name="sub-title"></slot>
-      </div>
-      <div class="option" v-if="$slots['option']">
-        <slot name="option"></slot>
-      </div>
+      <slot name="header">
+        <div class="title">{{ title }}</div>
+        <div class="sub-title" v-if="$slots['sub-title']">
+          <slot name="sub-title"></slot>
+        </div>
+        <div class="option" v-if="$slots['option']">
+          <slot name="option"></slot>
+        </div>
+      </slot>
     </div>
     <div class="body">
       <slot name="content"></slot>
@@ -32,7 +34,8 @@ export default {
 
 <style scoped>
 .report-container {
-
+  --content-bg-color: var(--base-c-bg-1);
+  --sub-title-color: var(--base-c-text-3);
 }
 
 .header {
@@ -47,7 +50,7 @@ export default {
   .sub-title {
     margin-left: 8px;
     font-size: 12px;
-    color: var(--base-c-text-3);
+    color: var(--sub-title-color);
   }
   .option{
     flex: 1;
@@ -57,6 +60,6 @@ export default {
 
 .body {
   margin-top: 16px;
-  background-color: var(--base-c-bg-1);
+  background-color: var(--content-bg-color);
 }
 </style>

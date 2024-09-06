@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+
 import { TableColumnCtx } from 'element-plus';
 
 interface SpanMethodProps {
@@ -16,9 +17,13 @@ interface SummaryMethodProps<T = any> {
 interface TheadDataItem {
   prop: string
   label: string
+  width?: number
 }
 
 const props = defineProps({
+  tableHeight: {
+    type: Number,
+  },
   theadData: {
     type: Array<TheadDataItem>,
     default: () => [],
@@ -39,8 +44,7 @@ const props = defineProps({
 
 var lastType = ''
 var curSpanIndex = 0
-var spanMethod = ({ row, column, rowIndex, columnIndex}) => {}
-const objectSpanMethod = ({
+const spanMethod = ({
   row,
   column,
   rowIndex,
@@ -72,9 +76,6 @@ const objectSpanMethod = ({
       }
     }
   }
-}
-if ( props.spanData.length > 0 ) {
-  spanMethod = objectSpanMethod
 }
 
 // 计算合计方法（官方模板：改）
@@ -115,7 +116,8 @@ const getSummaries = (param: SummaryMethodProps) => {
       <el-table
         class="table"
         :data="tbodyData"
-        :span-method="spanMethod"
+        :height="props.tableHeight"
+        :span-method="props.spanData.length > 0 ? spanMethod : undefined"
         :show-summary="isShowSummary"
         :summary-method="getSummaries"
         border
@@ -128,11 +130,17 @@ const getSummaries = (param: SummaryMethodProps) => {
           --el-table-row-hover-bg-color: var(--base-c-accent-1);
         "
       >
+        <template #empty>
+          <el-empty :image-size="40">
+            <template #description>暂无数据</template>
+          </el-empty>
+        </template>
         <el-table-column
           v-for="(item, index) in theadData"
           :key="index"
           :prop="item.prop"
           :label="item.label"
+          :width="item.width"
           min-width="100"
         />
       </el-table>
@@ -143,7 +151,6 @@ const getSummaries = (param: SummaryMethodProps) => {
 
 <style scoped>
 .base-table {
-  
   overflow: auto;
 }
 </style>

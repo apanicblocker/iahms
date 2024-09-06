@@ -13,7 +13,7 @@ export default {
   <div class="page-content">
     <PageHeader />
     <main>
-      <router-view />
+      <RouterView />
     </main>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
 }
 main {
   /* 当内容溢出时，该标签会自动展示滚动条 */
-  overflow: auto;
+  overflow: hidden;
   height: calc(100% - 56px);
 }
 </style>

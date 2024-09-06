@@ -110,8 +110,9 @@ export default {
 
 <style scoped>
 .page-content {
-  display: flex;;
+  display: flex;
   margin: 16px;
+  overflow: auto;
 
   main {
     width: 75%;

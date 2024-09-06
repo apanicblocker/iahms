@@ -7,7 +7,7 @@ import './assets/styles/main.scss'
 import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
-import echarts from './lib/echarts.js'
+import echarts from './lib/echarts'
 // import Primevue from 'primevue/config'
 
 const app = createApp(App)

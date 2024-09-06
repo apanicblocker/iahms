@@ -24,6 +24,7 @@ export default {
       start-placeholder="开始日期"
       end-placeholder="结束日期"
       popper-class="date-picker-popper"
+      :clearable="false"
       style="
         --el-text-color-primary: var(--base-c-text-1);
         --el-input-bg-color: var(--base-c-bg-1);
@@ -33,12 +34,13 @@ export default {
   </div>
 </template>
 
-<style>
-.date-picker-popper {
-
+<style scoped>
   .el-icon {
     color: var(--base-c-text-1);
   }
+</style>
+<style>
+.date-picker-popper {
   .el-picker-panel {
     color: var(--base-c-text-1);
     background-color: var(--base-c-bg-1);
@@ -55,5 +57,4 @@ export default {
     }
   }
 }
-
 </style>
