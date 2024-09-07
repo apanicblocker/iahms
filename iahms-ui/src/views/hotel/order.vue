@@ -1,16 +1,6 @@
-<script>
-import PageSidebar from './components/page-sidebar.vue';
+<script lang="ts" setup>
+import PageSidebar from './components/page-sidebar_v2.vue';
 
-export default {
-  name: 'OrderPage',
-  components: {
-    PageSidebar,
-  },
-  data() {
-    return {
-    }
-  }
-}
 </script>
 
 <template>

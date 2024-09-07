@@ -1,10 +1,5 @@
-<script>
-export default {
-  name: 'HelpPage',
-  data() {
-    return {}
-  }
-}
+<script lang="ts" setup>
+
 </script>
 
 <template>

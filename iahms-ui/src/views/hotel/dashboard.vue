@@ -1,15 +1,17 @@
 <script>
-import DashboardComponentContainer from './components/dashboard-component-container.vue';
+import ContentLayout from '@/views/hotel/components/content-layout.vue'
+import DashboardComponentContainer from './components/dashboard-component-container.vue'
 
-import MemoNote from './components/memo-note.vue';
-import DashboardDataCards from './components/dashboard-data-cards.vue';
-import DashboardLineChart from './components/dashboard-line-chart.vue';
+import MemoNote from './components/memo-note.vue'
+import DashboardDataCards from './components/dashboard-data-cards.vue'
+import DashboardLineChart from './components/dashboard-line-chart.vue'
 import DashboardCommonFunction from './components/dashboard-common-function.vue'
 import DashboardHelpCenter from './components/dashboard-help-center.vue'
 
 export default {
   name: 'DashboardPage',
   components: {
+    ContentLayout,
     DashboardComponentContainer,
 
     MemoNote,
@@ -71,67 +73,64 @@ export default {
 </script>
 
 <template>
-  <div class="page-content">
-    <main>
-      <div class="data-card-content">
-        <DashboardDataCards :cardDataList="cardDataList" @clickCard="routeTo" />
+  <ContentLayout>
+    <template #section>
+      <div class="section">
+        <div class="main">
+          <div class="data-card-content">
+            <DashboardDataCards :cardDataList="cardDataList" @clickCard="routeTo" />
+          </div>
+          <div class="line-chart-content">
+            <DashboardLineChart v-bind="chartData"/>
+          </div>
+          <DashboardComponentContainer
+            class="common-function-content"
+            :title="'常用功能'"
+            :optionText="'配置'"
+            @clickOption="$refs.commonFunction.showDialog()"
+          >
+            <template #component>
+              <DashboardCommonFunction ref="commonFunction"/>
+            </template>
+          </DashboardComponentContainer>
+          <DashboardComponentContainer
+            class="help-center-content"
+            :title="'帮助中心'"
+            :optionText="'更多'"
+            @clickOption="$router.push('/hotel/helpCenter')"
+          >
+            <template #component>
+              <DashboardHelpCenter />
+            </template>
+          </DashboardComponentContainer>
+        </div>
+        <div class="aside">
+          <div class="memo-content">
+            <MemoNote @updateNote="saveNote"/>
+          </div>
+        </div>
       </div>
-      <div class="line-chart-content">
-        <DashboardLineChart v-bind="chartData"/>
-      </div>
-      <DashboardComponentContainer
-        class="common-function-content"
-        :title="'常用功能'"
-        :optionText="'配置'"
-        @clickOption="$refs.commonFunction.showDialog()"
-      >
-        <template #component>
-          <DashboardCommonFunction ref="commonFunction"/>
-        </template>
-      </DashboardComponentContainer>
-      <DashboardComponentContainer
-        class="help-center-content"
-        :title="'帮助中心'"
-        :optionText="'更多'"
-        @clickOption="$router.push('/hotel/helpCenter')"
-      >
-        <template #component>
-          <DashboardHelpCenter />
-        </template>
-      </DashboardComponentContainer>
-    </main>
-    <aside>
-      <div class="memo-content">
-        <MemoNote @updateNote="saveNote"/>
-      </div>
-    </aside>
-  </div>
+    </template>
+  </ContentLayout>
 </template>
 
 <style scoped>
-.page-content {
-  display: flex;
-  margin: 16px;
-  overflow: auto;
-
-  main {
-    width: 75%;
-
-    /* 选择main的下一级全部子标签（除了第1个） */
-    > * {
-      & + & {
-        margin-top: 16px;
-      }
+.main {
+  display: inline-block;
+  width: 75%;
+  > * {
+    & + & {
+      margin-top: 16px;
     }
   }
-  aside {
-    flex-grow: 1;
-    margin-left: 16px;
+  .line-chart-content {
+    height: 325px;
   }
 }
-
-.line-chart-content {
-  height: 325px;
+.aside {
+  display: inline-block;
+  width: calc(100% - 75% - 16px);
+  margin-left: 16px;
+  vertical-align: top;
 }
-
 </style>

@@ -2,150 +2,112 @@
 export default {
   name: 'PageSidebar',
   props: {
-    pageName: {
-      type: String,
-      required: true,
-    },
+    menus: {
+      type: Array,
+      default: () => [
+        // 菜单头部
+        // 菜单内容
+        {
+          type: 'group',
+          preIcon: '',
+          title: '订单管理',
+          sufIcon1: '',
+          sufIcon2: '',
+          path: '',
+          children: [
+            {
+              type: 'item',
+              title: '住宿订单',
+              path: '/hotel/order/list'
+            },
+            {
+              type: 'item',
+              title: '订单详情',
+              path: '/hotel/order/detail'
+            }
+          ]
+        },
+        {
+          type: 'item',
+          title: '扫码牌收款',
+          path: '/hotel/QRCollection'
+        }
+      ]
+    }
   },
   data() {
     return {
-      curPage: this.$route.matched[1].path,
-      activeMenuIndex: this.$route.fullPath,
-      defaultOpeneds: this.$store.getters.defaultOpeneds(this.pageName).slice(),
-      // 是否水平折叠收起菜单（仅在 mode 为 vertical 时可用）
-      isCollapse: this.$store.state.common.sidebarCollapsed || false,
-      menuList: [],
+      sidebarState: true
     }
-  },
-  watch: {
-    defaultOpeneds: {
-      handler(newVal) {
-        this.$store.commit('SET_DEFAULT_OPENEDS', {
-          defaultOpeneds: newVal.slice(),
-          pageName: this.pageName,
-        })
-      },
-      deep: true
-    }
-  },
-  created() {
-    this.getRouteMenus()
   },
   methods: {
-    getRouteMenus() {
-      let hotelRoutes = this.$store.state.common.hotelRoutes.slice()
-      for (let i = 0; i < hotelRoutes.length; i++) {
-        let route = hotelRoutes[i]
-        if (route.path === this.$route.matched[1].path) {
-          this.menuList = route.children
-          // console.log(this.menuList)
-          break
-        }
-      }
-    },
-    toggleCollapse() {
-      this.isCollapse = !this.isCollapse
-      this.$store.commit('SET_SIDEBAR_COLLAPSED', this.isCollapse)
-    },
-    handleOpen(key) {
-      if (this.defaultOpeneds.indexOf(key) === -1) {
-        this.defaultOpeneds.push(key)
-      }
-    },
-    handleClose(key) {
-      let indexRemove = this.defaultOpeneds.indexOf(key) !== -1
-      if (indexRemove) { this.defaultOpeneds.splice(indexRemove, 1) }
-    },
+    renderMenu(menus) {
+
+    }
   }
 }
 </script>
 
 <template>
   <div class="page-sidebar">
-    <el-menu
-      class="menu-content"
-      :default-active="activeMenuIndex"
-      :default-openeds="defaultOpeneds"
-      :collapse="isCollapse"
-      :router="true"
-      style="
-        --el-menu-bg-color: transparent;
-        --el-menu-text-color: var(--base-c-text-1);
-        --el-menu-text-active-color: var(--base-c-accent-2);
-        --el-menu-hover-bg-color: var(--base-c-bg-2);
-      "
-      @open="handleOpen"
-      @close="handleClose"
-    >
-      <div class="header" @click="toggleCollapse">
-        <div class="title" v-show="!isCollapse">收起导航</div>
-        <el-icon class="title-icon">
-          <DArrowRight v-if="isCollapse" />
-          <DArrowLeft v-else />
-        </el-icon>
-      </div>
-      <el-sub-menu
-        v-for="(menuItem, menuIndex) in menuList.filter(item => item.children)"
+    <div class="header">
+      <div class="title">收起导航</div>
+      <el-icon>
+        <DArrowLeft v-if="sidebarState" />
+        <DArrowRight v-else />
+      </el-icon>
+    </div>
+    <div class="body">
+      <div
+        class="menu-item"
+        v-for="(menuItem, menuIndex) in menus"
         :key="menuIndex"
-        :index="menuItem.path"
+        :class="{active: $route.path === menuItem.path}"
+        @click="$router.push(menuItem.path)"
       >
-        <template #title>
-          <el-icon><component :is="menuItem.meta.icon"/></el-icon>
-          <span>{{ menuItem.meta.title }}</span>
-        </template>
-        <el-menu-item
-          v-for="(subMenuItem, subMenuIndex) in menuItem.children"
-          :key="subMenuIndex"
-          :index="subMenuItem.path"
-        >{{ subMenuItem.meta.title }}</el-menu-item>
-      </el-sub-menu>
-
-      <el-menu-item
-        v-for="(item, index) in menuList.filter(item => !item.children)"
-        :key="index"
-        :index="item.path"
-      >
-        <el-icon><component :is="item.meta.icon"/></el-icon>
-        <span>{{ item.meta.title }}</span>
-      </el-menu-item>
-    </el-menu>
+        <div class="self-content">
+          <div class="primary">
+            <div class="pre-icon"></div>
+            <div class="title">{{ menuItem.title }}</div>
+          </div>
+          <div class="suf-icon"></div>
+        </div>
+        <div class="children-content" v-if="menuItem.children && menuItem.children.length > 0">
+          <div
+            class="sub-menu-item"
+            v-for="(subMenuItem, subMenuIndex) in menuItem.children"
+            :key="subMenuIndex"
+            @click="$router.push(subMenuItem.path)"
+          >{{ subMenuItem.title }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .page-sidebar {
-  height: 100%;
-  padding: 8px 0 40px 0;
-  background-color: var(--base-c-bg-1);
-  overflow-x: hidden;
-  overflow-y: auto;
+  width: 156px;
+  padding: 16px 0 40px 0;
 }
 
-.menu-content {
-  border-right: none;
-  overflow: hidden;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 8px;
+  margin-bottom: 8px;
 
-  .header {
-    box-sizing: content-box;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 156px;
-    height: 56px;
-    padding: 0 20px 0 25px;
-    overflow: hidden;
-    font-size: 14px;
-
-    .title {
-      padding-left: 23px;
-      flex-grow: 1;
-      text-align: left;
-    }
+  .title {
+    height: 36px;
+    line-height: 36px;
+    padding-left: 36px;
+    text-align: left;
   }
+}
 
-  .el-menu-item.is-active {
-    background-color: var(--base-c-bg-2);
-  }
+.menu-item {
+  padding: 8px;
+  /* 完啦，这里样式会造成大量冗余。还是用组件算了 */
 }
 </style>

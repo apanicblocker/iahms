@@ -17,7 +17,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 // 注册全局变量
-app.config.globalProperties.$echarts = echarts
+app.config.globalProperties.$echarts = echarts  // vue2的写法（应当遗弃
+app.provide('echarts', echarts)   // vue3推荐做法（或者使用 Vuex or Pinia
 
 // 从 localStorage 加载主题
 const savedTheme = localStorage.getItem('theme') || 'light';

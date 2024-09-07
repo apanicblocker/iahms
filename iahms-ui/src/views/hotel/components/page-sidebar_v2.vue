@@ -69,7 +69,7 @@ const handleClose = (key: string) => {
 </script>
 
 <template>
-  <div class="page-sidebar">
+  <div class="sidebar">
     <el-menu
       class="menu-content"
       :default-active="activeMenuIndex"
@@ -119,7 +119,7 @@ const handleClose = (key: string) => {
 </template>
 
 <style scoped>
-.page-sidebar {
+.sidebar {
   --el-menu-bg-color: transparent;
   --el-menu-text-color: var(--base-c-text-1);
   --el-menu-text-active-color: var(--base-c-accent-2);
@@ -144,13 +144,14 @@ const handleClose = (key: string) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 156px;
+    width: 100%;
     height: 56px;
     overflow: hidden;
     font-size: 14px;
 
     .title {
       flex-grow: 1;
+      margin-right: 48px;
       text-align: left;
     }
     .title-icon {

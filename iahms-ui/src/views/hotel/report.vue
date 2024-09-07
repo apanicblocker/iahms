@@ -1,40 +1,21 @@
-<script>
-import PageSidebar from './components/page-sidebar.vue';
+<script lang="ts" setup>
 
-export default {
-  name: 'ReportPage',
-  components: {
-    PageSidebar,
-  },
-  data() {
-    return {
-      pageName: 'report',
-    }
-  },
-}
+import ContentLayout from './components/content-layout.vue'
+import PageSidebar from './components/page-sidebar_v2.vue'
+
 </script>
 
 <template>
-  <div class="report-page">
-    <div class="sidebar">
-      <PageSidebar :pageName="this.pageName" />
-    </div>
-    <div class="main">
+  <ContentLayout>
+    <template #aside>
+      <PageSidebar :pageName="'report'" />
+    </template>
+    <template #section>
       <router-view />
-    </div>
-  </div>
+    </template>
+  </ContentLayout>
 </template>
 
 <style scoped>
-.report-page {
-  display: flex;
-  height: 100%;
 
-  .main {
-    width: 100%;
-    padding: 16px;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-}
 </style>

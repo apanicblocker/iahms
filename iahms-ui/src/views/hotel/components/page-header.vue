@@ -1,27 +1,16 @@
-<script>
+<script lang="ts" setup>
 import PageHeaderTitle from './page-header-title.vue';
 import PageHeaderNav from './page-header-nav.vue';
 import ThemeSwitch from './theme-switch.vue';
 
-export default {
-  name: 'PageHeader',
-  components: {
-    PageHeaderTitle,
-    PageHeaderNav,
-    ThemeSwitch
-  },
-  data() {
-    return {
-      titleText: '呆逼bad头欣',
-      imgPath: '/public/vite.svg',
-    }
-  },
-}
+const titleText: Ref<string> = ref('呆逼bad头欣')
+const imgPath: Ref<string> = ref('/public/vite.svg')
+
 </script>
 
 <template>
-  <div class="page-header">
-    <div class="nav-bar">
+  <div class="header">
+    <div class="navbar">
       <!-- 导航头 -->
       <PageHeaderTitle :titleText="titleText" :imgPath="imgPath"/>
       <el-divider direction="vertical" />
@@ -51,7 +40,7 @@ export default {
 </template>
 
 <style scoped>
-.page-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +56,7 @@ export default {
   margin: 0 16px;
 }
 
-.nav-bar {
+.navbar {
   display: flex;
   align-items: center;
 }

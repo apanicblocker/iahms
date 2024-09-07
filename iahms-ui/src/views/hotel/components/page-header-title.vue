@@ -1,24 +1,24 @@
-<script>
-export default {
-  name: 'PageHeaderTitle',
-  props: {
-    imgPath: {
-      type: String,
-      default: ''
-    },
-    titleText: {
-      type: String,
-      default: '请输入标题'
-    },
-    pageRoutePath: {
-      type: String,
-      default: '/'
-    }
+<script lang="ts" setup>
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const props = defineProps({
+  imgPath: {
+    type: String,
+    default: ''
   },
-  data() {
-    return {}
+  titleText: {
+    type: String,
+    default: '请输入标题'
+  },
+  pageRoutePath: {
+    type: String,
+    default: '/'
   }
-}
+})
+
 </script>
 
 <template>
@@ -27,7 +27,7 @@ export default {
       class="logo-icon"
       style="cursor: pointer"
       :src="imgPath" alt="logo图片"
-      @click="$router.push(pageRoutePath)"
+      @click="router.push(pageRoutePath)"
     />
     <div class="title-text">
       {{ titleText }}
