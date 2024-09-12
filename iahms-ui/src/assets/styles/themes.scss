@@ -1,20 +1,6 @@
 // by: https://aicolors.co/
-:root {
-  --base-c-primary-1: #d4eaf7;
-  --base-c-primary-2: #b6ccd8;
-  --base-c-primary-3: #3b3c3d;
-  --base-c-accent-1: #71c4ef;
-  --base-c-accent-2: #00668c;
-  --base-c-text-1: #1d1c1c;
-  --base-c-text-2: #313d44;
-  --base-c-text-3: #999;
-  --base-c-bg-1: #fffefb;
-  --base-c-bg-2: #f5f4f1;
-  --base-c-bg-3: #cccbc8;
 
-  --border-c-divider: #e9e8e6;
-}
-
+html,
 html[data-theme="light"] {
   --base-c-primary-1: #d4eaf7;
   --base-c-primary-2: #b6ccd8;
@@ -28,7 +14,9 @@ html[data-theme="light"] {
   --base-c-bg-2: #f5f4f1;
   --base-c-bg-3: #cccbc8;
 
-  --border-c-divider: #e9e8e6;
+  --ia-c-divider: #e9e8e6;
+  --ia-c-table-header-bg: #d8dbdf;
+  --ia-c-table-row-hover-bg: #eff3f7;
 }
 
 html[data-theme="dark"] {
@@ -42,4 +30,8 @@ html[data-theme="dark"] {
   --base-c-bg-1: #1e1e1e;
   --base-c-bg-2: #2d2d2d;
   --base-c-bg-3: #454545;
+
+  --ia-c-divider: #e9e8e6;
+  --ia-c-table-header-bg: #474d54;
+  --ia-c-table-row-hover-bg: #343536;
 }

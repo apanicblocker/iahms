@@ -5,7 +5,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { PrimeVueResolver } from '@primevue/auto-import-resolver'
+// import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
 
@@ -16,10 +16,9 @@ export default defineConfig({
   // 映射 @ 资源定位符映射
   resolve: {
     alias: {
-      '@': pathSrc
+      '@/': `${pathSrc}/`
     }
   },
-
   plugins: [
     vue(),
     Inspect(),

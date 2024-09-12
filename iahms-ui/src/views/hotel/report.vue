@@ -17,5 +17,4 @@ import PageSidebar from './components/page-sidebar_v2.vue'
 </template>
 
 <style scoped>
-
 </style>

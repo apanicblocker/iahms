@@ -77,7 +77,6 @@ const spanMethod = ({
     }
   }
 }
-
 // 计算合计方法（官方模板：改）
 const getSummaries = (param: SummaryMethodProps) => {
   const { columns, data } = param
@@ -114,21 +113,13 @@ const getSummaries = (param: SummaryMethodProps) => {
     <slot name="header"></slot>
     <slot name="table-DIY">
       <el-table
-        class="table"
+        class="el-table"
         :data="tbodyData"
+        :border="true"
         :height="props.tableHeight"
         :span-method="props.spanData.length > 0 ? spanMethod : undefined"
         :show-summary="isShowSummary"
         :summary-method="getSummaries"
-        border
-        style="
-          --el-table-header-bg-color: var(--base-c-bg-2);
-          --el-table-header-text-color: var(--base-c-text-1);
-          --el-table-border-color: var(--base-c-bg-3);
-          --el-table-text-color: var(--base-c-text-1);
-          --el-table-tr-bg-color: var(--base-c-bg-1);
-          --el-table-row-hover-bg-color: var(--base-c-accent-1);
-        "
       >
         <template #empty>
           <el-empty :image-size="40">
@@ -150,6 +141,14 @@ const getSummaries = (param: SummaryMethodProps) => {
 </template>
 
 <style scoped>
+.el-table {
+  --el-table-header-bg-color: var(--ia-c-table-header-bg);
+  --el-table-header-text-color: var(--base-c-text-1);
+  --el-table-border-color: var(--base-c-bg-2);
+  --el-table-text-color: var(--base-c-text-1);
+  --el-table-tr-bg-color: var(--base-c-bg-1);
+  --el-table-row-hover-bg-color: var(--ia-c-table-row-hover-bg);
+}
 .base-table {
   overflow: auto;
 }
