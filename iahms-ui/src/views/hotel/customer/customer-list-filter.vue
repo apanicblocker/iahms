@@ -1,50 +1,51 @@
 <script lang="ts" setup>
 
+import { formatDate } from '@/utils/dataFormat'
+
 import FilterItemContainer from '@/views/hotel/components/filter-item-container.vue'
 
 interface CustomerFilterParam {
+  keyword: string,
   consumeTimeStart: string,
   consumeTimeEnd: string,
   createTimeStart: string,
   createTimeEnd: string,
-  amountConsumeStart: number | undefined,
-  amountConsumeEnd: number | undefined,
-  amountOrderTimesStart: number | undefined,
-  amountOrderTimesEnd: number | undefined,
+  amountConsumeStart: number | string,
+  amountConsumeEnd: number | string,
+  amountOrderTimesStart: number | string,
+  amountOrderTimesEnd: number | string,
   birthdayStart: string,
   birthdayEnd: string,
   tagIds: number[],
-  inBlacklist: boolean | undefined,
-  channelId: number | undefined,
+  inBlacklist: boolean | string,
+  channelId: number | string,
 }
-const isPanelClosed = ref<boolean>(false)
+
+const filterTitleWidth = '84px'           // 筛选项的标题固定宽度
+const isPanelClosed = ref<boolean>(false) // 面板关闭状态
+const defaultTime: [Date, Date] = [       // 日期时间选择器的默认时间
+  new Date(2000, 1, 1, 0, 0, 0),
+  new Date(2000, 2, 1, 23, 59, 59),
+] // '00:00:00', '23:59:59'
+const consumeTimeRange = ref(['', '',])
+const createTimeRange = ref(['', ''])
+const birthdayRange = ref(['', ''])
 const filterData = reactive<CustomerFilterParam>({
+  keyword: '',
   consumeTimeStart: '',
   consumeTimeEnd: '',
   createTimeStart: '',
   createTimeEnd: '',
-  amountConsumeStart: undefined,
-  amountConsumeEnd: undefined,
-  amountOrderTimesStart: undefined,
-  amountOrderTimesEnd: undefined,
+  amountConsumeStart: '',
+  amountConsumeEnd: '',
+  amountOrderTimesStart: '',
+  amountOrderTimesEnd: '',
   birthdayStart: '',
   birthdayEnd: '',
   tagIds: [],
-  inBlacklist: undefined,
-  channelId: undefined,
+  inBlacklist: '',
+  channelId: '',
 })
-const consumeTimeRange = ref([
-  filterData.consumeTimeStart,
-  filterData.consumeTimeEnd,
-])
-const createTimeRange = ref([
-  filterData.createTimeStart,
-  filterData.createTimeEnd,
-])
-const birthdayRange = ref([
-  filterData.birthdayStart,
-  filterData.birthdayEnd,
-])
 
 const numberFormat = (value: number) => {
   if (value > 10000000) value = 10000000
@@ -58,6 +59,12 @@ const numberFormat = (value: number) => {
   //       .replace(/(?<=\.\d{2}).*/, '')
 }
 const submitForm = () => {
+  filterData.consumeTimeStart = formatDate(consumeTimeRange.value[0])
+  filterData.consumeTimeEnd = formatDate(consumeTimeRange.value[1])
+  filterData.createTimeStart = formatDate(createTimeRange.value[0])
+  filterData.createTimeEnd = formatDate(createTimeRange.value[1])
+  filterData.birthdayStart = formatDate(birthdayRange.value[0])
+  filterData.birthdayEnd = formatDate(birthdayRange.value[1])
   console.log('TODO：提交filterData: ', filterData)
 }
 </script>
@@ -67,35 +74,48 @@ const submitForm = () => {
     <div class="filter-list">
       <FilterItemContainer class="filter-item large">
         <template #content>
-          <div class="searchbar">搜索栏</div>
+          <el-input class="searchbar"
+            v-model="filterData.keyword"
+            placeholder="搜索姓名、手机号"
+            @change="submitForm"
+          >
+            <template #suffix>
+              <el-icon style="color: var(--base-c-accent-2);"><Search /></el-icon>
+            </template>
+          </el-input>
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item large" title="上次下单时间">
+      <FilterItemContainer class="filter-item large" title="上次下单时间" :titleWidth="filterTitleWidth">
         <template #content>
           <el-date-picker
             v-model="consumeTimeRange"
-            type="daterange"
+            type="datetimerange"
+            popper-class="popper"
             range-separator="至"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
+            :default-time="defaultTime"
             style="width: 100%;"
-            @blur="submitForm"
+            @change="submitForm"
           />
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item large" title="成为客户时间">
+      <FilterItemContainer class="filter-item large" title="成为客户时间" :titleWidth="filterTitleWidth">
         <template #content>
           <el-date-picker
             v-model="createTimeRange"
-            type="daterange"
+            type="datetimerange"
+            popper-class="popper"
             range-separator="至"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
+            :default-time="defaultTime"
             style="width: 100%;"
+            @change="submitForm"
           />
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item large" title="累计消费金额">
+      <FilterItemContainer class="filter-item large" title="累计消费金额" :titleWidth="filterTitleWidth">
         <template #content>
           <div class="amount-consume">
             <el-input
@@ -103,6 +123,7 @@ const submitForm = () => {
               placeholder="请输入"
               :formatter="numberFormat"
               style="width: calc(50% - 20px);"
+              @change="submitForm"
             />
             <span style="width: 8px; margin: 0 16px;">-</span>
             <el-input
@@ -110,11 +131,12 @@ const submitForm = () => {
               placeholder="请输入"
               :formatter="numberFormat"
               style="width: calc(50% - 20px);"
+              @change="submitForm"
             />
           </div>
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item large" title="累计下单数">
+      <FilterItemContainer class="filter-item large" title="累计下单数" :titleWidth="filterTitleWidth">
         <template #content>
           <div class="amount-consume">
             <el-input
@@ -122,6 +144,7 @@ const submitForm = () => {
               placeholder="请输入"
               :formatter="numberFormat"
               style="width: calc(50% - 20px);"
+              @change="submitForm"
             />
             <span style="width: 8px; margin: 0 16px;">-</span>
             <el-input
@@ -129,39 +152,44 @@ const submitForm = () => {
               placeholder="请输入"
               :formatter="numberFormat"
               style="width: calc(50% - 20px);"
+              @change="submitForm"
             />
           </div>
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item large" title="生日">
+      <FilterItemContainer class="filter-item large" title="生日" :titleWidth="filterTitleWidth">
         <template #content>
           <el-date-picker
             v-model="birthdayRange"
             type="daterange"
+            popper-class="popper"
             range-separator="至"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
             style="width: 100%;"
+            @change="submitForm"
           />
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item small" title="标签">
+      <FilterItemContainer class="filter-item small" title="标签" :titleWidth="filterTitleWidth">
         <template #content>
           <el-select
             v-model="filterData.tagIds"
             popper-class="popper"
             placeholder="全部"
+            @change="submitForm"
           >
 
           </el-select>
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item small" title="黑名单">
+      <FilterItemContainer class="filter-item small" title="黑名单" :titleWidth="filterTitleWidth">
         <template #content>
           <el-select
             v-model="filterData.inBlacklist"
             popper-class="popper"
             placeholder="全部"
+            @change="submitForm"
           >
             <el-option label="全部" value="" />
             <el-option label="已加入" :value="true" />
@@ -169,19 +197,19 @@ const submitForm = () => {
           </el-select>
         </template>
       </FilterItemContainer>
-      <FilterItemContainer class="filter-item small" title="来源渠道">
+      <FilterItemContainer class="filter-item small" title="来源渠道" :titleWidth="filterTitleWidth">
         <template #content>
           <el-select
             v-model="filterData.channelId"
             popper-class="popper"
             placeholder="全部"
           >
-          <!-- 从数据库(总之不应该是写死的)导入 -->
+          <!-- 从数据库导入(总之不应该是写死的) -->
           </el-select>
         </template>
       </FilterItemContainer>
-      <div class="filter-item large"></div>
-      <div class="filter-item large"></div>
+      <!-- <div class="filter-item large"></div> -->
+      <!-- <div class="filter-item large"></div> -->
       <div id="control-btns">
         <button class="close-btn" @click="() => isPanelClosed = !isPanelClosed">
           收起筛选 <el-icon class="el-icon"><ArrowUp /></el-icon>
@@ -216,6 +244,10 @@ const submitForm = () => {
   display: flex;
   flex-wrap: wrap;
 
+  .searchbar {
+    --el-input-bg-color: var(--base-c-primary-1);
+    opacity: 0.8;
+  }
   .filter-item {
     height: 32px;
     padding-left: 16px;

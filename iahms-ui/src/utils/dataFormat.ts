@@ -10,6 +10,6 @@ export function formatDate(date: Date): string {
   
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }else {
-    return 'Not Date Type'
+    return date
   }
 }

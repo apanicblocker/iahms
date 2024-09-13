@@ -2,13 +2,13 @@
 
 const props = defineProps({
   title: String,
-  width: String,
+  titleWidth: String,
 })
 </script>
 
 <template>
   <div class="container">
-    <div class="title" v-if="title">{{ title }}</div>
+    <div class="title" v-if="title" :style="{ width: titleWidth }">{{ title }}</div>
     <div class="content">
       <slot name="content"></slot>
     </div>
@@ -20,7 +20,6 @@ const props = defineProps({
   display: flex;
   align-items: center;
   .title {
-    width: 84px;
     margin-right: 8px;
     text-align: right;
     font-size: 14px;
