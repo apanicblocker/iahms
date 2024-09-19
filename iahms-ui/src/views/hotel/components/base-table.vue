@@ -32,6 +32,7 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  // 按顺序合并，[2, -2] 表示第一行数据向下合并一格（包括他自己所以是2），从下一条没被合并开始 向右合并一格（包括他自己就是2，负号区分横竖）
   spanData: {
     type: Array<number>,
     default: () => [],

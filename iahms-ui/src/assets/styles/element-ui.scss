@@ -13,7 +13,7 @@
   }
 
   // 按钮
-  --el-fill-color-light: var(--base-c-bg-2);
+  // --el-fill-color-light: var(--base-c-bg-2);
   .el-button {
     --el-button-text-color: var(--base-c-text-1);
     background-color: var(--base-c-bg-1);
@@ -30,7 +30,7 @@
   }
 
   // 输入框
-  --el-disabled-bg-color: var(--base-c-bg-1);
+  // --el-disabled-bg-color: var(--base-c-bg-1);
   .el-input__wrapper {
     background-color: var(--base-c-bg-1);
   }

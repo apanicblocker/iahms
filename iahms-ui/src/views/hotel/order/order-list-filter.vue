@@ -48,6 +48,7 @@ const filterData = reactive<OrderFilterParam>({
 })
 
 const submitForm = () => {
+  // 选择提交的日期范围的具体模式
   switch(filterData.dateRangeMode) {
     case('checkinTime'): {
       filterData.checkinTimeStart = formatDate(commonDateRange.value[0])
