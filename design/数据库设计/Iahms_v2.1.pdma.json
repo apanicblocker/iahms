@@ -1,10 +1,10 @@
 {
-  "name": "IA酒店管理系统v2.1",
+  "name": "Iahms_v2.1",
   "describe": "移植到Fedora之后根据最初版重做的版本",
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-8-11 14:24:52",
-  "updatedTime": "2024-8-11 18:46:01",
+  "updatedTime": "2024-9-24 18:02:46",
   "dbConns": [],
   "profile": {
     "default": {
@@ -4344,6 +4344,24 @@
           "id": "CF2DFCED-A5B4-4184-87D8-D94ADD7D02BD"
         },
         {
+          "defKey": "is_default",
+          "defName": "是否默认值",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "FALSE",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
+          "extProps": {},
+          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
+          "id": "7DD4FD16-E953-419B-AB89-E9877D6D7C0D"
+        },
+        {
           "defKey": "sort_number",
           "defName": "排序数字",
           "comment": "",
@@ -4360,24 +4378,6 @@
           "extProps": {},
           "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
           "id": "34CB4053-3D86-48E5-84E3-2C29ADB81751"
-        },
-        {
-          "defKey": "is_default",
-          "defName": "是否默认",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "FALSE",
-          "hideInGraph": false,
-          "refDict": "",
-          "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
-          "extProps": {},
-          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
-          "id": "5173FB07-1A25-4B7A-B0BE-BCB404EE53A3"
         },
         {
           "defKey": "status",

@@ -3,7 +3,6 @@
 import OrderListFilter from './order-list-filter.vue';
 
 interface Order {
-  orderId: string,
   orderNum: string,
   originName: string,
   contactPersonName: string,
@@ -13,7 +12,6 @@ interface Order {
 
 const orderList = ref<Order[]>([
   {
-    orderId: '1',
     orderNum: '123125125',
     originName: '自来客',
     contactPersonName: '老王',
@@ -34,7 +32,7 @@ const orderList = ref<Order[]>([
       >
         <el-table-column fixed label="订单号/渠道订单号" min-width="235">
           <template #default="scope">
-            <span>{{ scope.row.orderNum }}</span>
+            <span style="color: royalblue;">{{ scope.row.orderNum }}</span>
           </template>
         </el-table-column>
         <el-table-column label="渠道" prop="originName" min-width="141" />
