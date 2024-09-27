@@ -1,13 +1,23 @@
 <script lang="ts" setup>
 
 import OrderListFilter from './order-list-filter.vue';
+import { getDictLabel } from '@/utils/dict'
 
 interface Order {
   orderNum: string,
   originName: string,
   contactPersonName: string,
   contactPhone: string,
-  checkinType: number,
+  checkinType: string,
+  roomType: string,
+  roomName: string,
+  checkinTime: string,
+  checkoutTime: string,
+  checkinStatus: string,
+  roomAmount: string,
+  orderAmount: string,
+  payStatus: string,
+  createTime: string,
 }
 
 const orderList = ref<Order[]>([
@@ -16,7 +26,16 @@ const orderList = ref<Order[]>([
     originName: '自来客',
     contactPersonName: '老王',
     contactPhone: '',
-    checkinType: 1,
+    checkinType: '',
+    roomType: '',
+    roomName: '',
+    checkinTime: '',
+    checkoutTime: '',
+    checkinStatus: '',
+    roomAmount: '',
+    orderAmount: '',
+    payStatus: '',
+    createTime: '',
   },
 ])
 
@@ -38,15 +57,27 @@ const orderList = ref<Order[]>([
         <el-table-column label="渠道" prop="originName" min-width="141" />
         <el-table-column label="联系人" prop="contactPersonName" min-width="94"/>
         <el-table-column label="手机号" prop="contactPhone" min-width="141" />
-        <el-table-column label="入住类型" prop="checkinType" min-width="141" />
+        <el-table-column label="入住类型" min-width="141">
+          <template #default="scope">
+            <span>{{ getDictLabel('checkinType', scope.row.checkinType) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="房型" prop="roomType" min-width="235" />
         <el-table-column label="房间" prop="roomName" min-width="235" />
         <el-table-column label="入住时间" prop="checkinTime" min-width="188" />
         <el-table-column label="离店时间" prop="checkoutTime" min-width="188" />
-        <el-table-column label="入住状态" prop="checkinStatus" min-width="141" />
+        <el-table-column label="入住状态" prop="checkinStatus" min-width="141">
+          <template #default="scope">
+            <span>{{ getDictLabel('checkinStatus', scope.row.checkinStatus) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="房费" prop="roomAmount" min-width="141" />
         <el-table-column label="订单总金额" prop="orderAmount" min-width="141" />
-        <el-table-column label="结帐状态" prop="payStatus" min-width="141" />
+        <el-table-column label="结帐状态" prop="payStatus" min-width="141">
+          <template #default="scope">
+            <span>{{ getDictLabel('checkinStatus', scope.row.payStatus) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="创建时间" prop="createTime" min-width="188" />
       </el-table>
     </div>

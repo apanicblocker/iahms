@@ -2,21 +2,21 @@
 </script>
 
 <template>
-  <div class="container">
-    <div class="header">
+  <div class="box">
+    <header>
       <slot name="header"></slot>
-    </div>
-    <div class="content">
-      <div class="aside" v-if="$slots['aside']">
-        <slot name="aside"></slot>
-      </div>
-      <section class="section">
+    </header>
+    <main>
+      <section v-if="$slots['section']">
         <slot name="section"></slot>
       </section>
-    </div>
-    <div class="footer" v-if="$slots['footer']">
+      <aside v-if="$slots['aside']">
+        <slot name="aside"></slot>
+      </aside>
+    </main>
+    <footer v-if="$slots['footer']">
       <slot name="footer"></slot>
-    </div>
+    </footer>
   </div>
 </template>
 

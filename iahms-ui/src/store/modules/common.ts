@@ -1,14 +1,18 @@
 const state = () => ({
+  // 主题
   theme: 'light',
+  // 路由
   routes: [], // 路由列表
   hotelRoutes: [], // 酒店路由列表
-  // 侧边栏状态
+  // 侧边栏
   sidebarCollapsed: false, // 侧边栏是否折叠
   defaultOpeneds: {    // 侧边栏默认展开的菜单index列表
     order: [],      // 订单页面
     customer: [],
     report: [],
-  }
+  },
+  // 数据字典
+  dataDict: {}
 })
 
 const getters = {

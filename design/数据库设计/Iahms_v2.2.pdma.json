@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-9-24 18:00:06",
-  "updatedTime": "2024-9-24 18:13:47",
+  "updatedTime": "2024-9-27 17:43:59",
   "dbConns": [],
   "profile": {
     "default": {
@@ -788,7 +788,7 @@
       ],
       "fields": [
         {
-          "defKey": "order_id",
+          "defKey": "id",
           "defName": "订单ID",
           "comment": "",
           "type": "",
@@ -796,7 +796,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -806,8 +806,26 @@
           "id": "57EE4C1A-8AD3-4AAD-9242-EC1F9D18DACA"
         },
         {
-          "defKey": "user_id",
-          "defName": "用户ID",
+          "defKey": "number",
+          "defName": "订单号",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "2D8B1E9D-56B8-4777-A6E6-CBF9A92F813D"
+        },
+        {
+          "defKey": "customer_id",
+          "defName": "客户ID",
           "comment": "",
           "type": "",
           "len": "",
@@ -824,7 +842,7 @@
           "id": "32995A7E-7E99-4BDE-83CD-46E42FA8AA51"
         },
         {
-          "defKey": "order_amount",
+          "defKey": "total_amount",
           "defName": "订单总金额",
           "comment": "",
           "type": "",
@@ -842,8 +860,8 @@
           "id": "12BE846F-5C13-41B2-B227-B1EFB54520EB"
         },
         {
-          "defKey": "order_state_id",
-          "defName": "订单状态ID",
+          "defKey": "order_status",
+          "defName": "订单状态",
           "comment": "",
           "type": "",
           "len": "",
@@ -853,29 +871,11 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
+          "refDict": "5D891D48-872D-4679-B79B-6BC57AA3319E",
           "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "3A7AC8CE-3FFF-48AF-AED1-25543FD863B1"
-        },
-        {
-          "defKey": "pay_timeout",
-          "defName": "超时时间",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "refDict": "",
-          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
-          "extProps": {},
-          "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
-          "id": "D9B8AF41-EA20-48A3-93F0-73DF3A95146F"
         },
         {
           "defKey": "remark",
@@ -1264,7 +1264,7 @@
       ],
       "fields": [
         {
-          "defKey": "pay_record_id",
+          "defKey": "id",
           "defName": "支付记录ID",
           "comment": "",
           "type": "",
@@ -1272,7 +1272,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -1282,8 +1282,8 @@
           "id": "A33ABF93-61E0-4886-9E31-C073CFC1567F"
         },
         {
-          "defKey": "user_id",
-          "defName": "用户ID",
+          "defKey": "customer_id",
+          "defName": "客户ID",
           "comment": "",
           "type": "",
           "len": "",
@@ -1318,8 +1318,8 @@
           "id": "62C2F93A-6EE8-49BE-84B7-E7C246E02E9D"
         },
         {
-          "defKey": "pay_type_id",
-          "defName": "支付类型ID",
+          "defKey": "pay_type",
+          "defName": "支付类型",
           "comment": "",
           "type": "",
           "len": "",
@@ -1329,15 +1329,15 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
+          "refDict": "D40CE268-F913-40D5-A8FC-5D0110849CB5",
           "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "EA0FFF4F-33F0-49B8-A538-8B48FC6F5DFA"
         },
         {
-          "defKey": "pay_method_id",
-          "defName": "支付方式ID",
+          "defKey": "pay_method",
+          "defName": "支付方式",
           "comment": "",
           "type": "",
           "len": "",
@@ -1347,14 +1347,14 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
+          "refDict": "FC0BCF77-04B7-493B-A709-714FB7465C91",
           "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "1A41AD81-27DB-402B-B361-5467EC5B11FF"
         },
         {
-          "defKey": "pay_amount",
+          "defKey": "amount",
           "defName": "支付金额",
           "comment": "",
           "type": "",
@@ -1775,7 +1775,7 @@
       ],
       "fields": [
         {
-          "defKey": "face_id",
+          "defKey": "id",
           "defName": "人脸数据ID",
           "comment": "",
           "type": "",
@@ -1811,7 +1811,7 @@
           "id": "F45154FF-DE43-49E7-8EA9-6A5CEE3558A9"
         },
         {
-          "defKey": "face_data_path",
+          "defKey": "data_path",
           "defName": "人脸数据路径",
           "comment": "",
           "type": "",
@@ -2150,7 +2150,7 @@
       ],
       "fields": [
         {
-          "defKey": "product_id",
+          "defKey": "id",
           "defName": "商品ID",
           "comment": "",
           "type": "",
@@ -2158,7 +2158,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -2186,7 +2186,7 @@
           "id": "87BBF550-1C43-4216-89DD-FBC6F0E99D47"
         },
         {
-          "defKey": "product_name",
+          "defKey": "name",
           "defName": "商品名称",
           "comment": "",
           "type": "",
@@ -2222,7 +2222,7 @@
           "id": "F323C9B2-8B13-41DD-A214-3209F6A0D0CA"
         },
         {
-          "defKey": "product_desc",
+          "defKey": "description",
           "defName": "商品描述",
           "comment": "",
           "type": "",
@@ -2607,7 +2607,7 @@
       ],
       "fields": [
         {
-          "defKey": "product_type_id",
+          "defKey": "id",
           "defName": "商品类型ID",
           "comment": "",
           "type": "",
@@ -2615,7 +2615,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -2625,7 +2625,7 @@
           "id": "5745D440-1882-49A2-AEED-5BBBDD9E2D25"
         },
         {
-          "defKey": "type_name",
+          "defKey": "name",
           "defName": "类型名称",
           "comment": "",
           "type": "",
@@ -2643,7 +2643,7 @@
           "id": "95F8FF3F-1397-41A6-A5C6-BDDAD16C7E13"
         },
         {
-          "defKey": "type_desc",
+          "defKey": "description",
           "defName": "类型描述",
           "comment": "",
           "type": "",
@@ -3028,7 +3028,7 @@
       ],
       "fields": [
         {
-          "defKey": "shop_record_id",
+          "defKey": "id",
           "defName": "购物记录ID",
           "comment": "",
           "type": "",
@@ -3036,7 +3036,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -3061,7 +3061,7 @@
           "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
           "extProps": {},
           "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
-          "id": "F6BDEB47-F4D6-422E-9561-E539C73621AD"
+          "id": "53917165-B14A-4BD4-B8A3-763B8E8B621D"
         },
         {
           "defKey": "product_id",
@@ -3082,7 +3082,7 @@
           "id": "CA199BDD-5CA9-4B5E-AC42-2F1B2D7AB631"
         },
         {
-          "defKey": "product_number",
+          "defKey": "quantity",
           "defName": "商品数量",
           "comment": "",
           "type": "",
@@ -3366,7 +3366,7 @@
       ],
       "fields": [
         {
-          "defKey": "user_id",
+          "defKey": "id",
           "defName": "用户ID",
           "comment": "",
           "type": "",
@@ -3374,7 +3374,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
@@ -3394,37 +3394,9 @@
           "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
         },
         {
-          "defKey": "customer_id",
-          "defName": "客户ID",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
-          "refDict": "",
-          "extProps": {},
-          "notes": {},
-          "attr1": "",
-          "attr2": "",
-          "attr3": "",
-          "attr4": "",
-          "attr5": "",
-          "attr6": "",
-          "attr7": "",
-          "attr8": "",
-          "attr9": "",
-          "id": "D590B705-8EDA-45C4-BE6A-FC1EDC09BBFD",
-          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
-        },
-        {
           "defKey": "username",
           "defName": "用户名",
-          "comment": "",
+          "comment": "登录用",
           "type": "",
           "len": "",
           "scale": "",
@@ -3447,34 +3419,6 @@
           "attr8": "",
           "attr9": "",
           "id": "8CAF5678-AED7-4132-B026-02AC344755B9",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
-        },
-        {
-          "defKey": "nickname",
-          "defName": "昵称",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
-          "refDict": "",
-          "extProps": {},
-          "notes": {},
-          "attr1": "",
-          "attr2": "",
-          "attr3": "",
-          "attr4": "",
-          "attr5": "",
-          "attr6": "",
-          "attr7": "",
-          "attr8": "",
-          "attr9": "",
-          "id": "B636CB52-C2A3-4D99-A8BD-670ED3A01D65",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
         },
         {
@@ -3504,6 +3448,24 @@
           "attr9": "",
           "id": "591F80E3-0241-4B28-9B42-225E60B2364B",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
+        },
+        {
+          "defKey": "gender",
+          "defName": "性别",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "136C6624-4497-41A1-9D75-84D54B1DD6BA",
+          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "extProps": {},
+          "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
+          "id": "2B3C58DD-1DF4-46F4-8793-BE43CDF236F6"
         },
         {
           "defKey": "avatar_path",
@@ -3886,7 +3848,7 @@
       ],
       "fields": [
         {
-          "defKey": "dict_type_id",
+          "defKey": "dict_id",
           "defName": "字典主键",
           "comment": "",
           "type": "",
@@ -3894,7 +3856,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -3938,42 +3900,6 @@
           "extProps": {},
           "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
           "id": "8AC9D5F0-2EC1-44EA-94AB-A0406A7CD73F"
-        },
-        {
-          "defKey": "sort_number",
-          "defName": "排序数字",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "refDict": "",
-          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811",
-          "extProps": {},
-          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
-          "id": "3EA5AE54-BB5D-4989-8B99-5D24B70CDA08"
-        },
-        {
-          "defKey": "default_value_id",
-          "defName": "默认值ID",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "refDict": "",
-          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
-          "extProps": {},
-          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
-          "id": "5FCD6E20-CD42-436A-ADE3-EE4D1D8B59E8"
         },
         {
           "defKey": "status",
@@ -4290,15 +4216,15 @@
       ],
       "fields": [
         {
-          "defKey": "dict_data_id",
-          "defName": "字典数据ID",
+          "defKey": "dict_code",
+          "defName": "字典编码",
           "comment": "",
           "type": "",
           "len": "",
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -4308,8 +4234,8 @@
           "id": "4AD13986-C638-49E2-A08D-3ADD588626F9"
         },
         {
-          "defKey": "dict_type_id",
-          "defName": "字典类型ID",
+          "defKey": "dict_sort",
+          "defName": "字典排序",
           "comment": "",
           "type": "",
           "len": "",
@@ -4320,10 +4246,10 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811",
           "extProps": {},
-          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
-          "id": "07A21BDA-04FA-4660-8BF4-B1580DE74879"
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "id": "34CB4053-3D86-48E5-84E3-2C29ADB81751"
         },
         {
           "defKey": "dict_label",
@@ -4362,8 +4288,8 @@
           "id": "CF2DFCED-A5B4-4184-87D8-D94ADD7D02BD"
         },
         {
-          "defKey": "sort_number",
-          "defName": "排序数字",
+          "defKey": "dict_type",
+          "defName": "字典类型",
           "comment": "",
           "type": "",
           "len": "",
@@ -4374,10 +4300,10 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
-          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
-          "id": "34CB4053-3D86-48E5-84E3-2C29ADB81751"
+          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
+          "id": "07A21BDA-04FA-4660-8BF4-B1580DE74879"
         },
         {
           "defKey": "status",
@@ -4650,7 +4576,7 @@
       ],
       "fields": [
         {
-          "defKey": "role_id",
+          "defKey": "id",
           "defName": "角色ID",
           "comment": "",
           "type": "",
@@ -4658,7 +4584,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -4768,24 +4694,6 @@
           "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
           "isStandard": true,
           "refStandard": "CAB96AFB-54F4-4410-8452-370297A67009"
-        },
-        {
-          "defKey": "del_flag",
-          "defName": "删除标识",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "FALSE",
-          "hideInGraph": false,
-          "refDict": "",
-          "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
-          "extProps": {},
-          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
-          "id": "6E40FC32-D66C-49E0-A99D-1B4F242EE55C"
         },
         {
           "defKey": "tenant_id",
@@ -5215,7 +5123,7 @@
       },
       "defKey": "hotel_customer",
       "defName": "客户",
-      "comment": "",
+      "comment": "该表是 user 表的一个属性扩展表",
       "properties": {
         "partitioned by": "(date string)",
         "row format delimited": "",
@@ -5356,7 +5264,7 @@
       ],
       "fields": [
         {
-          "defKey": "customer_id",
+          "defKey": "id",
           "defName": "客户ID",
           "comment": "",
           "type": "",
@@ -5364,7 +5272,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -5374,8 +5282,8 @@
           "id": "E0CEE90F-06C9-440E-9A38-E4F13A3E6B2F"
         },
         {
-          "defKey": "channel_id",
-          "defName": "渠道ID",
+          "defKey": "origin",
+          "defName": "客源",
           "comment": "",
           "type": "",
           "len": "",
@@ -5393,8 +5301,8 @@
         },
         {
           "defKey": "name",
-          "defName": "客户姓名",
-          "comment": "",
+          "defName": "姓名",
+          "comment": "真实姓名",
           "type": "",
           "len": "",
           "scale": "",
@@ -5410,8 +5318,44 @@
           "id": "4815BBD4-950D-4FFA-8EB1-7790D884FCF9"
         },
         {
-          "defKey": "gender_id",
-          "defName": "性别ID",
+          "defKey": "id_number",
+          "defName": "身份证号",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "F087A465-62CE-4135-9CBE-89054F970B04",
+          "id": "255C561C-550A-4EA2-ACF0-AD5CCF8C3B38"
+        },
+        {
+          "defKey": "phone_number",
+          "defName": "电话号码",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "F087A465-62CE-4135-9CBE-89054F970B04",
+          "id": "867B2FA5-0A8A-4466-B22E-43B77D94161A"
+        },
+        {
+          "defKey": "gender",
+          "defName": "性别",
           "comment": "",
           "type": "",
           "len": "",
@@ -5446,8 +5390,8 @@
           "id": "6D5E48F0-9304-43FE-824F-5719119C431C"
         },
         {
-          "defKey": "phone_number",
-          "defName": "手机号",
+          "defKey": "region",
+          "defName": "地区",
           "comment": "",
           "type": "",
           "len": "",
@@ -5460,8 +5404,26 @@
           "refDict": "",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
-          "domain": "F087A465-62CE-4135-9CBE-89054F970B04",
-          "id": "B725DB85-F884-493E-BEC2-FF912F29E703"
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "0AD7C33F-8B75-4CCC-B015-C82BB95BE87D"
+        },
+        {
+          "defKey": "email",
+          "defName": "邮箱",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "id": "CD16EB5C-5B92-44C3-B3CD-F62087840FD0"
         },
         {
           "defKey": "checkin_times",
@@ -5766,7 +5728,7 @@
       ],
       "fields": [
         {
-          "defKey": "room_id",
+          "defKey": "id",
           "defName": "房间ID",
           "comment": "",
           "type": "",
@@ -5774,7 +5736,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -5802,7 +5764,25 @@
           "id": "A46D6536-D199-4F35-838C-4A986BF1A5F0"
         },
         {
-          "defKey": "room_number",
+          "defKey": "price",
+          "defName": "标准房费",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "1A0BDC09-0792-4174-9E8E-80BE8DF44B8E",
+          "extProps": {},
+          "domain": "C3B1681B-99F9-4818-9E80-DE1652A51D85",
+          "id": "8743D07A-2254-4F45-B933-39A8F2DED02D"
+        },
+        {
+          "defKey": "number",
           "defName": "房间编号",
           "comment": "",
           "type": "",
@@ -5820,7 +5800,7 @@
           "id": "1CC4626D-0826-4867-B42D-7307D8E75A73"
         },
         {
-          "defKey": "room_dirty_flag",
+          "defKey": "dirty_flag",
           "defName": "是否脏房",
           "comment": "",
           "type": "",
@@ -6122,7 +6102,7 @@
       ],
       "fields": [
         {
-          "defKey": "room_type_id",
+          "defKey": "id",
           "defName": "房型ID",
           "comment": "",
           "type": "",
@@ -6130,7 +6110,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -6140,7 +6120,7 @@
           "id": "41A25FEC-DA69-46A7-B640-106BD70D805E"
         },
         {
-          "defKey": "name",
+          "defKey": "room_name",
           "defName": "房型名称",
           "comment": "",
           "type": "",
@@ -6158,7 +6138,7 @@
           "id": "C1939923-99BA-405C-8B80-143B41C4CAF0"
         },
         {
-          "defKey": "nickname",
+          "defKey": "nick_name",
           "defName": "房型别名",
           "comment": "",
           "type": "",
@@ -6336,7 +6316,7 @@
         }
       },
       "defKey": "hotel_checkin_record",
-      "defName": "入住(开房)记录",
+      "defName": "入住记录（开房记录）",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -6478,7 +6458,7 @@
       ],
       "fields": [
         {
-          "defKey": "checkin_record_id",
+          "defKey": "id",
           "defName": "入住记录ID",
           "comment": "",
           "type": "",
@@ -6486,7 +6466,7 @@
           "scale": "",
           "primaryKey": true,
           "notNull": true,
-          "autoIncrement": false,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -6532,6 +6512,24 @@
           "id": "3ED6D2E2-6194-4094-85F6-9F4AC066B878"
         },
         {
+          "defKey": "customer_id",
+          "defName": "客户ID",
+          "comment": "主要的开房客人（出问题先找他）",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "extProps": {},
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "id": "83B22EA2-1DC8-42BA-9252-65A94FFED14F"
+        },
+        {
           "defKey": "room_amount",
           "defName": "房费",
           "comment": "",
@@ -6550,8 +6548,8 @@
           "id": "FEDCC00B-9053-4E01-A53E-1288B59027B7"
         },
         {
-          "defKey": "checkin_type_id",
-          "defName": "入住类型ID",
+          "defKey": "checkin_type",
+          "defName": "入住类型",
           "comment": "",
           "type": "",
           "len": "",
@@ -6561,15 +6559,15 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
+          "refDict": "A1DC5A2C-C329-481A-86BD-8898245316DB",
           "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "5C46A658-727D-4737-B934-7EEEF4BEAF63"
         },
         {
-          "defKey": "checkin_state_id",
-          "defName": "入住状态ID",
+          "defKey": "checkin_status",
+          "defName": "入住状态",
           "comment": "",
           "type": "",
           "len": "",
@@ -6579,7 +6577,7 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
+          "refDict": "4BD32F5C-E966-4AB1-8B29-AEDF8B0C2BD7",
           "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
@@ -6674,6 +6672,26 @@
           "extProps": {},
           "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
           "id": "12A8E3BD-8FEA-4C90-AD5F-E77891B0D2F9"
+        },
+        {
+          "defKey": "del_flag",
+          "defName": "删除标识",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "FALSE",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
+          "extProps": {},
+          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
+          "id": "D972FFC7-D3A9-464B-9B04-FBD39C47E625",
+          "isStandard": true,
+          "refStandard": "4751B67B-6B86-4C32-AA79-63EBD3F4F4C7"
         },
         {
           "defKey": "tenant_id",
@@ -6942,15 +6960,15 @@
       ],
       "fields": [
         {
-          "defKey": "room_state_record_id",
+          "defKey": "id",
           "defName": "房态记录ID",
           "comment": "",
           "type": "",
           "len": "",
           "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
@@ -6978,8 +6996,8 @@
           "id": "D3E3BC7E-34BE-46AC-8EF4-9B21E64F7847"
         },
         {
-          "defKey": "room_state_id",
-          "defName": "房态ID",
+          "defKey": "room_status",
+          "defName": "房间状态",
           "comment": "",
           "type": "",
           "len": "",
@@ -6989,7 +7007,7 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
+          "refDict": "4113429B-DAD0-4600-AFEF-FFBDBC2106B4",
           "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
@@ -7298,6 +7316,42 @@
       ],
       "fields": [
         {
+          "defKey": "customer_id",
+          "defName": "客户ID",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "extProps": {},
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "id": "05F39DCF-743E-407F-8B7A-28E896BE84CF"
+        },
+        {
+          "defKey": "checkin_record_id",
+          "defName": "入住记录ID",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "extProps": {},
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "id": "6F5DE11C-830D-4982-9A3A-5FC385ACF535"
+        },
+        {
           "defKey": "tenant_id",
           "defName": "租户号",
           "comment": "",
@@ -7412,10 +7466,1065 @@
       "correlations": [],
       "indexes": [],
       "type": "P"
+    },
+    {
+      "id": "24A00A4B-D807-486C-AF5D-D1BB63732A6B",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "hotel_tag",
+      "defName": "标签",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "sysProps": {
+        "nameTemplate": "{defKey}[{defName}]"
+      },
+      "notes": {},
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "freeze": true,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr1",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr2",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr3",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr4",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr5",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr6",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr7",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr8",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr9",
+          "freeze": false,
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "id",
+          "defName": "标签ID",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "extProps": {},
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "id": "E9A41B5E-BB49-44AA-97AD-5F0B72D721D0"
+        },
+        {
+          "defKey": "label",
+          "defName": "标签文本",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
+          "id": "7D19896C-8E5C-457E-B2F5-92CD7640338B"
+        },
+        {
+          "defKey": "color",
+          "defName": "标签颜色",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
+          "id": "E41C107C-518F-4DBB-98A6-2610481D9951"
+        },
+        {
+          "defKey": "tenant_id",
+          "defName": "租户号",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "refDict": "",
+          "uiHint": "",
+          "id": "0321C3C8-101F-4606-B98A-0FA870A2501C",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+        },
+        {
+          "defKey": "revision",
+          "defName": "乐观锁",
+          "comment": "",
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "D518D5AF-BC87-4B40-8E03-C5482FE49828",
+          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811"
+        },
+        {
+          "defKey": "created_by",
+          "defName": "创建人",
+          "comment": "",
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "558A1787-D480-4EF0-B78E-41F38F2EB5AF",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "E98A7AB0-E0FD-4C48-A0C7-C1935771330D",
+          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3"
+        },
+        {
+          "defKey": "updated_by",
+          "defName": "更新人",
+          "comment": "",
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "BA70FD46-A533-4BD2-B0B9-C5F6741C7DEF",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "60FD50BE-FB94-4B1E-A09F-0EA02081A9C6",
+          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
+          "extProps": {
+            "on_update": "CURRENT_TIMESTAMP"
+          }
+        }
+      ],
+      "correlations": [],
+      "indexes": [],
+      "type": "P"
+    },
+    {
+      "id": "E42F17A0-3413-4487-AEDF-76DEB462DC78",
+      "env": {
+        "base": {
+          "nameSpace": "",
+          "codeRoot": ""
+        }
+      },
+      "defKey": "hotel_tag_customer_link",
+      "defName": "标签&客户",
+      "comment": "",
+      "properties": {
+        "partitioned by": "(date string)",
+        "row format delimited": "",
+        "fields terminated by ','": "",
+        "collection items terminated by '-'": "",
+        "map keys terminated by ':'": "",
+        "store as textfile;": ""
+      },
+      "sysProps": {
+        "nameTemplate": "{defKey}[{defName}]"
+      },
+      "notes": {},
+      "headers": [
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defKey",
+          "freeze": true,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defName",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "primaryKey",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "domain",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "len",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "comment",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "refDict",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "freeze": false,
+          "hideInGraph": false
+        },
+        {
+          "refKey": "uiHint",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "extProps",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr1",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr2",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr3",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr4",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr5",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr6",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr7",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr8",
+          "freeze": false,
+          "hideInGraph": true
+        },
+        {
+          "refKey": "attr9",
+          "freeze": false,
+          "hideInGraph": true
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "tag_id",
+          "defName": "标签ID",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "extProps": {},
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "id": "14D38600-12D3-4A83-B96D-442B7264158A"
+        },
+        {
+          "defKey": "customer_id",
+          "defName": "客户ID",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "extProps": {},
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "id": "8C745DC7-C788-477F-9D5D-6F1E01EF52EC"
+        },
+        {
+          "defKey": "tenant_id",
+          "defName": "租户号",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "refDict": "",
+          "uiHint": "",
+          "id": "EB1E817C-BDA0-4FEE-BE34-C52DF6628CF6",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+        },
+        {
+          "defKey": "revision",
+          "defName": "乐观锁",
+          "comment": "",
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "F5130A7C-9B9F-45A4-B1A9-60EADC6EDB18",
+          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811"
+        },
+        {
+          "defKey": "created_by",
+          "defName": "创建人",
+          "comment": "",
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "DD5576CF-A4BD-4EE3-9B20-6CA39276CF0D",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "74B9D5F3-6F18-4B27-940C-5B5590BC304F",
+          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3"
+        },
+        {
+          "defKey": "updated_by",
+          "defName": "更新人",
+          "comment": "",
+          "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "03A7B561-537F-43A0-97C7-18B89691E3AA",
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true,
+          "refDict": "",
+          "uiHint": "",
+          "id": "1D59A691-BE5B-4544-A83A-9B486F428CC9",
+          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
+          "extProps": {
+            "on_update": "CURRENT_TIMESTAMP"
+          }
+        }
+      ],
+      "correlations": [],
+      "indexes": [],
+      "type": "P"
     }
   ],
   "views": [],
-  "dicts": [],
+  "dicts": [
+    {
+      "defKey": "PayMethod",
+      "defName": "支付方式",
+      "sort": "",
+      "intro": "",
+      "id": "FC0BCF77-04B7-493B-A709-714FB7465C91",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "现金",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "1A4D92F6-4331-4BD5-A677-2F03032BE0C4"
+        },
+        {
+          "defKey": "2",
+          "defName": "微信",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "90D1BCAA-B833-4A4B-ABD3-FA559DBACE23"
+        },
+        {
+          "defKey": "3",
+          "defName": "支付宝",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "226D6B2A-AEBA-4064-B9DA-B97B37E24F29"
+        },
+        {
+          "defKey": "4",
+          "defName": "其他",
+          "sort": "4",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "85C15256-03D3-4D93-8753-9BB733E56C65"
+        }
+      ]
+    },
+    {
+      "defKey": "PayType",
+      "defName": "支付类型",
+      "sort": "",
+      "intro": "",
+      "id": "D40CE268-F913-40D5-A8FC-5D0110849CB5",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "收款",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "7ACFC3CB-95B6-4C8B-A412-7C3CB951A563"
+        },
+        {
+          "defKey": "2",
+          "defName": "付款",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "88A737B7-C5C2-4831-A3C2-DBA23FD8BCD9"
+        },
+        {
+          "defKey": "3",
+          "defName": "收押金",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "6994349A-2542-40BC-BB8E-C0E354843EB8"
+        }
+      ]
+    },
+    {
+      "defKey": "DataScope",
+      "defName": "数据范围",
+      "sort": "",
+      "intro": "可以查看的数据范围（ruoyi 里部分权限涉及部门的概念，故只借用一部分）",
+      "id": "FB1C5922-394A-40D7-A82B-B17D3DE63BD1",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "全部数据权限",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "7D0ACB46-15D9-4B14-BF68-DBF7B0636C81"
+        },
+        {
+          "defKey": "2",
+          "defName": "自定数据权限",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "D12E7221-297A-40EB-A81F-74DDC683B7A4"
+        }
+      ]
+    },
+    {
+      "defKey": "CheckinType",
+      "defName": "入住类型",
+      "sort": "",
+      "intro": "",
+      "id": "A1DC5A2C-C329-481A-86BD-8898245316DB",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "全日房",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "F5CF49AB-694D-4B7D-8966-E879A9071FA5"
+        },
+        {
+          "defKey": "2",
+          "defName": "钟点房",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "A02DDA79-BA6E-4E22-8248-5DC09C06F1FB"
+        },
+        {
+          "defKey": "3",
+          "defName": "免费房",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "0ADFFEAE-76B8-451A-B48C-11ADFFA296EB"
+        },
+        {
+          "defKey": "4",
+          "defName": "自用房",
+          "sort": "4",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "6D586E10-8B23-49FB-8B8E-22411AD28E75"
+        }
+      ]
+    },
+    {
+      "defKey": "CheckinStatus",
+      "defName": "入住状态",
+      "sort": "",
+      "intro": "",
+      "id": "4BD32F5C-E966-4AB1-8B29-AEDF8B0C2BD7",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "已预订",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "EB5E6E1C-4193-4CB6-9104-21926CCB225A"
+        },
+        {
+          "defKey": "2",
+          "defName": "已入住",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "1766C79B-8AB0-4DF2-ACA0-8C9DD078EA37"
+        },
+        {
+          "defKey": "3",
+          "defName": "已取消",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "90AFF63D-CD02-4CAD-9DD5-F406E920238A"
+        },
+        {
+          "defKey": "4",
+          "defName": "已退房",
+          "sort": "4",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "3EA4802C-379F-4B80-82E3-0F8C539E6E99"
+        },
+        {
+          "defKey": "5",
+          "defName": "待付款",
+          "sort": "5",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "3F30A2D6-AF8A-43B9-8488-681F9C7380BD"
+        },
+        {
+          "defKey": "6",
+          "defName": "待确认",
+          "sort": "6",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "F065E023-2D75-4034-831F-881CEF54A07D"
+        },
+        {
+          "defKey": "7",
+          "defName": "已拒绝",
+          "sort": "7",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "05B05EB5-A822-48E7-8917-89FF0F36B9B0"
+        },
+        {
+          "defKey": "8",
+          "defName": "已关闭",
+          "sort": "8",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "8480D890-DE38-4DF6-8515-73652495B4FA"
+        }
+      ]
+    },
+    {
+      "defKey": "Gender",
+      "defName": "性别",
+      "sort": "",
+      "intro": "",
+      "id": "136C6624-4497-41A1-9D75-84D54B1DD6BA",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "男",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "14CB5534-EBC0-41CC-869F-3066E0B9F6A6"
+        },
+        {
+          "defKey": "2",
+          "defName": "女",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "15861072-ACE2-4712-877C-2CBE22C6492F"
+        },
+        {
+          "defKey": "3",
+          "defName": "未知",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "28C87AC8-80A6-40A9-B376-984BFE541B7F"
+        }
+      ]
+    },
+    {
+      "defKey": "RoomStatus",
+      "defName": "房间状态",
+      "sort": "",
+      "intro": "",
+      "id": "4113429B-DAD0-4600-AFEF-FFBDBC2106B4",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "空房",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "27A53751-7BF8-4F3A-B164-BF7FAF9D5B33"
+        },
+        {
+          "defKey": "2",
+          "defName": "在住",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "A6DD2E6D-8037-48B3-B547-CF03E9CB4CEC"
+        },
+        {
+          "defKey": "3",
+          "defName": "维修",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "关房",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "9734AE05-6C3F-453F-96BE-86ADEA9D25F1"
+        },
+        {
+          "defKey": "4",
+          "defName": "保留",
+          "sort": "4",
+          "parentKey": "",
+          "intro": "关房",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "413E6C8A-0B1F-4D73-A990-DBCF0CC2B471"
+        },
+        {
+          "defKey": "5",
+          "defName": "停用",
+          "sort": "5",
+          "parentKey": "",
+          "intro": "关房",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "A25559E4-DD06-4C64-BAF0-4911864DA058"
+        }
+      ]
+    },
+    {
+      "defKey": "OrderStatus",
+      "defName": "订单状态",
+      "sort": "",
+      "intro": "",
+      "id": "5D891D48-872D-4679-B79B-6BC57AA3319E",
+      "items": [
+        {
+          "defKey": "",
+          "defName": "",
+          "sort": "",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "366CD498-820D-4C15-A611-F16043F273BA"
+        }
+      ]
+    }
+  ],
   "viewGroups": [
     {
       "defKey": "sys",
@@ -7429,9 +8538,13 @@
       ],
       "refViews": [],
       "refDiagrams": [],
-      "refDicts": [],
+      "refDicts": [
+        "FB1C5922-394A-40D7-A82B-B17D3DE63BD1",
+        "136C6624-4497-41A1-9D75-84D54B1DD6BA"
+      ],
       "id": "9BEEC173-5EB4-43F2-ACF7-A2036B607EDF",
-      "undefined": []
+      "undefined": [],
+      "refLogicEntities": []
     },
     {
       "defKey": "hotel",
@@ -7439,16 +8552,23 @@
       "refEntities": [
         "CB393D96-4818-4542-BEB8-D3A13AE78BA6",
         "D4A874CD-3891-4D26-AA75-B9C8E2B32D63",
+        "6BCD0187-655F-4F4E-B1B3-2665904AC08A",
         "BA6FE961-2B19-4069-A6B7-30002823F624",
+        "24A00A4B-D807-486C-AF5D-D1BB63732A6B",
+        "E42F17A0-3413-4487-AEDF-76DEB462DC78",
         "522E762A-CB6C-4DAE-95E4-96C47762C395",
-        "6B0D244B-924A-4A2F-86CF-D5616EE1FEB7",
-        "6BCD0187-655F-4F4E-B1B3-2665904AC08A"
+        "6B0D244B-924A-4A2F-86CF-D5616EE1FEB7"
       ],
       "refViews": [],
       "refDiagrams": [],
-      "refDicts": [],
+      "refDicts": [
+        "A1DC5A2C-C329-481A-86BD-8898245316DB",
+        "4BD32F5C-E966-4AB1-8B29-AEDF8B0C2BD7",
+        "4113429B-DAD0-4600-AFEF-FFBDBC2106B4"
+      ],
       "id": "B6E962FC-9EF9-4B4A-B536-B7B17237F972",
-      "undefined": []
+      "undefined": [],
+      "refLogicEntities": []
     },
     {
       "defKey": "txn",
@@ -7459,9 +8579,14 @@
       ],
       "refViews": [],
       "refDiagrams": [],
-      "refDicts": [],
+      "refDicts": [
+        "5D891D48-872D-4679-B79B-6BC57AA3319E",
+        "FC0BCF77-04B7-493B-A709-714FB7465C91",
+        "D40CE268-F913-40D5-A8FC-5D0110849CB5"
+      ],
       "id": "758496CE-7957-455D-865D-26672C4F4A08",
-      "undefined": []
+      "undefined": [],
+      "refLogicEntities": []
     },
     {
       "defKey": "frs",
@@ -7473,7 +8598,8 @@
       "refDiagrams": [],
       "refDicts": [],
       "id": "E0042EB9-0C01-4D38-871A-40B46CC03883",
-      "undefined": []
+      "undefined": [],
+      "refLogicEntities": []
     },
     {
       "defKey": "shop",
@@ -7487,7 +8613,8 @@
       "refDiagrams": [],
       "refDicts": [],
       "id": "17DC2921-77B9-48EA-9F3F-F5CA019753B3",
-      "undefined": []
+      "undefined": [],
+      "refLogicEntities": []
     }
   ],
   "dataTypeMapping": {
@@ -7690,7 +8817,7 @@
       "defKey": "Name",
       "defName": "名称",
       "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": 90,
+      "len": 100,
       "scale": "",
       "uiHint": "",
       "id": "54611CCC-CA4B-42E1-9F32-4944C85B85A6"
@@ -7699,7 +8826,7 @@
       "defKey": "number",
       "defName": "编号",
       "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": 16,
+      "len": 32,
       "scale": "",
       "uiHint": "",
       "id": "F087A465-62CE-4135-9CBE-89054F970B04"
@@ -7759,7 +8886,7 @@
       "id": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B"
     },
     {
-      "defKey": "Dict",
+      "defKey": "DictData",
       "defName": "数据字典",
       "applyFor": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
       "len": "",
