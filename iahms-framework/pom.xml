@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.apkr</groupId>
-        <artifactId>Iahms</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>iahms</artifactId>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>iahms-framework</artifactId>
@@ -16,10 +16,28 @@
     </description>
 
     <dependencies>
+        <!-- springBoot Web容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId></artifactId>
-            <version></version>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- springBoot 拦截器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- 阿里数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
+        </dependency>
+
+        <!-- 系统模块 -->
+        <dependency>
+            <groupId>cn.apkr</groupId>
+            <artifactId>iahms-system</artifactId>
         </dependency>
 
     </dependencies>

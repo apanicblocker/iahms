@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-9-24 18:00:06",
-  "updatedTime": "2024-9-27 17:43:59",
+  "updatedTime": "2024-10-6 22:51:18",
   "dbConns": [],
   "profile": {
     "default": {
@@ -3422,6 +3422,24 @@
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
         },
         {
+          "defKey": "nickname",
+          "defName": "昵称",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
+          "id": "9782BA5D-E530-40B8-9F5D-6B4CD06D8F88"
+        },
+        {
           "defKey": "password",
           "defName": "密码",
           "comment": "",
@@ -3468,8 +3486,8 @@
           "id": "2B3C58DD-1DF4-46F4-8793-BE43CDF236F6"
         },
         {
-          "defKey": "avatar_path",
-          "defName": "头像路径",
+          "defKey": "avatar",
+          "defName": "头像",
           "comment": "",
           "type": "",
           "len": "",
@@ -6584,7 +6602,7 @@
           "id": "639F00FE-2959-4B32-BA71-795D30E22774"
         },
         {
-          "defKey": "pre_chekcin_time",
+          "defKey": "pre_checkin_time",
           "defName": "预计入住时间",
           "comment": "",
           "type": "",
@@ -8724,7 +8742,10 @@
         "defKey": "timestamp",
         "defName": "日期（时区同步）",
         "id": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
-        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "TIMESTAMP"
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "TIMESTAMP",
+        "797A1496-D649-4261-89B4-544132EC3F36": "Date",
+        "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "Date",
+        "A2EE7B4A-CE62-4290-B00C-B26C1BF18073": "Date"
       },
       {
         "defKey": "bytes",
@@ -8778,19 +8799,28 @@
         "defKey": "tinyint",
         "defName": "微整数",
         "id": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
-        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "TINYINT"
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "TINYINT",
+        "797A1496-D649-4261-89B4-544132EC3F36": "Short",
+        "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "Short",
+        "A2EE7B4A-CE62-4290-B00C-B26C1BF18073": "Short"
       },
       {
         "defKey": "bigint",
         "defName": "长整数",
         "id": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
-        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BIGINT"
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BIGINT",
+        "797A1496-D649-4261-89B4-544132EC3F36": "long",
+        "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "long",
+        "A2EE7B4A-CE62-4290-B00C-B26C1BF18073": "long"
       },
       {
         "defKey": "boolean",
         "defName": "布尔值",
         "id": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
-        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BOOLEAN"
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BOOLEAN",
+        "797A1496-D649-4261-89B4-544132EC3F36": "Boolean",
+        "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "Boolean",
+        "A2EE7B4A-CE62-4290-B00C-B26C1BF18073": "Boolean"
       }
     ]
   },

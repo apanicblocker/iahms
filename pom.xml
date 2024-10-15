@@ -4,15 +4,32 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cn.apkr</groupId>
-	<artifactId>Iahms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>iahms</artifactId>
+	<version>1.0.0</version>
+
 	<packaging>pom</packaging>
-	<name>IuvenisAquilaeHMS</name>
-	<description>IuvenisAquilae Hotel Manager System</description>
+	<name>Iahms</name>
+	<description>Iuvenis Aquilae Hotel Manager System</description>
 
 	<properties>
-		<java.version>17</java.version>
-		<iahms.version>0.0.1-SNAPSHOT</iahms.version>
+		<iahms.version>1.0.0</iahms.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>21</java.version>
+		<spring-boot.version>3.3.4</spring-boot.version>
+		<spring-framework.version>5.3.33</spring-framework.version>
+		<spring-security.version>5.7.12</spring-security.version>
+		<druid.version>1.2.23</druid.version>
+		<swagger.version>3.0.0</swagger.version>
+		<mysql.version>8.4.0</mysql.version>
+		<mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
+		<fastjson.version>2.0.43</fastjson.version>
+		<springdoc-swagger-ui.version>1.7.0</springdoc-swagger-ui.version>
+		<jjwt.version>0.12.6</jjwt.version>
+		<jakarta.activation.version>2.1.3</jakarta.activation.version>
+		<jakarta.email.version>2.0.3</jakarta.email.version>
+		<bitwalker.version>1.21</bitwalker.version>
+		<oshi.version>6.6.3</oshi.version>
 	</properties>
 
     <modules>
@@ -22,23 +39,170 @@
 		<module>iahms-admin</module>
 	</modules>
 
+	<!-- 依赖声明 -->
 	<dependencyManagement>
 		<dependencies>
-			<!-- SpringBoot的依赖配置 -->
+			<!-- SpringBoot依赖配置-->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>3.2.5</version>
+				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- 数据库连接池 -->
+
+			<!-- 阿里JSON解析器 -->
+			<dependency>
+				<groupId>com.alibaba.fastjson2</groupId>
+				<artifactId>fastjson2</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
+			<!-- MySQL驱动包 -->
+			<dependency>
+				<groupId>com.mysql</groupId>
+				<artifactId>mysql-connector-j</artifactId>
+				<version>${mysql.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<!-- Druid SpringBoot依赖 -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
-				<artifactId>druid-spring-boot-starter</artifactId>
+				<artifactId>druid-spring-boot-3-starter</artifactId>
 				<version>${druid.version}</version>
 			</dependency>
+
+			<!-- Mybatis SpringBoot依赖 -->
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-spring-boot.version}</version>
+			</dependency>
+
+			<!-- Swagger3依赖 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-boot-starter</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+
+			<!-- jjwt(Token生成与解析) -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-api</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
+
+			<!-- jakarta.mail 的依赖 -->
+			<dependency>
+				<groupId>jakarta.activation</groupId>
+				<artifactId>jakarta.activation-api</artifactId>
+				<version>${jakarta.activation.version}</version>
+			</dependency>
+
+			<!-- 邮件发送 -->
+			<dependency>
+				<groupId>org.eclipse.angus</groupId>
+				<artifactId>jakarta.mail</artifactId>
+				<version>${jakarta.email.version}</version>
+			</dependency>
+
+			<!-- 解析客户端操作系统、浏览器等 -->
+			<dependency>
+				<groupId>eu.bitwalker</groupId>
+				<artifactId>UserAgentUtils</artifactId>
+				<version>${bitwalker.version}</version>
+			</dependency>
+
+			<!-- 获取系统信息 -->
+			<dependency>
+				<groupId>com.github.oshi</groupId>
+				<artifactId>oshi-core</artifactId>
+				<version>${oshi.version}</version>
+			</dependency>
+
+			<!-- 核心模块 -->
+			<dependency>
+				<groupId>cn.apkr</groupId>
+				<artifactId>iahms-framework</artifactId>
+				<version>${iahms.version}</version>
+			</dependency>
+
+			<!-- 系统模块 -->
+			<dependency>
+				<groupId>cn.apkr</groupId>
+				<artifactId>iahms-system</artifactId>
+				<version>${iahms.version}</version>
+			</dependency>
+
+			<!-- 通用工具 -->
+			<dependency>
+				<groupId>cn.apkr</groupId>
+				<artifactId>iahms-common</artifactId>
+				<version>${iahms.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+			</plugin>
+
+			<!-- 指定maven构建项目时的java版本以及编码格式（用于语法检测） -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- 依赖下载 -->
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<!-- 插件下载 -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>
