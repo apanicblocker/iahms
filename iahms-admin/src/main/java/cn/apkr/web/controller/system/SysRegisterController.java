@@ -3,8 +3,10 @@ package cn.apkr.web.controller.system;
 import cn.apkr.common.core.controller.BaseController;
 import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.common.core.domain.model.RegisterBody;
+import cn.apkr.common.utils.StringUtils;
 import cn.apkr.framework.web.service.SysRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,6 @@ public class SysRegisterController extends BaseController {
         }
 
         String msg = registerService.register(user);
-        return Objects.isNull(msg) ? success() : error(msg);
+        return StringUtils.isEmpty(msg) ? success() : error(msg);
     }
 }

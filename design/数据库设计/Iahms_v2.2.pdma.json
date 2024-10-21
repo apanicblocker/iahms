@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-9-24 18:00:06",
-  "updatedTime": "2024-10-6 22:51:18",
+  "updatedTime": "2024-10-21 00:19:43",
   "dbConns": [],
   "profile": {
     "default": {
@@ -3581,23 +3581,15 @@
           "primaryKey": false,
           "notNull": false,
           "autoIncrement": false,
-          "defaultValue": "",
+          "defaultValue": "FALSE",
           "hideInGraph": false,
-          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
           "refDict": "",
+          "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
           "extProps": {},
-          "notes": {},
-          "attr1": "",
-          "attr2": "",
-          "attr3": "",
-          "attr4": "",
-          "attr5": "",
-          "attr6": "",
-          "attr7": "",
-          "attr8": "",
-          "attr9": "",
-          "id": "E289A51D-266F-4433-B4C2-7FC92F2248B8",
-          "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D"
+          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
+          "id": "DF01D471-FAFF-4C3D-AF0F-9FC56393E256",
+          "isStandard": true,
+          "refStandard": "4751B67B-6B86-4C32-AA79-63EBD3F4F4C7"
         },
         {
           "defKey": "tenant_id",

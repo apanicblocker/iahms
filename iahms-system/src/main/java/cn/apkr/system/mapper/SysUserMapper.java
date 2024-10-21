@@ -1,6 +1,7 @@
 package cn.apkr.system.mapper;
 
 import cn.apkr.common.core.domain.entity.SysUser;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -30,6 +31,7 @@ public interface SysUserMapper {
      * @param user 用户信息
      * @return 结果
      */
+    @Insert("insert into sys_user(username, password) values(#{username}, #{password})")
     int insertUser(SysUser user);
 
 }

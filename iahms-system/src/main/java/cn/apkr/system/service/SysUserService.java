@@ -6,7 +6,19 @@ import java.util.List;
 
 public interface SysUserService {
 
+    /**
+     * 查询用户信息列表
+     * @param user 用户信息
+     * @return 用户信息列表
+     */
     List<SysUser> selectUserList(SysUser user);
+
+    /**
+     * 根据用户名查询用户
+     * @param username 用户名
+     * @return 用户信息
+     */
+    SysUser selectUserByUserName(String username);
 
     /**
      * 检查用户名唯一
@@ -21,6 +33,4 @@ public interface SysUserService {
      * @return 结果
      */
     boolean registerUser(SysUser user);
-
-
 }

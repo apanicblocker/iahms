@@ -9,6 +9,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.io.IOException;
+
 public class ServletUtils {
 
     /**
@@ -32,16 +34,46 @@ public class ServletUtils {
         return getRequest().getSession();
     }
 
+    /**
+     * 获取request中的属性
+     */
     public static ServletRequestAttributes getRequestAttributes() {
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         return (ServletRequestAttributes) attributes;
     }
 
-    public static String setParameter(String name) {
+    /**
+     * 获取String参数
+     */
+    public static String getParameter(String name) {
         return getRequest().getParameter(name);
     }
 
+    /**
+     * 获取String参数，具有默认值
+     */
     public static String getParameter(String name, String defaultValue) {
         return Convert.toStr(getRequest().getParameter(name), defaultValue);
+    }
+
+    /**
+     * 将字符串渲染到客户端
+     *
+     * @param response 渲染对象
+     * @param string 待渲染的字符串
+     */
+    public static void renderString(HttpServletResponse response, String string)
+    {
+        try
+        {
+            response.setStatus(200);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().print(string);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

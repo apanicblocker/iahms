@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
@@ -18,16 +19,21 @@ public class SysUserServiceImpl implements SysUserService {
     // Test
     @Override
     public List<SysUser> selectUserList(SysUser user) {
-        return userMapper.selectUserList(null);
+        return userMapper.selectUserList(user);
     }
 
     @Override
     public boolean checkUsernameUnique(SysUser user) {
-        return false;
+        return Objects.isNull(userMapper.selectUserByUsername(user.getUsername()));
     }
 
     @Override
     public boolean registerUser(SysUser user) {
-        return false;
+        return userMapper.insertUser(user) > 0;
+    }
+
+    @Override
+    public SysUser selectUserByUserName(String username) {
+        return userMapper.selectUserByUsername(username);
     }
 }

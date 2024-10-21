@@ -30,7 +30,7 @@ public class SysRegisterService {
         if (captchaEnabled) {
             // TODO: 验证码
             try {
-                // 等待2秒钟模拟验证码
+                // 等待2秒钟模拟验证码temp
                 this.wait(1000 * 2);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

@@ -1,11 +1,17 @@
 package cn.apkr.common.core.domain;
 
 import cn.apkr.common.constant.HttpStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Objects;
 
+@Schema(description = "响应返回数据对象")
 public class AjaxResult extends HashMap<String, Object> {
+
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 验证码 */

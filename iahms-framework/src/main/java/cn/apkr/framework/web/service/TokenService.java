@@ -5,6 +5,7 @@ import cn.apkr.common.constant.Constants;
 import cn.apkr.common.core.domain.model.LoginUser;
 import cn.apkr.common.core.redis.RedisCache;
 import cn.apkr.common.utils.ServletUtils;
+import cn.apkr.common.utils.StringUtils;
 import cn.apkr.common.utils.ip.AddressUtils;
 import cn.apkr.common.utils.ip.IpUtils;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -14,12 +15,12 @@ import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import java.util.*;
@@ -58,7 +59,7 @@ public class TokenService {
     public LoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求中携带的令牌
         String token = getValidTokenFromHeader(request);
-        if (StringUtils.hasLength(token)) {
+        if (StringUtils.isNotEmpty(token)) {
             try {
                 // 获取JWT负载内容
                 Claims claims = parseClaims(token);
@@ -80,7 +81,7 @@ public class TokenService {
      */
     private String getValidTokenFromHeader(HttpServletRequest request) {
         String token = request.getHeader(header);
-        if (StringUtils.hasLength(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
+        if (StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
             token = token.replace(Constants.TOKEN_PREFIX, "");
         }
         return token;
@@ -91,7 +92,7 @@ public class TokenService {
      * @param loginUser 登录信息
      */
     public void setLoginUser(LoginUser loginUser) {
-        if (Objects.nonNull(loginUser) && StringUtils.hasLength(loginUser.getToken())) {
+        if (Objects.nonNull(loginUser) && StringUtils.isNotEmpty(loginUser.getToken())) {
             refreshToken(loginUser);
         }
     }
@@ -101,7 +102,7 @@ public class TokenService {
      * @param uuid UUID
      */
     public void delLoginUser(String uuid) {
-        if (StringUtils.hasLength(uuid)) {
+        if (StringUtils.isNotEmpty(uuid)) {
             String userKey = generateLoginTokenCacheKey(uuid);
             redisCache.deleteObject(userKey);
         }
@@ -218,7 +219,7 @@ public class TokenService {
      */
     public void refreshToken(LoginUser loginUser) {
         loginUser.setLoginTime(System.currentTimeMillis());
-        loginUser.setExpireTime(loginUser.getExpireTime() + expireTime * MILLIS_MINUTE);
+        loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = generateLoginTokenCacheKey(loginUser.getToken());
         redisCache.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);

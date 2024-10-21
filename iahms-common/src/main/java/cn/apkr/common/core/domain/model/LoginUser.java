@@ -112,6 +112,6 @@ public class LoginUser implements UserDetails {
     @JSONField(serialize = false)
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
