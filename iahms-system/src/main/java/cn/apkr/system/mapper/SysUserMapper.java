@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-@Mapper
 public interface SysUserMapper {
 
     /**
@@ -15,7 +14,6 @@ public interface SysUserMapper {
      * @param user 用户信息
      * @return 用户信息集合
      */
-    @Select("select * from sys_user")
     List<SysUser> selectUserList(SysUser user);
 
     /**

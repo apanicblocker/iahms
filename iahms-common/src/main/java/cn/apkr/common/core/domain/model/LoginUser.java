@@ -3,20 +3,22 @@ package cn.apkr.common.core.domain.model;
 import cn.apkr.common.core.domain.entity.SysUser;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.util.*;
 
 /**
  * 登录用户身份权限
  */
-@Getter
-@Setter
+@Data
 public class LoginUser implements UserDetails {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     // 用户ID
@@ -65,7 +67,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return null;
     }
 
     @JSONField(serialize = false)

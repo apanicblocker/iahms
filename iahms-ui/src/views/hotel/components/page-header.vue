@@ -1,7 +1,12 @@
 <script lang="ts" setup>
-import PageHeaderTitle from './page-header-title.vue';
-import PageHeaderNav from './page-header-nav.vue';
-import ThemeSwitch from './theme-switch.vue';
+
+import PageHeaderTitle from './page-header-title.vue'
+import PageHeaderNav from './page-header-nav.vue'
+import ThemeSwitch from './theme-switch.vue'
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const titleText: Ref<string> = ref('呆逼bad头欣')
 const imgPath: Ref<string> = ref('/public/vite.svg')
@@ -30,7 +35,7 @@ const imgPath: Ref<string> = ref('/public/vite.svg')
       <ThemeSwitch />
       <el-divider direction="vertical" />
       <!-- 用户头像 -->
-      <div class="user-avatar">
+      <div class="user-avatar" @click="router.push('/login')">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-user-l"></use>
         </svg>

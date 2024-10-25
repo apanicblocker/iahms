@@ -68,5 +68,7 @@ button:focus-visible {
   min-width: 1280px;
   height: 100vh;
   margin: 0 auto;
+  background-color: var(--base-c-bg-2);
   text-align: center;
+  color: var(--base-c-text-1);
 }

@@ -27,8 +27,8 @@ public class TestController {
     }
 
     @GetMapping("/allUser")
-    public AjaxResult allUser() {
-        List<SysUser> sysUsers = userService.selectUserList(null);
+    public AjaxResult allUser(SysUser user) {
+        List<SysUser> sysUsers = userService.selectUserList(user);
         return AjaxResult.success("操作成功", sysUsers);
     }
 

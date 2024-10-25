@@ -2,23 +2,25 @@ package cn.apkr.common.core.domain.entity;
 
 import cn.apkr.common.core.domain.BaseEntity;
 import com.alibaba.fastjson2.annotation.JSONField;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.apache.ibatis.type.Alias;
 
 import java.io.Serial;
 import java.sql.Timestamp;
+import java.util.Objects;
 
-@EqualsAndHashCode(callSuper = true)
+@Alias("SysUser")
+@Schema(title = "用户")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /** 用户ID */
-    private long id;
+    private Long id;
 
     /** 用户名;登录用 */
     private String username;
@@ -27,7 +29,7 @@ public class SysUser extends BaseEntity {
     private String nickname;
 
     /** 密码 */
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     private String password;
 
     /** 性别 */
@@ -45,24 +47,6 @@ public class SysUser extends BaseEntity {
     /** 删除标识 */
     private Boolean delFlag;
 
-    /** 租户号 */
-    private long tenantId;
-
-    /** 乐观锁 */
-    private Integer revision;
-
-    /** 创建人 */
-    private long createdBy;
-
-    /** 创建时间 */
-    private Timestamp createdTime;
-
-    /** 更新人 */
-    private long updatedBy;
-
-    /** 更新时间 */
-    private Timestamp updatedTime;
-
     public boolean isAdmin() {
         return isAdmin(this.id);
     }
@@ -75,4 +59,5 @@ public class SysUser extends BaseEntity {
     public static boolean isAdmin(Long userId) {
         return userId != null && 1L == userId;
     }
+
 }

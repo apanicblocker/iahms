@@ -16,7 +16,6 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper userMapper;
 
-    // Test
     @Override
     public List<SysUser> selectUserList(SysUser user) {
         return userMapper.selectUserList(user);

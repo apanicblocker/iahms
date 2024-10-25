@@ -1,27 +1,31 @@
 <script lang="ts" setup>
 
-import PageHeader from '@/views/hotel/components/page-header.vue'
+import PageHeader from './components/page-header.vue'
+import PageSidebar from './components/page-sidebar.vue'
 
 </script>
 
 <template>
-  <div class="main-container">
-    <PageHeader />
-    <div class="content">
+  <PageHeader />
+  <div class="main">
+    <PageSidebar />
+    <div class="section">
       <router-view />
     </div>
   </div>
 </template>
 
 <style scoped>
-.main-container {
-  height: 100%;
-  background-color: var(--base-c-bg-2);
-  color: var(--base-c-text-1);
+.main {
+  display: flex;
+  height: calc(100% - 56px);
+  overflow: hidden;
+}
 
-  .content {
-    height: calc(100% - 56px);
-    overflow: hidden;
-  }
+.section {
+  width: 100%;
+  padding: 16px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>

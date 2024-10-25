@@ -1,69 +1,68 @@
-<script>
-export default {
-  name: 'PageHeaderNav',
-  data() {
-    return {
-      navList: [],
+<script lang="ts" setup>
+
+import { useRoute, useRouter } from 'vue-router'
+
+interface NavItem {
+  title: string
+  path: string
+}
+
+const route = useRoute()
+const router = useRouter()
+
+const navList: NavItem[] = [
+  { title: '首页', path: '/hotel/dashboard'},
+  { title: '房态', path: '/hotel/roomstate'},
+  { title: '订单', path: '/hotel/order'},
+  { title: '客户', path: '/hotel/customer'},
+  { title: '统计', path: '/hotel/report'},
+  { title: '设置', path: '/hotel/settings'},
+  { title: '关于我们', path: '/hotel/aboutUs'},
+  { title: '帮助中心', path: '/hotel/helpCenter'},
+]
+
+onMounted(() => {
+  initNav()
+})
+
+// 根据路由初始化选中项
+const initNav = () => {
+  let currentPath = route.matched[1]?.path
+  if (currentPath) {
+    for (let i = 0; i < navList.length; i++) {
+      if (currentPath.includes(navList[i].path)) {
+        setActive(i)
+        return
+      }
     }
-  },
-  created() {
-    this.getRoutes()
-  },
-  mounted() {
-    this.initNav()
-  },
-  methods: {
-    // 获取当前页面需要的路由参数
-    getRoutes() {
-      let hotelRoutes = this.$store.state.common.hotelRoutes
-      for (let routerItem of hotelRoutes) {
-        let tempNode = {
-          name: routerItem.meta?.title,
-          path: routerItem.path
-        }
-        // 如果 name和 path都存在，则添加到navList中
-        if (tempNode.name && tempNode.path) {
-          this.navList.push(tempNode)
-        }
-      }
-    },
-    // 根据路由初始化选中项
-    initNav() {
-      let currentPath = this.$route.matched[1]?.path
-      if (currentPath) {
-        // 如果是根目录，则默认选中第一个
-        for (let i = 0; i < this.navList.length; i++) {
-          if (currentPath === this.navList[i].path) {
-            this.setActive(i)
-            return
-          }
-        }
-      }
-      this.setActive(0)
-    },
-    // 点击导航栏
-    setActive(index) {
-      // 清除所有active
-      let navItems = document.getElementsByClassName('nav-item')
-      if (navItems.length === 0) return
-      for (let i = 0; i < navItems.length; i++) {
-        navItems[i].classList.remove('active')
-      }
-      // 添加active
-      document.getElementsByClassName('nav-item')[index].classList.add('active')
-    }
+  }
+  // 不在列表中则不高亮了
+  setActive(-1)
+}
+
+// 点击导航栏
+const setActive = (index: number) => {
+  // 清除所有active
+  let navItems = document.getElementsByClassName('nav-item')
+  if (navItems.length === 0) return
+  for (let i = 0; i < navItems.length; i++) {
+    navItems[i].classList.remove('active')
+  }
+  // 负数不处理高亮
+  if (index >= 0) {
+    // 添加active
+    document.getElementsByClassName('nav-item')[index].classList.add('active')
   }
 }
 </script>
 
 <template>
   <div class="nav-container">
-    <div
-      class="nav-item"
+    <div class="nav-item"
       v-for="(item, index) in navList"
       :key="index"
-      @click="$router.push(item.path)"
-    >{{ item.name }}</div>
+      @click="router.push(item.path)"
+    >{{ item.title }}</div>
   </div>
 </template>
 
