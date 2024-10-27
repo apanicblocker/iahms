@@ -9,15 +9,16 @@ public class IahmsApplication {
     public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(IahmsApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  IA启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
-                " .-------.       ____     __        \n" +
-                " |  _ _   \\      \\   \\   /  /    \n" +
-                " | ( ' )  |       \\  _. /  '       \n" +
-                " |(_ o _) /        _( )_ .'         \n" +
-                " | (_,_).' __  ___(_ o _)'          \n" +
-                " |  |\\ \\  |  ||   |(_,_)'         \n" +
-                " |  | \\ `'   /|   `-'  /           \n" +
-                " |  |  \\    /  \\      /           \n" +
-                " ''-'   `'-'    `-..-'              ");
+        System.out.println("""
+				(♥◠‿◠)ﾉﾞ  IA启动成功   ლ(´ڡ`ლ)ﾞ \s
+				 .-------.       ____     __       \s
+				 |  _ _   \\      \\   \\   /  /   \s
+				 | ( ' )  |       \\  _. /  '      \s
+				 |(_ o _) /        _( )_ .'        \s
+				 | (_,_).' __  ___(_ o _)'         \s
+				 |  |\\ \\  |  ||   |(_,_)'        \s
+				 |  | \\ `'   /|   `-'  /          \s
+				 |  |  \\    /  \\      /          \s
+				 ''-'   `'-'    `-..-'             \s""");
     }
 }
