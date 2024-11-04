@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apkr.hotel.mapper.HotelCustomerMapper">
+
+    <resultMap id="HotelCustomerResult" type="HotelCustomer">
+        <id property="customerId" column="customer_id" />
+        <result property="origin" column="origin" />
+        <result property="name" column="name" />
+        <result property="idNumber" column="id_number" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="gender" column="gender" />
+        <result property="birthday" column="birthday" />
+        <result property="region" column="region" />
+        <result property="email" column="email" />
+        <result property="checkinTimes" column="checkin_times" />
+        <result property="delFlag" column="del_flag" />
+        <result property="remark" column="remark" />
+        <result property="revision" column="revision" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <collection property="tags" javaType="java.util.List" resultMap="TagResult" />
+    </resultMap>
+
+    <resultMap id="TagResult" type="HotelTag">
+        <id property="tagId" column="tag_id" />
+        <result property="label" column="label" />
+        <result property="color" column="color" />
+    </resultMap>
+
+    <sql id="selectCustomerVo">
+        select c.customer_id, c.origin, c.name, c.id_number, c.phone_number, c.gender, c.birthday, c.region, c.email, c.checkin_times, c.del_flag, c.revision, c.create_by, c.create_time, c.update_by, c.update_time, c.remark,
+            t.tag_id,
+            t.label,
+            t.color
+        from hotel_customer c
+            left join hotel_tag_customer_link tc on c.customer_id = tc.customer_id
+            left join hotel_tag t on t.tag_id = tc.tag_id
+    </sql>
+
+    <!-- HotelCustomer条件查询 -->
+    <select id="selectCustomerList" parameterType="HotelCustomer" resultMap="HotelCustomerResult">
+        <include refid="selectCustomerVo" />
+        <where>
+            c.del_flag = false
+            <if test="origin != null and origin != ''">
+                and c.origin = #{origin}
+            </if>
+            <if test="name != null and name != ''">
+                and c.name like concat('%', #{name}, '%')
+            </if>
+            <if test="idNumber != null and idNumber != ''">
+                and c.id_number = #{idNumber}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and c.phone_number = #{phoneNumber}
+            </if>
+            <if test="gender != null and gender != ''">
+                and c.gender = #{gender}
+            </if>
+            <if test="region != null and region != ''">
+                and c.region like concat('%', #{region}, '%')
+            </if>
+            <if test="email != null and email != ''">
+                and c.email = #{email}
+            </if>
+            <if test="checkinTimes != null and checkinTimes != ''">
+                and c.checkin_times = #{checkinTimes}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertCustomer" keyProperty="customerId" useGeneratedKeys="true">
+        insert into hotel_customer(
+        <if test="customerId != null and customerId != 0">customer_id,</if>
+        <if test="origin != null and origin != ''">origin,</if>
+        <if test="name != null and name != ''">name,</if>
+        <if test="idNumber != null and idNumber != ''">id_number,</if>
+        <if test="gender != null and gender != ''">gender,</if>
+        <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
+        <if test="birthday != null">birthday,</if>
+        <if test="region != null and region != ''">region,</if>
+        <if test="email != null and email != ''">email,</if>
+        <if test="checkinTimes != null and checkinTimes != ''">checkin_times,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and checkinTimes != ''">create_by,</if>
+            create_time
+        ) values(
+        <if test="customerId != null and customerId != 0">#{customerId},</if>
+        <if test="origin != null and origin != ''">#{origin},</if>
+        <if test="name != null and name != ''">#{name},</if>
+        <if test="idNumber != null and idNumber != ''">#{idNumber},</if>
+        <if test="gender != null and gender != ''">#{gender},</if>
+        <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
+        <if test="birthday != null">#{birthday},</if>
+        <if test="region != null and region != ''">#{region}</if>
+        <if test="email != null and email != ''">#{email}</if>
+        <if test="checkinTimes != null and checkinTimes != ''">#{checkinTimes}</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+            current_timestamp()
+        )
+    </insert>
+
+    <update id="updateCustomer" parameterType="HotelCustomer">
+        update hotel_customer
+        <set>
+            <if test="origin != null and origin != ''">origin = #{origin},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="idNumber != null and idNumber != ''">id_number = #{idNumber},</if>
+            <if test="gender != null and gender != ''">gender = #{gender},</if>
+            <if test="phoneNumber != null and phoneNumber != ''">phone_number = #{phoneNumber},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="region != null and region != ''">region = #{region},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="checkinTimes != null and checkinTimes != ''">checkin_times = #{checkinTimes},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = current_timestamp()
+        </set>
+        where customer_id = #{customerId}
+    </update>
+
+    <delete id="deleteCustomerById" parameterType="Long">
+        update hotel_customer set del_flag = true where customer_id = #{customerId}
+    </delete>
+
+    <delete id="deleteCustomerByIds" parameterType="Long[]">
+        update hotel_customer set del_flag = true where customer_id in
+        <foreach item="customerId" collection="array" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+
+</mapper>

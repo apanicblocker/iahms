@@ -1,14 +1,12 @@
 package cn.apkr.common.core.domain.entity;
 
 import cn.apkr.common.core.domain.BaseEntity;
-import com.alibaba.fastjson2.annotation.JSONField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serial;
-import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.List;
 
 @Alias("SysUser")
 @Schema(title = "用户")
@@ -20,7 +18,7 @@ public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 用户ID */
-    private Long id;
+    private Long userId;
 
     /** 用户名;登录用 */
     private String username;
@@ -47,8 +45,14 @@ public class SysUser extends BaseEntity {
     /** 删除标识 */
     private Boolean delFlag;
 
+    /** 角色组 */
+    private List<SysRole> roles;
+
+    /** 角色对戏 */
+    private Long[] roleIds;
+
     public boolean isAdmin() {
-        return isAdmin(this.id);
+        return isAdmin(this.userId);
     }
 
     /**

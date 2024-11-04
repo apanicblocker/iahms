@@ -1,6 +1,7 @@
 package cn.apkr.framework.config;
 
 import cn.apkr.common.utils.SecurityUtils;
+import cn.apkr.framework.config.properties.PermitAllUrlProperties;
 import cn.apkr.framework.security.filter.JwtAuthenticationTokenFilter;
 import cn.apkr.framework.security.handle.AuthenticationEntryPointImpl;
 import cn.apkr.framework.security.handle.LogoutSuccessHandlerImpl;
@@ -61,6 +62,9 @@ public class SecurityConfig {
 	@Autowired
 	private CorsFilter corsFilter;
 
+	@Autowired
+	private PermitAllUrlProperties permitAllUrl;
+
 	/**
 	 * 提供AuthenticationManager认证类
 	 */
@@ -104,10 +108,9 @@ public class SecurityConfig {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				// 注解标记允许匿名访问的url
 				.authorizeHttpRequests(requests -> {
-					// TODO: 统一注册允许匿名访问的URL地址
+					permitAllUrl.getUrls().forEach(url -> requests.requestMatchers(url).permitAll());
 					// 对于登录login 注册register 验证码captchaImage 允许匿名访问
-					requests.requestMatchers("/login", "/register")
-							.permitAll()
+					requests.requestMatchers("/login", "/register").permitAll()
 							// 静态资源，可匿名访问
 							.requestMatchers(HttpMethod.GET, "/", "/*.html",
 									"/**/*.html", "/**/*.css", "/**/*.js", "/profile/**")
@@ -116,6 +119,7 @@ public class SecurityConfig {
 							.requestMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**",
 									"/*/api-docs", "/druid/**", "/*/api-docs/**")
 							.permitAll()
+							.requestMatchers("/hello").permitAll()
 							// 除了上面外的所有请求都需要鉴权认证
 							.anyRequest().authenticated();
 				})

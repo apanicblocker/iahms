@@ -49,6 +49,13 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
         return (T) beanFactory.getBean(clz);
     }
 
-
+    /**
+     * 获取配置文件中的值
+     * @param key 配置文件的key
+     * @return 当前的配置文件的值
+     */
+    public static String getRequiredProperty(String key) {
+        return applicationContext.getEnvironment().getRequiredProperty(key);
+    }
 
 }

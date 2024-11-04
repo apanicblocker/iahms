@@ -21,6 +21,7 @@
 		<springdoc.version>2.6.0</springdoc.version>
 		<mysql.version>8.4.0</mysql.version>
 		<mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
+		<pagehelper.boot.version>2.1.0</pagehelper.boot.version>
 		<fastjson.version>2.0.43</fastjson.version>
 		<jjwt.version>0.12.6</jjwt.version>
 		<jakarta.activation.version>2.1.3</jakarta.activation.version>
@@ -34,7 +35,8 @@
 		<module>iahms-common</module>
 		<module>iahms-system</module>
 		<module>iahms-admin</module>
-	</modules>
+        <module>iahms-hotel</module>
+    </modules>
 
 	<!-- 依赖声明 -->
 	<dependencyManagement>
@@ -108,6 +110,14 @@
 				<version>${jakarta.activation.version}</version>
 			</dependency>
 
+			<!-- lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.34</version>
+<!--				<scope>provided</scope>-->
+			</dependency>
+
 			<!-- 邮件发送 -->
 			<dependency>
 				<groupId>org.eclipse.angus</groupId>
@@ -122,6 +132,20 @@
 				<version>${bitwalker.version}</version>
 			</dependency>
 
+			<!-- pagehelper 分页插件 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${pagehelper.boot.version}</version>
+				<!-- 排除低版本的 mybatis -->
+				<exclusions>
+					<exclusion>
+						<groupId>org.mybatis</groupId>
+						<artifactId>mybatis</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
 			<!-- 获取系统信息 -->
 			<dependency>
 				<groupId>com.github.oshi</groupId>
@@ -129,10 +153,10 @@
 				<version>${oshi.version}</version>
 			</dependency>
 
-			<!-- 核心模块 -->
+			<!-- 通用工具 -->
 			<dependency>
 				<groupId>cn.apkr</groupId>
-				<artifactId>iahms-framework</artifactId>
+				<artifactId>iahms-common</artifactId>
 				<version>${iahms.version}</version>
 			</dependency>
 
@@ -143,10 +167,17 @@
 				<version>${iahms.version}</version>
 			</dependency>
 
-			<!-- 通用工具 -->
+			<!-- 酒店模块 -->
 			<dependency>
 				<groupId>cn.apkr</groupId>
-				<artifactId>iahms-common</artifactId>
+				<artifactId>iahms-hotel</artifactId>
+				<version>${iahms.version}</version>
+			</dependency>
+
+			<!-- 核心模块 -->
+			<dependency>
+				<groupId>cn.apkr</groupId>
+				<artifactId>iahms-framework</artifactId>
 				<version>${iahms.version}</version>
 			</dependency>
 
