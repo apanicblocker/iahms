@@ -43,6 +43,7 @@ public class RedisCache {
      * @param value 缓存的值
      */
     public <T> void setCacheObject(final String cacheName, final String key, final T value) {
+
         redisTemplate.opsForValue().set(cacheName + ":" + key, value);
     }
 

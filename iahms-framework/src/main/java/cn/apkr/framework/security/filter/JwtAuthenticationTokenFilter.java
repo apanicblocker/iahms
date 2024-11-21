@@ -2,6 +2,7 @@ package cn.apkr.framework.security.filter;
 
 import cn.apkr.common.core.domain.model.LoginUser;
 import cn.apkr.common.utils.SecurityUtils;
+import cn.apkr.common.utils.StringUtils;
 import cn.apkr.framework.web.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -31,7 +32,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		// 从 request中提取 LoginUser
 		LoginUser loginUser = tokenService.getLoginUser(request);
-		if (Objects.nonNull(loginUser) && Objects.isNull(SecurityUtils.getAuthentication())) {
+		if (StringUtils.isNotNull(loginUser) && StringUtils.isNull(SecurityUtils.getAuthentication())) {
 			// 验证token是否快过期（小于20分钟则刷新有效期
 			tokenService.verifyToken(loginUser);
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());

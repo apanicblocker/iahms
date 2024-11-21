@@ -45,24 +45,19 @@ public class LoginUser implements UserDetails {
     // 操作系统
     private String os;
 
-    // 权限列表
-    private Set<String> permissions;
-
     // 用户信息
     private SysUser user;
 
     public LoginUser() {
     }
 
-    public LoginUser(SysUser user, Set<String> permissions) {
+    public LoginUser(SysUser user) {
         this.user = user;
-        this.permissions = permissions;
     }
 
-    public LoginUser(Long userId, SysUser user, Set<String> permissions) {
+    public LoginUser(Long userId, SysUser user) {
         this.userId = userId;
         this.user = user;
-        this.permissions = permissions;
     }
 
     @Override

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apkr.hotel.mapper.HotelOrderMapper">
+
+    <resultMap id="HotelOrderResult" type="HotelOrder">
+        <id property="orderId" column="order_id" />
+        <result property="number" column="number" />
+        <result property="customerId" column="customer_id" />
+        <result property="totalAmount" column="total_amount" />
+        <result property="orderStatus" column="order_status" />
+        <result property="delFlag" column="del_flag" />
+        <result property="revision" column="revision" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+        <collection property="checkinRecords" javaType="java.util.List" resultMap="CheckinRecord" />
+        <collection property="productRecords" javaType="java.util.List" resultMap="ProductRecord" />
+    </resultMap>
+    
+    <resultMap id="CheckinRecord" type="HotelCheckinRecord">
+        <id property="checkinRecordId" column="checkin_record_id" />
+        <result property="orderId" column="order_id" />
+        <result property="roomId" column="room_id" />
+        <result property="customerId" column="customer_id" />
+        <result property="roomAmount" column="room_amount" />
+        <result property="checkinType" column="checkin_type" />
+        <result property="checkinStatus" column="checkin_status" />
+        <result property="preCheckinTime" column="pre_checkin_time" />
+        <result property="actCheckinTime" column="act_checkin_time" />
+        <result property="preCheckoutTime" column="pre_checkout_time" />
+        <result property="actCheckoutTime" column="act_checkout_time" />
+        <result property="delFlag" column="del_flag" />
+    </resultMap>
+
+    <resultMap id="ProductRecord" type="HotelProductRecord">
+        <id property="productRecordId" column="product_record_id" />
+        <result property="orderId" column="order_id" />
+        <result property="productId" column="product_id" />
+        <result property="quantity" column="quantity" />
+    </resultMap>
+
+    <sql id="selectOrderVo">
+        select o.order_id, o.number, o.customer_id, o.total_amount, o.order_status, o.del_flag, o.revision, o.create_by, o.create_time, o.update_by, o.update_time, o.remark,
+            cr.checkin_record_id, cr.order_id, cr.room_id, cr.customer_id, cr.room_amount, cr.checkin_type, cr.checkin_status, cr.pre_checkin_time, cr.act_checkin_time, cr.pre_checkout,
+            pr.product_record_id, pr.order_id, pr.product_id, pr.quantity
+        from hotel_order o
+            left join hotel_checkin_record cr on o.order_id = cr.order_id
+            left join hotel_product_record pr on o.order_id = pr.order_id
+    </sql>
+
+</mapper>

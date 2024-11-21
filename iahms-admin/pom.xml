@@ -23,12 +23,18 @@
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
-        <!-- 核心模块-->
+        <!-- 核心模块 -->
         <dependency>
             <groupId>cn.apkr</groupId>
             <artifactId>iahms-framework</artifactId>
         </dependency>
 
+        <!-- 酒店模块 -->
+        <dependency>
+            <groupId>cn.apkr</groupId>
+            <artifactId>iahms-hotel</artifactId>
+        </dependency>
+        
     </dependencies>
 
 </project>

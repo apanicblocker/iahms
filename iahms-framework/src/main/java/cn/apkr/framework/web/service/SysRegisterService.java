@@ -36,7 +36,7 @@ public class SysRegisterService {
                 throw new RuntimeException(e);
             }
         }
-        
+        // 注册信息验证
         if (Objects.isNull(username)) {
             msg = "用户名不能为空";
         } else if (Objects.isNull(password)) {
@@ -56,8 +56,7 @@ public class SysRegisterService {
             if (!regFlag) {
                 msg = "注册失败，请联系统管理人员";
             } else {
-                // ruoyi这部分涉及多线程，任务托管，以后再说
-                // 猜测作用就是把注册成功的消息委托给任务管理器发送到前端进行通知，同时那个“任务管理器”还能够周期性执行任务（牛逼的很）
+                // TODO: 异步记录注册成功的日志信息至数据库
             }
         }
 

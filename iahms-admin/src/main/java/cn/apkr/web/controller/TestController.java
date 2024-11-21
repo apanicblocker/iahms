@@ -4,7 +4,6 @@ import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.common.core.domain.entity.SysUser;
 import cn.apkr.common.utils.email.EmailProperties;
 import cn.apkr.common.utils.email.EmailUtils;
-import cn.apkr.hotel.domain.HotelCustomer;
 import cn.apkr.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class TestController {

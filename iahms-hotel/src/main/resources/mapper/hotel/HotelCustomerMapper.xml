@@ -33,9 +33,7 @@
 
     <sql id="selectCustomerVo">
         select c.customer_id, c.origin, c.name, c.id_number, c.phone_number, c.gender, c.birthday, c.region, c.email, c.checkin_times, c.del_flag, c.revision, c.create_by, c.create_time, c.update_by, c.update_time, c.remark,
-            t.tag_id,
-            t.label,
-            t.color
+            t.tag_id, t.label, t.color
         from hotel_customer c
             left join hotel_tag_customer_link tc on c.customer_id = tc.customer_id
             left join hotel_tag t on t.tag_id = tc.tag_id

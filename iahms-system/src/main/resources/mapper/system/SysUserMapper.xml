@@ -33,9 +33,10 @@
 
     <!-- SysUser条件查询 -->
     <select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">
-        select user_id, username, nickname, gender, avatar, phone_number, status, del_flag, tenant_id, revision, create_by, create_time, update_by, update_time
+        select u.user_id, u.username, u.nickname, u.gender, u.avatar, u.phone_number, u.status, u.del_flag, u.revision, u.create_by, u.create_time, u.update_by, u.update_time
+            r.role_id, r.role_name, r.role_key, r.sort_number, r.data_scope, r.status
         from sys_user u
-            left join sys_user_role ur on u.user_id = ur.user_id
+            left join sys_user_role_link ur on u.user_id = ur.user_id
             left join sys_role r on ur.role_id = r.role_id
         <where>
             <!-- 用户名（登录用） -->

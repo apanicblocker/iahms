@@ -34,8 +34,8 @@
         <module>iahms-framework</module>
 		<module>iahms-common</module>
 		<module>iahms-system</module>
+		<module>iahms-hotel</module>
 		<module>iahms-admin</module>
-        <module>iahms-hotel</module>
     </modules>
 
 	<!-- 依赖声明 -->

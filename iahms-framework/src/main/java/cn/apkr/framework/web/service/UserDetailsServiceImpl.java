@@ -43,8 +43,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	public UserDetails createLoginUser(SysUser user) {
-		Set<String> permissions = new HashSet<>();
-		permissions.add("*:*:*");
-		return new LoginUser(user.getUserId(), user, permissions);
+		return new LoginUser(user.getUserId(), user);
 	}
 }

@@ -44,6 +44,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+    encoding: UTF-8
   profiles:
     active: druid,mybatis
   output:

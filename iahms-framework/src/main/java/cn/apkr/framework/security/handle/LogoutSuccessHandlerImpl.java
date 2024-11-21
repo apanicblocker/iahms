@@ -1,9 +1,12 @@
 package cn.apkr.framework.security.handle;
 
+import cn.apkr.common.constant.Constants;
 import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.common.core.domain.model.LoginUser;
 import cn.apkr.common.utils.MessageUtils;
 import cn.apkr.common.utils.ServletUtils;
+import cn.apkr.framework.manager.AsyncManager;
+import cn.apkr.framework.manager.factory.AsyncFactory;
 import cn.apkr.framework.web.service.TokenService;
 import com.alibaba.fastjson2.JSON;
 import jakarta.servlet.ServletException;
@@ -31,8 +34,9 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 			String username = loginUser.getUsername();
 			// 删除用户缓存记录
 			tokenService.delLoginUser(loginUser.getToken());
-			// 记录用户推出日志
-			// TODO：异步任务管理器
+			// 记录用户登出日志
+			AsyncManager.me().execute(AsyncFactory.recordLoginInfo(username, Constants.LOGOUT,
+					MessageUtils.message("user.logout.success")));
 		}
 		ServletUtils.renderString(response,
 				JSON.toJSONString(AjaxResult.success(MessageUtils.message("user.logout.success"))));

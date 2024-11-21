@@ -59,15 +59,15 @@ public class HotelCustomer extends BaseEntity {
 	@Schema(title = "入住次数")
 	private Integer checkinTimes;
 
-	/** 删除标志 */
-	@Schema(title = "删除标志")
+	/** 删除标识 */
+	@Schema(title = "删除标识")
 	private Boolean delFlag;
 
-	/** 标签对象 */
+	// 标签对象
 	@Schema(title = "标签对象")
 	private List<HotelTag> tags;
 
-	/** 标签组 */
+	// 标签组
 	@Schema(title = "标签组")
 	private Long[] tagIds;
 

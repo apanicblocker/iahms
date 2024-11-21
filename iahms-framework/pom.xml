@@ -40,12 +40,6 @@
             <artifactId>iahms-system</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>cn.apkr</groupId>
-            <artifactId>iahms-hotel</artifactId>
-        </dependency>
-
-
     </dependencies>
 
 </project>

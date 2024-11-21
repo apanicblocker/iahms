@@ -119,7 +119,7 @@ public class SecurityConfig {
 							.requestMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**",
 									"/*/api-docs", "/druid/**", "/*/api-docs/**")
 							.permitAll()
-							.requestMatchers("/hello").permitAll()
+							.requestMatchers("/websocket/**").permitAll()
 							// 除了上面外的所有请求都需要鉴权认证
 							.anyRequest().authenticated();
 				})

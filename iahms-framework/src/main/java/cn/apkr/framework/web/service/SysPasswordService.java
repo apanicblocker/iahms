@@ -16,15 +16,19 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class SysPasswordService {
 
+	// 密码最大错误次数
 	@Value(value = "${user.password.maxRetryCount}")
 	private int maxRetryCount;
 
+	// 密码错误锁定时间
 	@Value(value = "${user.password.lockTime}")
 	private int lockTime;
 
+	// ip最大错误重试次数
 	@Value(value = "${user.ip.maxRetryCount}")
 	public int maxIpRetryCount;
 
+	// 密码错误多次后ip的锁定时间
 	@Value(value = "${user.ip.lockTime}")
 	public int ipLockTime;
 
@@ -71,6 +75,15 @@ public class SysPasswordService {
 			// TODO: 新异常
 		}
 
+	}
+
+	public void incrementIpFailCount(String ip) {
+		Integer ipRetryCount = getIpCache().get(ip, Integer.class);
+		if (ipRetryCount == null) {
+			ipRetryCount = 0;
+		}
+		ipRetryCount += 1;
+		CacheUtils.put(CacheConstants.IP_ERR_CNT_KEY, ip, ipRetryCount, ipLockTime, TimeUnit.MINUTES);
 	}
 
 	/**
