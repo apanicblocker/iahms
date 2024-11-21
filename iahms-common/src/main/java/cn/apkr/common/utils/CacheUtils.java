@@ -1,6 +1,7 @@
 package cn.apkr.common.utils;
 
 import cn.apkr.common.core.redis.RedisCache;
+import cn.apkr.common.exception.UtilException;
 import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,15 @@ public class CacheUtils {
 	 * @return 缓存对象
 	 */
 	public static Cache getCache(String cacheName) {
-		return CACHE_MANAGER.getCache(cacheName);
+		Cache cache = CACHE_MANAGER.getCache(cacheName);
+		try {
+			if (cache == null) {
+				throw new IllegalStateException("无法找到名为: " + cacheName + " 的缓存");
+			}
+			return cache;
+		} catch (Exception e) {
+			throw new RuntimeException("名为: " + cacheName + "的缓存获取失败", e);
+		}
 	}
 
 	/**
@@ -40,7 +49,7 @@ public class CacheUtils {
 	 * @return 缓存键列表
 	 */
 	public static Set<String> getKeys(String cacheName) {
-		// 由于 springcache不支持获取所有key,所以直接调用RedisCache
+		// 由于 SpringCache不支持获取所有key,所以直接调用RedisCache
 		RedisCache redisCache = SpringUtils.getBean(RedisCache.class);
 		return redisCache.getCacheKeys(cacheName);
 	}

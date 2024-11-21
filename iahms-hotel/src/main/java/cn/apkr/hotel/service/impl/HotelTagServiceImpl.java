@@ -2,14 +2,14 @@ package cn.apkr.hotel.service.impl;
 
 import cn.apkr.hotel.domain.HotelTag;
 import cn.apkr.hotel.mapper.HotelTagMapper;
-import cn.apkr.hotel.service.HotelTagService;
+import cn.apkr.hotel.service.IHotelTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class HotelTagServiceImpl implements HotelTagService {
+public class HotelTagServiceImpl implements IHotelTagService {
 
 	@Autowired
 	private HotelTagMapper tagMapper;

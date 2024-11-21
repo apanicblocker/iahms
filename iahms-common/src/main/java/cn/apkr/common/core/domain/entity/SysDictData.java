@@ -51,6 +51,6 @@ public class SysDictData extends BaseEntity {
 
 	/** 状态 */
 	@Schema(title = "状态")
-	private Short status;
+	private Boolean status;
 
 }

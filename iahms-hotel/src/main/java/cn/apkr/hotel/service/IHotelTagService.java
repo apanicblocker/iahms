@@ -4,7 +4,7 @@ import cn.apkr.hotel.domain.HotelTag;
 
 import java.util.List;
 
-public interface HotelTagService {
+public interface IHotelTagService {
 	List<HotelTag> selectTagList(HotelTag tag);
 
 	int insertTag(HotelTag tag);

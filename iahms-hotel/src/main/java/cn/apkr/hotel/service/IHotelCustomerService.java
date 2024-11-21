@@ -4,7 +4,7 @@ import cn.apkr.hotel.domain.HotelCustomer;
 
 import java.util.List;
 
-public interface HotelCustomerService {
+public interface IHotelCustomerService {
 
 	List<HotelCustomer> selectCustomerList(HotelCustomer customer);
 

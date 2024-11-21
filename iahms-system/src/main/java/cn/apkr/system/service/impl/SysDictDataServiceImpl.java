@@ -1,15 +1,16 @@
 package cn.apkr.system.service.impl;
 
 import cn.apkr.common.core.domain.entity.SysDictData;
+import cn.apkr.common.utils.DictUtils;
 import cn.apkr.system.mapper.SysDictDataMapper;
-import cn.apkr.system.service.SysDictDataService;
+import cn.apkr.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SysDictDataServiceImpl implements SysDictDataService {
+public class SysDictDataServiceImpl implements ISysDictDataService {
 
 	@Autowired
 	private SysDictDataMapper dictDataMapper;
@@ -55,7 +56,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 		int row = dictDataMapper.insertDictData(dictData);
 		if (row > 0) {
 			List<SysDictData> dictDataList = dictDataMapper.selectDictDataByType(dictData.getDictType());
-			// TODO: 设置缓存
+			DictUtils.setDictCache(dictData.getDictType(), dictDataList);
 		}
 		return row;
 	}
@@ -70,7 +71,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 		int row = dictDataMapper.updateDictData(dictData);
 		if (row > 0) {
 			List<SysDictData> dictDataList = dictDataMapper.selectDictDataByType(dictData.getDictType());
-			// TODO: 设置缓存
+			DictUtils.setDictCache(dictData.getDictType(), dictDataList);
 		}
 		return row;
 	}
@@ -85,7 +86,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 			SysDictData dictData = selectDictDataById(dictCode);
 			dictDataMapper.deleteDictDataById(dictCode);
 			List<SysDictData> dictDataList = dictDataMapper.selectDictDataByType(dictData.getDictType());
-			// TODO: 设置缓存
+			DictUtils.setDictCache(dictData.getDictType(), dictDataList);
 		}
 	}
 

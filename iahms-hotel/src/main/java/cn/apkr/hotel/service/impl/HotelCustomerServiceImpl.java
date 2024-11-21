@@ -2,14 +2,14 @@ package cn.apkr.hotel.service.impl;
 
 import cn.apkr.hotel.domain.HotelCustomer;
 import cn.apkr.hotel.mapper.HotelCustomerMapper;
-import cn.apkr.hotel.service.HotelCustomerService;
+import cn.apkr.hotel.service.IHotelCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class HotelCustomerServiceImpl implements HotelCustomerService {
+public class HotelCustomerServiceImpl implements IHotelCustomerService {
 
 	@Autowired
 	private HotelCustomerMapper customerMapper;

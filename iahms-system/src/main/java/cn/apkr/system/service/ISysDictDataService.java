@@ -4,7 +4,7 @@ import cn.apkr.common.core.domain.entity.SysDictData;
 
 import java.util.List;
 
-public interface SysDictDataService {
+public interface ISysDictDataService {
 
 	List<SysDictData> selectDictDataList(SysDictData dictData);
 

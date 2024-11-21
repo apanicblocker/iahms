@@ -5,7 +5,7 @@ import cn.apkr.common.core.domain.entity.SysDictType;
 
 import java.util.List;
 
-public interface SysDictTypeService {
+public interface ISysDictTypeService {
 
 	List<SysDictType> selectDictTypeList(SysDictType dictType);
 
@@ -18,4 +18,16 @@ public interface SysDictTypeService {
 	SysDictType selectDictTypeByType(String dictType);
 
 	void deleteDictTypeByIds(Long[] dictIds);
+
+	void loadingDictCache();
+
+	void clearDictCache();
+
+	void resetDictCache();
+
+	int insertDictType(SysDictType dictType);
+
+	int updateDictType(SysDictType dictType);
+
+	boolean checkDictTypeUnique(SysDictType dictType);
 }

@@ -4,7 +4,7 @@ import cn.apkr.common.core.domain.entity.SysUser;
 
 import java.util.List;
 
-public interface SysUserService {
+public interface ISysUserService {
 
     /**
      * 查询用户信息列表

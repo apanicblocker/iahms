@@ -3,7 +3,7 @@ package cn.apkr.framework.web.service;
 import cn.apkr.common.core.domain.entity.SysUser;
 import cn.apkr.common.core.domain.model.LoginUser;
 import cn.apkr.common.exception.ServiceException;
-import cn.apkr.system.service.SysUserService;
+import cn.apkr.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +12,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
 	@Autowired
-	private SysUserService userService;
+	private ISysUserService userService;
 
 	@Autowired
 	private SysPermissionService permissionService;

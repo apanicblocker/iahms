@@ -2,16 +2,15 @@ package cn.apkr.system.service.impl;
 
 import cn.apkr.common.core.domain.entity.SysUser;
 import cn.apkr.system.mapper.SysUserMapper;
-import cn.apkr.system.service.SysUserService;
+import cn.apkr.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl implements ISysUserService {
 
     @Autowired
     private SysUserMapper userMapper;

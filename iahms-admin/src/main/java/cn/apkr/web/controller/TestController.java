@@ -4,7 +4,7 @@ import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.common.core.domain.entity.SysUser;
 import cn.apkr.common.utils.email.EmailProperties;
 import cn.apkr.common.utils.email.EmailUtils;
-import cn.apkr.system.service.SysUserService;
+import cn.apkr.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class TestController {
     private EmailProperties emailProperties;
 
     @Autowired
-    private SysUserService userService;
+    private ISysUserService userService;
 
     @RequestMapping("/hello")
     public String hello() {

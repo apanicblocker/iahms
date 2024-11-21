@@ -4,8 +4,8 @@ import cn.apkr.common.constant.UserConstants;
 import cn.apkr.common.core.domain.entity.SysUser;
 import cn.apkr.common.core.domain.model.RegisterBody;
 import cn.apkr.common.utils.SecurityUtils;
-import cn.apkr.system.service.SysConfigService;
-import cn.apkr.system.service.SysUserService;
+import cn.apkr.system.service.ISysConfigService;
+import cn.apkr.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +15,10 @@ import java.util.Objects;
 public class SysRegisterService {
 
     @Autowired
-    private SysUserService userService;
+    private ISysUserService userService;
 
     @Autowired
-    private SysConfigService configService;
+    private ISysConfigService configService;
 
     public String register(RegisterBody registerBody) {
         String msg = "", username = registerBody.getUsername(), password = registerBody.getPassword();

@@ -6,7 +6,7 @@ import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.hotel.domain.HotelCustomer;
 import cn.apkr.common.core.page.TableDataInfo;
 import cn.apkr.common.enums.BusinessType;
-import cn.apkr.hotel.service.HotelCustomerService;
+import cn.apkr.hotel.service.IHotelCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
 public class HotelCustomerController extends BaseController {
 
 	@Autowired
-	private HotelCustomerService customerService;
+	private IHotelCustomerService customerService;
 
 	@Operation(summary = "获取客户列表")
 	@GetMapping("/list")

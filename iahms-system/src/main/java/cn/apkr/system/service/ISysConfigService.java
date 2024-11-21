@@ -1,6 +1,6 @@
 package cn.apkr.system.service;
 
-public interface SysConfigService {
+public interface ISysConfigService {
 
     /**
      * 获取验证码开关
