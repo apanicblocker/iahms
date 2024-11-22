@@ -1,8 +1,12 @@
 package cn.apkr.system.service.impl;
 
 import cn.apkr.common.core.domain.entity.SysDictData;
+import cn.apkr.common.core.domain.entity.SysDictType;
+import cn.apkr.common.exception.ServiceException;
 import cn.apkr.common.utils.DictUtils;
+import cn.apkr.common.utils.StringUtils;
 import cn.apkr.system.mapper.SysDictDataMapper;
+import cn.apkr.system.mapper.SysDictTypeMapper;
 import cn.apkr.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,9 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
 
 	@Autowired
 	private SysDictDataMapper dictDataMapper;
+	
+	@Autowired
+	private SysDictTypeMapper dictTypeMapper;
 
 	/**
 	 * 查询字典数据列表
@@ -68,10 +75,19 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
 	 */
 	@Override
 	public int updateDictData(SysDictData dictData) {
+		String oldDictType = dictDataMapper.selectDictDataById(dictData.getDictCode()).getDictType();
+		String newDictType = dictData.getDictType();
+		if (newDictType != null && StringUtils.isNull(dictTypeMapper.checkDictTypeUnique(newDictType))) {
+			throw new ServiceException("修改失败，修改后的字典类型未定义！");
+		}
 		int row = dictDataMapper.updateDictData(dictData);
 		if (row > 0) {
-			List<SysDictData> dictDataList = dictDataMapper.selectDictDataByType(dictData.getDictType());
-			DictUtils.setDictCache(dictData.getDictType(), dictDataList);
+			// 更新新的字典缓存
+			List<SysDictData> newDictDataList = dictDataMapper.selectDictDataByType(newDictType);
+			DictUtils.setDictCache(newDictType, newDictDataList);
+			// 更新旧的字典缓存
+			List<SysDictData> oldDictDataList = dictDataMapper.selectDictDataByType(oldDictType);
+			DictUtils.setDictCache(oldDictType, oldDictDataList);
 		}
 		return row;
 	}

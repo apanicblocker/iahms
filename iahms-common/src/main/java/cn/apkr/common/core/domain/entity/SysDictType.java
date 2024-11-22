@@ -39,6 +39,6 @@ public class SysDictType extends BaseEntity {
 
 	/** 状态 */
 	@Schema(title = "状态")
-	private String status;
+	private Boolean status;
 
 }

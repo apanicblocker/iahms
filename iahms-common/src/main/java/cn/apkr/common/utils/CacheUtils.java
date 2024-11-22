@@ -49,9 +49,10 @@ public class CacheUtils {
 	 * @return 缓存键列表
 	 */
 	public static Set<String> getKeys(String cacheName) {
+		Cache cache = getCache(cacheName);
 		// 由于 SpringCache不支持获取所有key,所以直接调用RedisCache
 		RedisCache redisCache = SpringUtils.getBean(RedisCache.class);
-		return redisCache.getCacheKeys(cacheName);
+		return redisCache.getCacheKeys(cache);
 	}
 
 	/**

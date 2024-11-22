@@ -52,7 +52,7 @@
                 and phone_number = #{phoneNumber}
             </if>
             <!-- 是否启用 -->
-            <if test="status != null and status != ''">
+            <if test="status != null">
                 and status = #{status}
             </if>
             <!-- 是否删除 -->

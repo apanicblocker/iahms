@@ -2,6 +2,7 @@ package cn.apkr.common.utils;
 
 import cn.apkr.common.constant.CacheConstants;
 import cn.apkr.common.core.domain.entity.SysDictData;
+import cn.apkr.common.core.redis.RedisCache;
 import org.springframework.cache.Cache;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class DictUtils {
 	 * @param dictDataList 字典数据列表
 	 */
 	public static void setDictCache(String key, List<SysDictData> dictDataList) {
+//		SpringUtils.getBean(RedisCache.class).setCacheList(key, dictDataList);
 		getDictCacheKey().put(key, dictDataList);
 	}
 

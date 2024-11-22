@@ -28,7 +28,7 @@
             <if test="dictName != null and dictName != ''">
                 AND dict_name like concat('%', #{dictName}, '%')
             </if>
-            <if test="status != null and status != ''">
+            <if test="status != null">
                 AND status = #{status}
             </if>
             <if test="dictType != null and dictType != ''">
@@ -58,8 +58,13 @@
     </select>
 
     <select id="checkDictTypeUnique" parameterType="String" resultMap="SysDictTypeResult">
-        <include refid="selectDictTypeVo"/>
+        <include refid="selectDictTypeVo" />
         where dict_type = #{dictType} limit 1
+    </select>
+
+    <select id="optionSelectDictType" resultMap="SysDictTypeResult">
+        select dict_id, dict_name, dict_type, status
+        from sys_dict_type
     </select>
 
     <insert id="insertDictType" parameterType="SysDictType">

@@ -34,10 +34,11 @@
             <if test="dictLabel != null and dictLabel != ''">
                 AND dict_label like concat('%', #{dictLabel}, '%')
             </if>
-            <if test="status != null and status != ''">
+            <if test="status != null">
                 AND status = #{status}
             </if>
         </where>
+        order by dict_sort asc
     </select>
 
     <select id="selectDictDataByType" parameterType="SysDictData" resultMap="SysDictDataResult">
@@ -66,8 +67,8 @@
             <if test="dictLabel != null and dictLabel != ''">dict_label,</if>
             <if test="dictValue != null and dictValue != ''">dict_value,</if>
             <if test="dictType != null and dictType != ''">dict_type,</if>
-            <if test="isDefault != null and isDefault != ''">is_default,</if>
-            <if test="status != null and status != ''">status,</if>
+            <if test="isDefault != null">is_default,</if>
+            <if test="status != null">status,</if>
             <if test="remark != null">remark,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
@@ -77,8 +78,8 @@
             <if test="dictLabel != null and dictLabel != ''">#{dictLabel},</if>
             <if test="dictValue != null and dictValue != ''">#{dictValue},</if>
             <if test="dictType != null and dictType != ''">#{dictType},</if>
-            <if test="isDefault != null and isDefault != ''">#{isDefault},</if>
-            <if test="status != null and status != ''">#{status},</if>
+            <if test="isDefault != null">#{isDefault},</if>
+            <if test="status != null">#{status},</if>
             <if test="remark != null">#{remark},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -93,8 +94,8 @@
             <if test="dictLabel != null and dictLabel != ''">dict_label = #{dictLabel},</if>
             <if test="dictValue != null and dictValue != ''">dict_value = #{dictValue},</if>
             <if test="dictType != null and dictType != ''">dict_type = #{dictType},</if>
-            <if test="isDefault != null and isDefault != ''">is_default = #{isDefault},</if>
-            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+            <if test="status != null">status = #{status},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="revision != null">revision = #{revision},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>

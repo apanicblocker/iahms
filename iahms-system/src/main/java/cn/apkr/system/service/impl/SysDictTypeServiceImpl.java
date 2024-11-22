@@ -11,6 +11,7 @@ import cn.apkr.system.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +106,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
 	@Override
 	public void loadingDictCache() {
 		SysDictData dictData = new SysDictData();
-		dictData.setStatus(false);
+		dictData.setStatus(true);	// 获取所有状态为正常的字典类型
 		Map<String, List<SysDictData>> dictDataMap = dictDataMapper.selectDictDataList(dictData).stream()
 				.collect(Collectors.groupingBy(SysDictData::getDictType));
 		for (Map.Entry<String, List<SysDictData>> entry : dictDataMap.entrySet()) {
@@ -141,7 +142,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
 	public int insertDictType(SysDictType dictType) {
 		int row = dictTypeMapper.insertDictType(dictType);
 		if (row > 0) {
-			DictUtils.setDictCache(dictType.getDictType(), null);
+			DictUtils.setDictCache(dictType.getDictType(), new ArrayList<>());
 		}
 		return row;
 	}
@@ -159,6 +160,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
 		if (row > 0) {
 			List<SysDictData> dictDataList = dictDataMapper.selectDictDataByType(dictType.getDictType());
 			DictUtils.setDictCache(dictType.getDictType(), dictDataList);
+			DictUtils.removeDictCache(oldDictType.getDictType());
 		}
 		return row;
 	}
@@ -170,7 +172,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
 	 */
 	@Override
 	public boolean checkDictTypeUnique(SysDictType dictType) {
-		Long dictTypeId = StringUtils.isNull(dictType.getDictType()) ? -1L : dictType.getDictId();
+		Long dictTypeId = StringUtils.isNull(dictType.getDictId()) ? -1L : dictType.getDictId();
 		SysDictType dictTypeUnique = dictTypeMapper.checkDictTypeUnique(dictType.getDictType());
 		if (StringUtils.isNotNull(dictTypeUnique) && dictTypeUnique.getDictId().longValue() != dictTypeId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
