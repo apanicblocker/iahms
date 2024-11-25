@@ -45,11 +45,89 @@
 
     <sql id="selectOrderVo">
         select o.order_id, o.number, o.customer_id, o.total_amount, o.order_status, o.del_flag, o.revision, o.create_by, o.create_time, o.update_by, o.update_time, o.remark,
-            cr.checkin_record_id, cr.order_id, cr.room_id, cr.customer_id, cr.room_amount, cr.checkin_type, cr.checkin_status, cr.pre_checkin_time, cr.act_checkin_time, cr.pre_checkout,
+            cr.checkin_record_id, cr.order_id, cr.room_id, cr.customer_id, cr.room_amount, cr.checkin_type, cr.checkin_status, cr.pre_checkin_time, cr.act_checkin_time, cr.pre_checkout_time, cr.act_checkout_time,
             pr.product_record_id, pr.order_id, pr.product_id, pr.quantity
-        from hotel_order o
-            left join hotel_checkin_record cr on o.order_id = cr.order_id
-            left join hotel_product_record pr on o.order_id = pr.order_id
+        from hotel_order as o
+            left join hotel_checkin_record as cr on o.order_id = cr.order_id
+            left join hotel_product_record as pr on o.order_id = pr.order_id
     </sql>
 
+    <select id="selectOrderList" resultMap="HotelOrderResult">
+        <include refid="selectOrderVo" />
+        <where>
+            <if test="orderId != null">
+                and o.order_id = #{orderId}
+            </if>
+            <if test="number != null and number != ''">
+                and o.number like concat('%', #{number}, '%')
+            </if>
+            <if test="customerId != null">
+                and o.customer_id = #{customerId}
+            </if>
+            <if test="totalAmount != null">
+                and o.total_amount = #{totalAmount}
+            </if>
+            <if test="orderStatus != null">
+                and o.order_status = #{orderStatus}
+            </if>
+            <if test="delFlag != null">
+                and o.del_flag = #{delFlag}
+            </if>
+            <if test="revision != null">
+                and o.revision = #{revision}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertOrder" parameterType="HotelOrder" useGeneratedKeys="true">
+        insert into iahms_order(
+        <if test="number != null and number != ''">number,</if>
+        <if test="customerId != null">customer_id,</if>
+        <if test="totalAmount != null">total_amount,</if>
+        <if test="orderStatus != null">order_status,</if>
+        <if test="delFlag != null">del_flag,</if>
+        <if test="revision != null">revision,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null">create_by,</if>
+            create_time
+        ) values(
+        <if test="number != null and number != ''">number,</if>
+        <if test="customerId != null">#{customerId},</if>
+        <if test="totalAmount != null">#{totalAmount},</if>
+        <if test="orderStatus != null">#{orderStatus},</if>
+        <if test="delFlag != null">#{delFlag},</if>
+        <if test="revision != null">#{revision},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null">#{createBy},</if>
+            current_timestamp()
+        )
+    </insert>
+
+    <update id="updateOrder" parameterType="HotelOrder">
+        update hotel_order
+        <set>
+            <if test="number != null and number != ''">number = #{number},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="totalAmount != null">total_amount = #{totalAmount},</if>
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = current_timestamp()
+        </set>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteOrderById" parameterType="Long">
+        update hotel_order set del_flag = true, update_time = current_timestamp()
+        where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteOrderByIds" parameterType="Long[]">
+        update hotel_order set del_flag = true, update_time = current_timestamp() where order_id in
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
 </mapper>

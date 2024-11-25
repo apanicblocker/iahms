@@ -8,6 +8,7 @@ import cn.apkr.system.service.ISysUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class TestController {
     @Autowired
     private ISysUserService userService;
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String hello() {
         return "hello world";
     }
@@ -34,7 +35,7 @@ public class TestController {
         return AjaxResult.success("操作成功", sysUsers);
     }
 
-    @RequestMapping("/send")
+    @PostMapping("/send")
     public String send() {
         EmailUtils.sendMail(emailProperties, "2013690140@qq.com", "邮箱模块测试", "总有一天我会成为百万富翁！");
         return "send already";

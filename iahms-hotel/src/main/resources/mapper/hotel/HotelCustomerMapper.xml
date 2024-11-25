@@ -43,8 +43,7 @@
     <select id="selectCustomerList" parameterType="HotelCustomer" resultMap="HotelCustomerResult">
         <include refid="selectCustomerVo" />
         <where>
-            c.del_flag = false
-            <if test="origin != null and origin != ''">
+            <if test="origin != null">
                 and c.origin = #{origin}
             </if>
             <if test="name != null and name != ''">
@@ -56,7 +55,7 @@
             <if test="phoneNumber != null and phoneNumber != ''">
                 and c.phone_number = #{phoneNumber}
             </if>
-            <if test="gender != null and gender != ''">
+            <if test="gender != null">
                 and c.gender = #{gender}
             </if>
             <if test="region != null and region != ''">
@@ -65,8 +64,11 @@
             <if test="email != null and email != ''">
                 and c.email = #{email}
             </if>
-            <if test="checkinTimes != null and checkinTimes != ''">
+            <if test="checkinTimes != null">
                 and c.checkin_times = #{checkinTimes}
+            </if>
+            <if test="delFlag != null">
+                and c.del_flag = #{delFlag}
             </if>
         </where>
     </select>
@@ -84,7 +86,7 @@
         <if test="email != null and email != ''">email,</if>
         <if test="checkinTimes != null and checkinTimes != ''">checkin_times,</if>
         <if test="remark != null and remark != ''">remark,</if>
-        <if test="createBy != null and checkinTimes != ''">create_by,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
             create_time
         ) values(
         <if test="customerId != null and customerId != 0">#{customerId},</if>
@@ -94,9 +96,9 @@
         <if test="gender != null and gender != ''">#{gender},</if>
         <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
         <if test="birthday != null">#{birthday},</if>
-        <if test="region != null and region != ''">#{region}</if>
-        <if test="email != null and email != ''">#{email}</if>
-        <if test="checkinTimes != null and checkinTimes != ''">#{checkinTimes}</if>
+        <if test="region != null and region != ''">#{region},</if>
+        <if test="email != null and email != ''">#{email},</if>
+        <if test="checkinTimes != null and checkinTimes != ''">#{checkinTimes},</if>
         <if test="remark != null and remark != ''">#{remark},</if>
         <if test="createBy != null and createBy != ''">#{createBy},</if>
             current_timestamp()
@@ -124,11 +126,12 @@
     </update>
 
     <delete id="deleteCustomerById" parameterType="Long">
-        update hotel_customer set del_flag = true where customer_id = #{customerId}
+        update hotel_customer set del_flag = true, update_time = current_timestamp()
+        where customer_id = #{customerId}
     </delete>
 
     <delete id="deleteCustomerByIds" parameterType="Long[]">
-        update hotel_customer set del_flag = true where customer_id in
+        update hotel_customer set del_flag = true, update_time = current_timestamp() where customer_id in
         <foreach item="customerId" collection="array" open="(" separator="," close=")">
             #{customerId}
         </foreach>

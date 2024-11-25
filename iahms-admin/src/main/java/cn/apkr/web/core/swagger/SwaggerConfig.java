@@ -106,19 +106,35 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi commonApi() {
+    public GroupedOpenApi hotelApi() {
         return GroupedOpenApi.builder()
-                .group("通用模块")
-                .packagesToScan("cn.apkr.web.controller.common")
+                .group("hotel住房模块")
+                .packagesToScan("cn.apkr.web.controller.hotel")
                 .build();
     }
 
     @Bean
-    public GroupedOpenApi payApi() {
+    public GroupedOpenApi toolApi() {
         return GroupedOpenApi.builder()
-                .group("支付模块")
-                .pathsToMatch("/pay/**")
+                .group("tool测试模块")
+                .packagesToScan("cn.apkr.web.controller.tool")
                 .build();
     }
+
+//    @Bean
+//    public GroupedOpenApi commonApi() {
+//        return GroupedOpenApi.builder()
+//                .group("通用模块")
+//                .packagesToScan("cn.apkr.web.controller.common")
+//                .build();
+//    }
+//
+//    @Bean
+//    public GroupedOpenApi payApi() {
+//        return GroupedOpenApi.builder()
+//                .group("支付模块")
+//                .pathsToMatch("/pay/**")
+//                .build();
+//    }
 }
 

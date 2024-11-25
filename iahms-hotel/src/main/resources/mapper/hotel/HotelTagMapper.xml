@@ -63,7 +63,7 @@
     </insert>
 
     <update id="updateTag" parameterType="HotelTag">
-        update hotel_customer
+        update hotel_tag
         <set>
             <if test="label != null and label != ''">label = #{label},</if>
             <if test="color != null and color != ''">color = #{color},</if>
