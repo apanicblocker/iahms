@@ -1,0 +1,9 @@
+gen:
+  # 作者
+  author: apkr
+  # 默认生成包路径 system 需要改成自己需要的模块名，例：system、hotel
+  packageName: cn.apkr.hotel
+  # 自动去除表前缀，默认false
+  autoRemovePre: false
+  # 表前缀（生成类名不会包含表前缀，多个用逗号分割）
+  tablePrefix: sys_

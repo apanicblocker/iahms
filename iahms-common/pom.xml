@@ -93,6 +93,11 @@
             <artifactId>jjwt-jackson</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
         <!-- 邮件发送 -->
         <dependency>
             <groupId>org.eclipse.angus</groupId>

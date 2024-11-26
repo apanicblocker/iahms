@@ -358,5 +358,63 @@ CREATE TABLE hotel_product_record(
     PRIMARY KEY (product_record_id)
 )  COMMENT = '购物记录';
 
+DROP TABLE IF EXISTS gen_table_column;
+CREATE TABLE gen_table_column(
+    `column_id` BIGINT AUTO_INCREMENT COMMENT '编号' ,
+    `table_id` BIGINT   COMMENT '归属表编号' ,
+    `column_name` VARCHAR(200)   COMMENT '列名称' ,
+    `column_comment` VARCHAR(500)   COMMENT '列描述' ,
+    `column_type` VARCHAR(100)   COMMENT '列类型' ,
+    `java_type` VARCHAR(500)   COMMENT 'JAVA类型' ,
+    `java_field` VARCHAR(200)   COMMENT 'JAVA字段名' ,
+    `is_pk` BOOLEAN   COMMENT '是否主键' ,
+    `is_increment` BOOLEAN   COMMENT '是否自增' ,
+    `is_required` BOOLEAN   COMMENT '是否必填' ,
+    `is_insert` BOOLEAN   COMMENT '是否为插入字段' ,
+    `is_edit` BOOLEAN   COMMENT '是否编辑字段' ,
+    `is_list` BOOLEAN   COMMENT '是否列表字段' ,
+    `is_query` BOOLEAN   COMMENT '是否查询字段' ,
+    `query_type` VARCHAR(200)  DEFAULT 'EQ' COMMENT '查询方式' ,
+    `html_type` VARCHAR(200)   COMMENT '显示类型' ,
+    `dict_type` VARCHAR(200)  DEFAULT '' COMMENT '字典类型' ,
+    `sort` INT   COMMENT '排序' ,
+    `tenant_id` BIGINT   COMMENT '租户号' ,
+    `revision` INT   COMMENT '乐观锁' ,
+    `create_by` BIGINT   COMMENT '创建人' ,
+    `create_time` TIMESTAMP  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ,
+    `update_by` BIGINT   COMMENT '更新人' ,
+    `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
+    PRIMARY KEY (column_id)
+)  COMMENT = '代码生成业务表字段';
+
+DROP TABLE IF EXISTS gen_table;
+CREATE TABLE gen_table(
+    `table_id` BIGINT AUTO_INCREMENT COMMENT '编号' ,
+    `table_name` VARCHAR(200)   COMMENT '表名称' ,
+    `table_comment` VARCHAR(500)   COMMENT '表描述' ,
+    `sub_table_name` VARCHAR(100)   COMMENT '关联子表的表名' ,
+    `sub_table_fk_name` VARCHAR(100)   COMMENT '子表关联的外键名' ,
+    `class_name` VARCHAR(100)   COMMENT '实体类名称' ,
+    `tpl_category` VARCHAR(200)  DEFAULT 'crud' COMMENT '使用的模板;crud单表操作 tree树表操作' ,
+    `package_name` VARCHAR(100)   COMMENT '生成包路径' ,
+    `module_name` VARCHAR(30)   COMMENT '生成模块名' ,
+    `business_name` VARCHAR(30)   COMMENT '生成业务名' ,
+    `function_name` VARCHAR(50)   COMMENT '生成功能名' ,
+    `function_author` VARCHAR(50)   COMMENT '生成功能作者' ,
+    `gen_type` TINYINT  DEFAULT 0 COMMENT '生成代码方式;0zip压缩包 1自定义路径' ,
+    `gen_path` VARCHAR(200)  DEFAULT '/' COMMENT '生成路径;不填默认项目路径' ,
+    `options` VARCHAR(900)   COMMENT '其他生成选项' ,
+    `tenant_id` BIGINT   COMMENT '租户号' ,
+    `revision` INT   COMMENT '乐观锁' ,
+    `create_by` BIGINT   COMMENT '创建人' ,
+    `create_time` TIMESTAMP  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ,
+    `update_by` BIGINT   COMMENT '更新人' ,
+    `remark` VARCHAR(500)   COMMENT '备注' ,
+    `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
+    PRIMARY KEY (table_id)
+)  COMMENT = '代码生成业务表';
+
+
+
 
 
