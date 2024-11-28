@@ -42,8 +42,4 @@ public class HotelRoom extends BaseEntity {
 	/** 删除标识 */
 	@Schema(title = "删除标识")
 	private Boolean delFlag;
-
-	// 当前生效的房间状态
-	@Schema(title = "当前生效的房间状态记录")
-	private List<HotelRoomStateRecord> roomStateRecords;
 }

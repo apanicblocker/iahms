@@ -41,4 +41,8 @@ public class HotelPayRecord extends BaseEntity {
 	/** 支付金额 */
 	@Schema(title = "支付金额")
 	private BigDecimal amount;
+
+	// 支付的客户信息
+	@Schema(title = "支付的客户信息")
+	private HotelCustomer customer;
 }

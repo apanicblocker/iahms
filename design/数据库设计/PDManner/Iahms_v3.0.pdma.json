@@ -4,13 +4,31 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-11-20 17:58:14",
-  "updatedTime": "2024-11-26 18:20:33",
+  "updatedTime": "2024-11-28 23:44:20",
   "dbConns": [],
   "profile": {
     "default": {
       "db": "29D1CE08-4C35-4D2D-AAA9-23D93305B52E",
       "dbConn": "121450D0-5FCB-41C6-9A56-0FBA123DEA30",
       "entityInitFields": [
+        {
+          "defKey": "remark",
+          "defName": "备注",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "NULL",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "E3DB3F4D-BACE-45C7-81F5-F10C2AA7C50E",
+          "id": "44994539-3634-4AB9-A373-142C18C3B8C4"
+        },
         {
           "defKey": "tenant_id",
           "defName": "租户号",
@@ -121,24 +139,6 @@
           "extProps": {
             "on_update": "CURRENT_TIMESTAMP"
           }
-        },
-        {
-          "defKey": "remark",
-          "defName": "备注",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "NULL",
-          "hideInGraph": false,
-          "refDict": "",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-          "extProps": {},
-          "domain": "E3DB3F4D-BACE-45C7-81F5-F10C2AA7C50E",
-          "id": "44994539-3634-4AB9-A373-142C18C3B8C4"
         }
       ],
       "entityInitProperties": {
@@ -2803,6 +2803,24 @@
           "extProps": {
             "on_update": "CURRENT_TIMESTAMP"
           }
+        },
+        {
+          "defKey": "remark",
+          "defName": "备注",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "E3DB3F4D-BACE-45C7-81F5-F10C2AA7C50E",
+          "id": "AC07D79C-3AAE-4559-B501-0D300C3B6D71"
         }
       ],
       "correlations": [],
@@ -4230,7 +4248,7 @@
           "id": "2304BED4-4852-4464-8924-E9A70B58593B"
         },
         {
-          "defKey": "descript",
+          "defKey": "description",
           "defName": "房型描述",
           "comment": "",
           "type": "",
@@ -4246,6 +4264,24 @@
           "extProps": {},
           "domain": "3E948CEC-3070-472C-AF92-F3CA11EC9D15",
           "id": "7C5B78B1-1C45-4E03-BF89-A23849284016"
+        },
+        {
+          "defKey": "remark",
+          "defName": "备注",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "E3DB3F4D-BACE-45C7-81F5-F10C2AA7C50E",
+          "id": "23FCABF5-4D6D-4479-9F2D-BABA903F9ABA"
         },
         {
           "defKey": "tenant_id",
@@ -5052,7 +5088,7 @@
           "id": "D3E3BC7E-34BE-46AC-8EF4-9B21E64F7847"
         },
         {
-          "defKey": "room_status",
+          "defKey": "room_state",
           "defName": "房间状态",
           "comment": "",
           "type": "",
@@ -7987,6 +8023,24 @@
           "uiHint": null
         },
         {
+          "defKey": "remark",
+          "defName": "备注",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "E3DB3F4D-BACE-45C7-81F5-F10C2AA7C50E",
+          "id": "9FF79BA2-2CC9-4D6F-B193-B497C41E5607"
+        },
+        {
           "defKey": "tenant_id",
           "defName": "租户号",
           "comment": "",
@@ -8409,6 +8463,24 @@
           "domain": "3E948CEC-3070-472C-AF92-F3CA11EC9D15",
           "id": "6FE15C7C-7D74-4492-9732-20E4B46A8EAA",
           "uiHint": null
+        },
+        {
+          "defKey": "remark",
+          "defName": "备注",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "E3DB3F4D-BACE-45C7-81F5-F10C2AA7C50E",
+          "id": "D1F2FB3C-6098-4169-92A4-71DAD4445A71"
         },
         {
           "defKey": "tenant_id",

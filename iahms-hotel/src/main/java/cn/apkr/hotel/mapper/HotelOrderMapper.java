@@ -8,6 +8,10 @@ public interface HotelOrderMapper {
 
 	List<HotelOrder> selectOrderList(HotelOrder order);
 
+	HotelOrder selectOrderById(Long orderId);
+
+	List<HotelOrder> selectOrderListByNumber(String number);
+
 	int insertOrder(HotelOrder order);
 
 	int updateOrder(HotelOrder order);

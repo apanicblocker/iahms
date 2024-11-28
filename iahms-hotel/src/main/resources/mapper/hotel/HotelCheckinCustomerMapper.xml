@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apkr.hotel.mapper.HotelCheckinCustomerMapper">
+
+    <resultMap id="HotelCheckinCustomer" type="HotelCheckinCustomer">
+        <result property="checkinRecordId" column="checkin_record_id" />
+        <result property="customerId" column="customer_id" />
+    </resultMap>
+
+    <select id="countCheckinCustomerByCustomerId" parameterType="Long" resultType="Integer">
+        SELECT count(1) FROM hotel_checkin_customer_link
+        WHERE customer_id = #{customerId}
+    </select>
+
+    <insert id="batchCheckinCustomer">
+        INSERT INTO hotel_checkin_customer_link(checkin_record_id, customer_id) VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.checkinRecordId}, #{item.customerId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteCheckinCustomerByCheckinRecordId" parameterType="Long">
+        DELETE FROM hotel_checkin_customer_link
+        WHERE checkin_record_id = #{checkinRecordId}
+    </delete>
+
+    <delete id="deleteCheckinCustomerByCheckinRecordIds" parameterType="Long[]">
+        DELETE FROM hotel_checkin_customer_link
+        WHERE checkin_record_id IN
+        <foreach collection="array" item="checkinRecordId" open="(" separator="," close=")">
+            #{checkinRecordId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCheckinCustomerInfo" parameterType="Long">
+        DELETE FROM hotel_checkin_customer_link
+        WHERE checkin_record_id = #{checkinRecordId} AND customer_id = #{customer_id}
+    </delete>
+
+    <delete id="deleteCheckinCustomerInfos">
+        DELETE FROM hotel_checkin_customer_link
+        WHERE checkin_record_id = #{checkinRecordId} AND customer_id IN
+        <foreach collection="customerIds" item="customerId" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+
+</mapper>

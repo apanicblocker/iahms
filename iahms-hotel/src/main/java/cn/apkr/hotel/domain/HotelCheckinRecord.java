@@ -9,6 +9,7 @@ import org.apache.ibatis.type.Alias;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Schema(title = "入住记录表")
 @Alias("HotelCheckinRecord")
@@ -66,4 +67,13 @@ public class HotelCheckinRecord extends BaseEntity {
 	/** 删除标识 */
 	@Schema(title = "删除标识")
 	private Boolean delFlag;
+
+	// 该次开房记录的入住房间信息
+	@Schema(title = "入住房间信息")
+	private HotelRoom room;
+
+	// 该次开房记录居住的所有客户信息
+	@Schema(title = "居住的客户信息列表")
+	private List<HotelCustomer> customers;
+
 }

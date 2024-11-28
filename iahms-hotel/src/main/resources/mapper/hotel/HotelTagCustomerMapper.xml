@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apkr.hotel.mapper.HotelTagCustomerMapper">
+
+    <resultMap id="HotelTagCustomerResult" type="HotelTagCustomer">
+        <result property="tagId" column="tag_id" />
+        <result property="customerId" column="customer_id" />
+    </resultMap>
+
+    <select id="countTagCustomerByCustomerId" parameterType="Long" resultType="Integer">
+        SELECT count(1) FROM hotel_tag_customer_link
+        WHERE customer_id = #{customerId}
+    </select>
+
+    <insert id="batchTagCustomer">
+        INSERT INTO hotel_tag_customer_link(tag_id, customer_id) VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.tagId}, #{item.customerId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteTagCustomerByTagId" parameterType="Long">
+        DELETE FROM hotel_tag_customer_link
+        WHERE tag_id = #{tagId}
+    </delete>
+
+    <delete id="deleteTagCustomerByTagIds" parameterType="Long[]">
+        DELETE FROM hotel_tag_customer_link
+        WHERE tag_id IN
+        <foreach collection="array" item="tagId" open="(" separator="," close=")">
+            #{tagId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteTagCustomerInfo" parameterType="Long">
+        DELETE FROM hotel_tag_customer_link
+        WHERE tag_id = #{tagId} AND customer_id = #{customer_id}
+    </delete>
+
+    <delete id="deleteTagCustomerInfos">
+        DELETE FROM hotel_tag_customer_link
+        WHERE tag_id = #{tagId} AND customer_id IN
+        <foreach collection="customerIds" item="customerId" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+
+</mapper>

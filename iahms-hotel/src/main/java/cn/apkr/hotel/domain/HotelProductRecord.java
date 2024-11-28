@@ -33,4 +33,8 @@ public class HotelProductRecord extends BaseEntity {
 	@Schema(title = "数量")
 	private Integer quantity;
 
+	// 商品信息
+	@Schema(title = "商品信息")
+	private HotelProduct product;
+
 }

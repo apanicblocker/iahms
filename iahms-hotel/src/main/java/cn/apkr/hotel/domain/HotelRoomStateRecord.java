@@ -10,7 +10,7 @@ import java.io.Serial;
 import java.util.Date;
 
 @Schema(title = "房间状态表")
-@Alias("HotelRoomState")
+@Alias("HotelRoomStateRecord")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class HotelRoomStateRecord extends BaseEntity {

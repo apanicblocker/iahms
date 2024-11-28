@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apkr.hotel.mapper.HotelProductMapper">
+
+    <resultMap id="HotelProductResult" type="HotelProduct">
+        <id property="productId" column="product_id" />
+        <result property="productTypeId" column="product_type_id" />
+        <result property="name" column="name" />
+        <result property="price" column="price" />
+        <result property="inventory" column="inventory" />
+        <result property="description" column="description" />
+        <result property="delFlag" column="del_flag" />
+        <result property="remark" column="remark" />
+        <result property="revision" column="revision" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="SelectProductVo">
+        SELECT product_id, product_type_id, name, price, inventory, description, del_flag, remark, revision, create_by, create_time, update_by, update_time
+        FROM hotel_product
+    </sql>
+
+    <select id="selectProductList" parameterType="HotelProduct" resultMap="HotelProductResult">
+        <include refid="SelectProductVo" />
+        <where>
+            <if test="productId != null">
+                AND product_id = #{productId}
+            </if>
+            <if test="productTypeId != null">
+                AND product_type_id = #{productTypeId}
+            </if>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+            <if test="delFlag != null">
+                AND del_flag = #{delFlag}
+            </if>
+            <if test="revision != null">
+                AND revision = #{revision}
+            </if>
+            <if test="params.beginPrice != null and params.beginPrice != ''">
+                AND price &gt;= #{params.beginPrice}
+            </if>
+            <if test="params.endPrice != null and params.endPrice != ''">
+                AND price &lt;= #{params.endPrice}
+            </if>
+            <if test="params.beginInventory != null and params.beginInventory != ''">
+                AND inventory &gt;= #{params.beginInventory}
+            </if>
+            <if test="params.endInventory != null and params.endInventory != ''">
+                AND inventory &lt;= #{params.endInventory}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectProductById" parameterType="Long" resultMap="HotelProductResult">
+        <include refid="SelectProductVo" />
+        WHERE product_id = #{productId} AND del_flag = false
+    </select>
+
+    <insert id="insertProduct" parameterType="HotelProduct" useGeneratedKeys="true" keyProperty="productId">
+        INSERT INTO hotel_product(
+        <if test="productTypeId != null">product_type_id,</if>
+        <if test="name != null and name != ''">name,</if>
+        <if test="price != null">price,</if>
+        <if test="inventory != null">inventory,</if>
+        <if test="description != null and description != ''">description,</if>
+        <if test="delFlag != null">del_flag,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="revision != null">revision,</if>
+        <if test="createBy != null">create_by,</if>
+            create_time
+        ) VALUES(
+        <if test="productTypeId != null">#{productTypeId},</if>
+        <if test="name != null and name != ''">#{name},</if>
+        <if test="price != null">#{price},</if>
+        <if test="inventory != null">#{inventory},</if>
+        <if test="description != null and description != ''">#{description},</if>
+        <if test="delFlag != null">#{delFlag},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="revision != null">#{revision},</if>
+        <if test="createBy != null">#{createBy},</if>
+            current_timestamp()
+        )
+    </insert>
+    
+    <update id="updateProduct" parameterType="HotelProduct">
+        UPDATE hotel_product
+        <set>
+           <if test="productTypeId != null">product_type_id = #{productTypeId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="inventory != null">inventory = #{inventory},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = current_timestamp()
+        </set>
+        WHERE product_id = #{productId}
+    </update>
+
+    <delete id="deleteProductById" parameterType="Long">
+        UPDATE hotel_product SET del_flag = true
+        WHERE product_id = #{productId}
+    </delete>
+
+    <delete id="deleteProductByIds" parameterType="Long[]">
+        UPDATE hotel_product SET del_flag = true
+        WHERE product_id IN
+        <foreach item="productId" collection="array" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </delete>
+    
+</mapper>

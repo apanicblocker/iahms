@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apkr.hotel.mapper.HotelRoomStateRecordMapper">
+
+    <resultMap id="HotelRoomStateRecordResult" type="HotelRoomStateRecord">
+        <id property="roomStateRecordId" column="room_state_record_id" />
+        <result property="roomId" column="room_id" />
+        <result property="roomState" column="room_state" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="remark" column="remark" />
+        <result property="revision" column="revision" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="SelectRoomStateRecordVo">
+        SELECT room_state_record_id, room_id, room_state, start_time, end_time, revision, create_by, create_time, update_by, update_time
+        FROM hotel_room_state_record
+    </sql>
+
+    <select id="selectRoomStateRecordList" parameterType="HotelRoomStateRecord" resultMap="HotelRoomStateRecordResult">
+        <include refid="SelectRoomStateRecordVo" />
+        <where>
+            <if test="roomStateRecordId != null">
+                AND room_state_record_id = #{roomStateRecordId}
+            </if>
+            <if test="roomId != null">
+                AND room_id = #{roomId}
+            </if>
+            <if test="roomState != null">
+                AND room_state = #{roomState}
+            </if>
+            <if test="startTime != null">
+                AND start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND end_time = #{endTime}
+            </if>
+            <if test="revision != null">
+                AND revision = #{revision}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(start_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(end_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectRoomStateRecordById" parameterType="Long" resultMap="HotelRoomStateRecordResult">
+        <include refid="SelectRoomStateRecordVo" />
+        WHERE room_state_record_id = #{roomStateRecordId}
+    </select>
+
+    <insert id="insertRoomStateRecord" parameterType="HotelRoomStateRecord" useGeneratedKeys="true" keyProperty="roomStateRecordId">
+        INSERT INTO hotel_room_state_record(
+        <if test="roomId != null">room_id,</if>
+        <if test="roomState != null">room_state,</if>
+        <if test="startTime != null">start_time,</if>
+        <if test="endTime != null">end_time,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="revision != null">revision,</if>
+        <if test="createBy != null">create_by,</if>
+            create_time
+        ) VALUES(
+        <if test="roomId != null">#{roomId},</if>
+        <if test="roomState != null">#{roomState},</if>
+        <if test="startTime != null">#{startTime},</if>
+        <if test="endTime != null">#{endTime},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="revision != null">#{revision},</if>
+        <if test="createBy != null">#{createBy},</if>
+            current_timestamp()
+        )
+    </insert>
+
+    <update id="updateRoomStateRecord" parameterType="HotelRoomStateRecord">
+        UPDATE hotel_room_state_record
+        <set>
+            <if test="roomId != null">room_id=#{roomId},</if>
+            <if test="roomState != null">room_state=#{roomState},</if>
+            <if test="startTime != null">start_time=#{startTime},</if>
+            <if test="endTime != null">end_time=#{endTime},</if>
+            <if test="remark != null and remark != ''">remark=#{remark},</if>
+            <if test="revision != null">revision=#{revision},</if>
+            <if test="updateBy != null">update_by=#{updateBy},</if>
+            update_time = current_timestamp()
+        </set>
+        WHERE room_state_id = #{roomStateId}
+    </update>
+
+    <delete id="deleteRoomStateRecordById" parameterType="Long">
+        DELETE FROM hotel_room_state_record WHERE room_state_record_id = #{roomStateRecordId}
+    </delete>
+
+    <delete id="deleteRoomStateRecordByIds" parameterType="Long[]">
+        DELETE FROM hotel_room_state_record WHERE room_state_record_id IN
+        <foreach collection="array" item="roomStateRecordId" open="(" separator="," close=")">
+            #{roomStateRecordId}
+        </foreach>
+    </delete>
+
+</mapper>

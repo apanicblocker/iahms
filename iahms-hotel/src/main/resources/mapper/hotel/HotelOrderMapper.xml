@@ -79,7 +79,17 @@
         </where>
     </select>
 
-    <insert id="insertOrder" parameterType="HotelOrder" useGeneratedKeys="true">
+    <select id="selectOrderListByNumber" parameterType="String" resultMap="HotelOrderResult">
+        <include refid="selectOrderVo" />
+        where o.number like concat('%', #{number}, '%') and o.del_flag = false
+    </select>
+
+    <select id="selectOrderById" parameterType="Long" resultMap="HotelOrderResult">
+        <include refid="selectOrderVo" />
+        where o.order_id = #{orderId} and o.del_flag = false
+    </select>
+
+    <insert id="insertOrder" parameterType="HotelOrder" useGeneratedKeys="true" keyProperty="orderId">
         insert into iahms_order(
         <if test="number != null and number != ''">number,</if>
         <if test="customerId != null">customer_id,</if>

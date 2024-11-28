@@ -23,9 +23,9 @@ public class BaseEntity implements Serializable {
 
 	// 不想做多租户了 T_T
 //	/** 租户号 */
-	@Schema(title = "租户号")
-	@JsonIgnore
-	private Long tenantId;
+//	@Schema(title = "租户号")
+//	@JsonIgnore
+//	private Long tenantId;
 
 	/** 乐观锁 */
 	@Schema(title = "乐观锁")
@@ -60,10 +60,8 @@ public class BaseEntity implements Serializable {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Map<String, Object> params;
 
-	public Map<String, Object> getParams()
-	{
-		if (params == null)
-		{
+	public Map<String, Object> getParams() {
+		if (params == null) {
 			params = new HashMap<>();
 		}
 		return params;

@@ -92,6 +92,7 @@ CREATE TABLE sys_role(
     `create_time` TIMESTAMP  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ,
     `update_by` BIGINT   COMMENT '更新人' ,
     `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
+    `remark` VARCHAR(500)   COMMENT '备注' ,
     PRIMARY KEY (role_id)
 )  COMMENT = '角色';
 
@@ -156,7 +157,8 @@ CREATE TABLE hotel_room_type(
     `nick_name` VARCHAR(100)   COMMENT '房型别名' ,
     `price` DECIMAL(10,2)   COMMENT '房型标价' ,
     `quantity` INT   COMMENT '房型数量' ,
-    `descript` VARCHAR(900)   COMMENT '房型描述' ,
+    `description` VARCHAR(900)   COMMENT '房型描述' ,
+    `remark` VARCHAR(500)   COMMENT '备注' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
     `revision` INT   COMMENT '乐观锁' ,
     `create_by` BIGINT   COMMENT '创建人' ,
@@ -194,7 +196,7 @@ DROP TABLE IF EXISTS hotel_room_state_record;
 CREATE TABLE hotel_room_state_record(
     `room_state_record_id` BIGINT AUTO_INCREMENT COMMENT '房态记录ID' ,
     `room_id` BIGINT   COMMENT '房间ID' ,
-    `room_status` TINYINT   COMMENT '房间状态' ,
+    `room_state` TINYINT   COMMENT '房间状态' ,
     `start_time` TIMESTAMP   COMMENT '开始时间' ,
     `end_time` TIMESTAMP   COMMENT '结束时间' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
@@ -334,6 +336,7 @@ CREATE TABLE hotel_product_type(
     `product_type_id` BIGINT AUTO_INCREMENT COMMENT '商品类型ID' ,
     `name` VARCHAR(100)   COMMENT '类型名称' ,
     `description` VARCHAR(900)   COMMENT '类型描述' ,
+    `remark` VARCHAR(500)   COMMENT '备注' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
     `revision` INT   COMMENT '乐观锁' ,
     `create_by` BIGINT   COMMENT '创建人' ,
@@ -413,8 +416,4 @@ CREATE TABLE gen_table(
     `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
     PRIMARY KEY (table_id)
 )  COMMENT = '代码生成业务表';
-
-
-
-
 
