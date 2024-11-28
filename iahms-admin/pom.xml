@@ -34,7 +34,14 @@
             <groupId>cn.apkr</groupId>
             <artifactId>iahms-hotel</artifactId>
         </dependency>
-        
+
+        <!-- 代码生成模块 -->
+        <dependency>
+            <groupId>cn.apkr</groupId>
+            <artifactId>iahms-generator</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 </project>

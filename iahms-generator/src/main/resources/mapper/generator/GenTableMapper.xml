@@ -20,6 +20,10 @@
         <result property="genType" column="gen_type" />
         <result property="genPath" column="gen_path" />
         <result property="options" column="options" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
         <result property="remark" column="remark" />
         <collection property="columns" javaType="java.util.List" resultMap="GenTableColumnResult" />
     </resultMap>
@@ -51,7 +55,8 @@
 
     <sql id="selectGenTableListVo">
         SELECT table_id, table_name, table_comment, sub_table_name, sub_table_fk_name, class_name, tpl_category, package_name,
-            module_name, business_name, function_name, function_author, gen_type, gen_path, options, remark
+            module_name, business_name, function_name, function_author, gen_type, gen_path, options, create_by, create_time,
+            update_by, update_time, remark
         FROM gen_table
     </sql>
 

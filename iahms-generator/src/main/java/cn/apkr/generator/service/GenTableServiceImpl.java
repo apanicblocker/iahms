@@ -6,6 +6,7 @@ import cn.apkr.common.core.text.CharsetKit;
 import cn.apkr.common.exception.ServiceException;
 import cn.apkr.common.utils.SecurityUtils;
 import cn.apkr.common.utils.StringUtils;
+import cn.apkr.generator.config.GenConfig;
 import cn.apkr.generator.domain.GenTable;
 import cn.apkr.generator.domain.GenTableColumn;
 import cn.apkr.generator.mapper.GenTableColumnMapper;
@@ -38,11 +39,6 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/**
- * 业务 服务层实现
- *
- * @author ruoyi
- */
 @Service
 public class GenTableServiceImpl implements IGenTableService {
 
@@ -56,13 +52,11 @@ public class GenTableServiceImpl implements IGenTableService {
 
 	/**
 	 * 查询业务信息
-	 *
 	 * @param id 业务ID
 	 * @return 业务信息
 	 */
 	@Override
-	public GenTable selectGenTableById(Long id)
-	{
+	public GenTable selectGenTableById(Long id) {
 		GenTable genTable = genTableMapper.selectGenTableById(id);
 		setTableFromOptions(genTable);
 		return genTable;
@@ -70,68 +64,56 @@ public class GenTableServiceImpl implements IGenTableService {
 
 	/**
 	 * 查询业务列表
-	 *
 	 * @param genTable 业务信息
 	 * @return 业务集合
 	 */
 	@Override
-	public List<GenTable> selectGenTableList(GenTable genTable)
-	{
+	public List<GenTable> selectGenTableList(GenTable genTable) {
 		return genTableMapper.selectGenTableList(genTable);
 	}
 
 	/**
 	 * 查询据库列表
-	 *
 	 * @param genTable 业务信息
 	 * @return 数据库表集合
 	 */
 	@Override
-	public List<GenTable> selectDbTableList(GenTable genTable)
-	{
+	public List<GenTable> selectDbTableList(GenTable genTable) {
 		return genTableMapper.selectDbTableList(genTable);
 	}
 
 	/**
 	 * 查询据库列表
-	 *
 	 * @param tableNames 表名称组
 	 * @return 数据库表集合
 	 */
 	@Override
-	public List<GenTable> selectDbTableListByNames(String[] tableNames)
-	{
+	public List<GenTable> selectDbTableListByNames(String[] tableNames) {
 		return genTableMapper.selectDbTableListByNames(tableNames);
 	}
 
 	/**
 	 * 查询所有表信息
-	 *
 	 * @return 表信息集合
 	 */
 	@Override
-	public List<GenTable> selectGenTableAll()
-	{
+	public List<GenTable> selectGenTableAll() {
 		return genTableMapper.selectGenTableAll();
 	}
 
 	/**
 	 * 修改业务
-	 *
 	 * @param genTable 业务信息
-	 * @return 结果
 	 */
 	@Override
 	@Transactional
-	public void updateGenTable(GenTable genTable)
-	{
+	public void updateGenTable(GenTable genTable) {
+		genTable.setUpdateBy(SecurityUtils.getUserId());
 		String options = JSON.toJSONString(genTable.getParams());
 		genTable.setOptions(options);
 		int row = genTableMapper.updateGenTable(genTable);
-		if (row > 0)
-		{
-			for (GenTableColumn cenTableColumn : genTable.getColumns())
-			{
+		if (row > 0) {
+			for (GenTableColumn cenTableColumn : genTable.getColumns()) {
 				genTableColumnMapper.updateGenTableColumn(cenTableColumn);
 			}
 		}
@@ -139,14 +121,11 @@ public class GenTableServiceImpl implements IGenTableService {
 
 	/**
 	 * 删除业务对象
-	 *
 	 * @param tableIds 需要删除的数据ID
-	 * @return 结果
 	 */
 	@Override
 	@Transactional
-	public void deleteGenTableByIds(Long[] tableIds)
-	{
+	public void deleteGenTableByIds(Long[] tableIds) {
 		genTableMapper.deleteGenTableByIds(tableIds);
 		genTableColumnMapper.deleteGenTableColumnByIds(tableIds);
 	}
@@ -158,30 +137,32 @@ public class GenTableServiceImpl implements IGenTableService {
 	 */
 	@Transactional
 	@Override
-	public void importGenTable(List<GenTable> tableList)
-	{
+	public void importGenTable(List<GenTable> tableList) {
 		Long operId = SecurityUtils.getUserId();
-		try
-		{
-			for (GenTable table : tableList)
-			{
+		try {
+			for (GenTable table : tableList) {
 				String tableName = table.getTableName();
-				GenUtils.initTable(table, operId);
-				int row = genTableMapper.insertGenTable(table);
-				if (row > 0)
-				{
+				int row = 0;
+				// 存在重复的表名则不导入(或许应该覆盖)
+				GenTable genTable = genTableMapper.selectGenTableByName(tableName);
+				if (StringUtils.isNotNull(genTable)) {
+//					table.setTableId(genTable.getTableId());
+//					row = genTableMapper.updateGenTable(table);
+					throw new ServiceException("表名 " + tableName + " 已存在");
+				} else {
+					GenUtils.initTable(table, operId);
+					row = genTableMapper.insertGenTable(table);
+				}
+				if (row > 0) {
 					// 保存列信息
 					List<GenTableColumn> genTableColumns = genTableColumnMapper.selectDbTableColumnsByName(tableName);
-					for (GenTableColumn column : genTableColumns)
-					{
+					for (GenTableColumn column : genTableColumns) {
 						GenUtils.initColumnField(column, table);
 						genTableColumnMapper.insertGenTableColumn(column);
 					}
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new ServiceException("导入失败：" + e.getMessage());
 		}
 	}

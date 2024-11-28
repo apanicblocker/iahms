@@ -206,6 +206,14 @@
 				<version>${iahms.version}</version>
 			</dependency>
 
+			<!-- 代码生成模块 -->
+			<dependency>
+				<groupId>cn.apkr</groupId>
+				<artifactId>iahms-generator</artifactId>
+				<version>${iahms.version}</version>
+			</dependency>
+
+
 		</dependencies>
 	</dependencyManagement>
 

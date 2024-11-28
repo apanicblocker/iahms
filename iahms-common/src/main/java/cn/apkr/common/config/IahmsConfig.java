@@ -1,9 +1,11 @@
 package cn.apkr.common.config;
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+@Data
 @Component
 @ConfigurationProperties(prefix = "iahms")
 public class IahmsConfig {
@@ -18,59 +20,46 @@ public class IahmsConfig {
     private String copyrightYear;
 
     // 上传路径
-    private static String profile;
+    @Getter
+	private static String profile;
 
     // 获取地址开关
+    @Getter
     private static boolean addressEnabled;
 
     // 验证码类型
+    @Getter
     private static String captchaType;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getCopyrightYear() {
-        return copyrightYear;
-    }
-
-    public void setCopyrightYear(String copyrightYear) {
-        this.copyrightYear = copyrightYear;
-    }
-
-    public static String getProfile() {
-        return profile;
-    }
-
-    public static void setProfile(String profile) {
+    public void setProfile(String profile) {
         IahmsConfig.profile = profile;
     }
 
-    public static boolean isAddressEnabled() {
-        return addressEnabled;
-    }
-
-    public static void setAddressEnabled(boolean addressEnabled) {
+    public void setAddressEnabled(boolean addressEnabled) {
         IahmsConfig.addressEnabled = addressEnabled;
     }
 
-    public static String getCaptchaType() {
-        return captchaType;
+    public void setCaptchaType(String captchaType) {
+        IahmsConfig.captchaType = captchaType;
     }
 
-    public static void setCaptchaType(String captchaType) {
-        IahmsConfig.captchaType = captchaType;
+    // 获取导入上传路径
+    public static String getImportPath() {
+        return getProfile() + "/import";
+    }
+
+    // 获取头像上传路径
+    public static String getAvatarPath() {
+        return getProfile() + "/avatar";
+    }
+
+    // 获取下载路径
+    public static String getDownloadPath() {
+        return getProfile() + "/download/";
+    }
+
+    // 获取上传路径
+    public static String getUploadPath() {
+        return getProfile() + "/upload";
     }
 }

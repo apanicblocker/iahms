@@ -1,6 +1,7 @@
 package cn.apkr.generator.controller;
 
 import cn.apkr.common.annotation.Log;
+import cn.apkr.common.config.IahmsConfig;
 import cn.apkr.common.core.controller.BaseController;
 import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.common.core.page.TableDataInfo;
@@ -87,8 +88,7 @@ public class GenController extends BaseController {
 	 */
 	@Log(title = "代码生成", businessType = BusinessType.IMPORT)
 	@PostMapping("/importTable")
-	public AjaxResult importTableSave(String tables)
-	{
+	public AjaxResult importTableSave(@RequestParam(name = "tables") String tables) {
 		String[] tableNames = Convert.toStrArray(tables);
 		// 查询表信息
 		List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames);
@@ -101,8 +101,7 @@ public class GenController extends BaseController {
 	 */
 	@Log(title = "代码生成", businessType = BusinessType.UPDATE)
 	@PutMapping
-	public AjaxResult editSave(@Validated @RequestBody GenTable genTable)
-	{
+	public AjaxResult editSave(@Validated @RequestBody GenTable genTable) {
 		genTableService.validateEdit(genTable);
 		genTableService.updateGenTable(genTable);
 		return success();
@@ -113,8 +112,7 @@ public class GenController extends BaseController {
 	 */
 	@Log(title = "代码生成", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{tableIds}")
-	public AjaxResult remove(@PathVariable Long[] tableIds)
-	{
+	public AjaxResult remove(@PathVariable Long[] tableIds) {
 		genTableService.deleteGenTableByIds(tableIds);
 		return success();
 	}
@@ -182,7 +180,7 @@ public class GenController extends BaseController {
 		response.reset();
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
-		response.setHeader("Content-Disposition", "attachment; filename=\"ruoyi.zip\"");
+		response.setHeader("Content-Disposition", "attachment; filename=\"iahms.zip\"");
 		response.addHeader("Content-Length", "" + data.length);
 		response.setContentType("application/octet-stream; charset=UTF-8");
 		IOUtils.write(data, response.getOutputStream());

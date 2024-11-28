@@ -344,7 +344,7 @@ public class VelocityUtils {
 		String treeName = paramsObj.getString(GenConstants.TREE_NAME);
 		int num = 0;
 		for (GenTableColumn column : genTable.getColumns()) {
-			if (column.getIsList()) {
+			if (StringUtils.isNotNull(column.getIsList())) {
 				num ++;
 				String columnName = column.getColumnName();
 				if (columnName.equals(treeName)) {

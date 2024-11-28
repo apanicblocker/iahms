@@ -121,6 +121,14 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi genApi() {
+        return GroupedOpenApi.builder()
+                .group("gen代码生成模块")
+                .packagesToScan("cn.apkr.generator.controller")
+                .build();
+    }
+
 //    @Bean
 //    public GroupedOpenApi commonApi() {
 //        return GroupedOpenApi.builder()

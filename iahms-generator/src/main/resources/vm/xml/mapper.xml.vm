@@ -17,7 +17,7 @@
 
     <resultMap type="${subClassName}" id="${subClassName}Result">
 #foreach ($column in $subTable.columns)
-        <result property="${column.javaField}"    column="sub_${column.columnName}"    />
+        <result property="${column.javaField}" column="sub_${column.columnName}" />
 #end
     </resultMap>
 #end
@@ -27,7 +27,7 @@
     </sql>
 
     <select id="select${ClassName}List" parameterType="${ClassName}" resultMap="${ClassName}Result">
-        <include refid="select${ClassName}Vo"/>
+        <include refid="select${ClassName}Vo" />
         <where>  
 #foreach($column in $columns)
 #set($queryType=$column.queryType)

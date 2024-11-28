@@ -116,7 +116,7 @@ public class SecurityConfig {
 									"/**/*.html", "/**/*.css", "/**/*.js", "/profile/**")
 							.permitAll()
 							// 其他资源（外部文档、
-							.requestMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**",
+							.requestMatchers("/swagger-ui/index.html", "/swagger-resources/**", "/webjars/**",
 									"/*/api-docs", "/druid/**", "/*/api-docs/**")
 							.permitAll()
 							.requestMatchers("/websocket/**").permitAll()
