@@ -7,6 +7,7 @@ import cn.apkr.common.core.domain.model.LoginBody;
 import cn.apkr.common.utils.SecurityUtils;
 import cn.apkr.framework.web.service.SysLoginService;
 import cn.apkr.framework.web.service.SysPermissionService;
+import cn.apkr.framework.web.service.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class SysLoginController {
 
 	@Autowired
 	private SysPermissionService permissionService;
+
+	@Autowired
+	private TokenService tokenService;
 
 	@Operation(summary = "登录方法")
 	@PostMapping("/login")

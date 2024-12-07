@@ -1,36 +1,37 @@
 package cn.apkr.hotel.domain;
 
+import java.io.Serial;
 import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 
-import java.io.Serial;
-import java.util.List;
-
-@Schema(title = "商品类型表")
+/**
+ * 商品类型对象 hotel_product_type
+ *
+ * @author apkr
+ * @date 2024-12-06
+ */
+@Schema(title = "商品类型")
 @Alias("HotelProductType")
-@Data
 @EqualsAndHashCode(callSuper = true)
+@Data
 public class HotelProductType extends BaseEntity {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	/** 商品类型主键 */
-	@Schema(title = "商品类型主键")
-	private Long productTypeId;
+    /** 商品类型ID */
+    @Schema(title = "商品类型ID")
+    private Long productTypeId;
 
-	/** 商品类型名称 */
-	@Schema(title = "商品类型名称")
-	private String name;
+    /** 类型名称 */
+    @Schema(title = "类型名称")
+    private String name;
 
-	/** 商品类型描述 */
-	@Schema(title = "商品类型描述")
-	private String description;
+    /** 类型描述 */
+    @Schema(title = "类型描述")
+    private String description;
 
-	// 属于该类型的商品信息
-	@Schema(title = "属于该商品类型的商品信息")
-	private List<HotelProduct> products;
 }

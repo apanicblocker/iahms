@@ -1,5 +1,9 @@
 package cn.apkr.common.constant;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GenConstants {
 
 	// 单表（增删改查）
@@ -26,10 +30,23 @@ public class GenConstants {
 	// 上级菜单名称字段
 	public static final String PARENT_MENU_NAME = "parentMenuName";
 
+//	// 数据库数字类型
+//	public static final String[] COLUMN_TYPE_NUM = {
+//			"tinyint", "smallint", "mediumint", "int", "number", "integer",
+//			"bit", "bigint", "float", "double", "decimal" };
+
+	// 数据库数字类型映射
+	public static final Map<String, String> COLUMN_TYPE_NUM_MAP = new HashMap<>();
+	static {
+		COLUMN_TYPE_NUM_MAP.put("bigint", "Long");
+		COLUMN_TYPE_NUM_MAP.put("int", "Integer");
+		COLUMN_TYPE_NUM_MAP.put("tinyint", "Integer");
+		COLUMN_TYPE_NUM_MAP.put("float", "Float");
+		COLUMN_TYPE_NUM_MAP.put("double", "Double");
+		COLUMN_TYPE_NUM_MAP.put("decimal", "BigDecimal");
+	}
 	// 数据库数字类型
-	public static final String[] COLUMN_TYPE_NUM = {
-			"tinyint", "smallint", "mediumint", "int", "number", "integer",
-			"bit", "bigint", "float", "double", "decimal" };
+	public static final String[] COLUMN_TYPE_NUM = COLUMN_TYPE_NUM_MAP.keySet().toArray(new String[0]);
 
 	// 数据库字符串类型
 	public static final String[] COLUMN_TYPE_STR = {
@@ -45,19 +62,23 @@ public class GenConstants {
 
 	// 页面不需要编辑的字段
 	public static final String[] COLUMN_NAME_NOT_EDIT = {
-			"id", "create_by", "create_time", "del_flag" };
+			"id", "del_flag", "tenant_id", "revision", "create_time", "create_by" };
+
+//	// 数据表通用字段（已经在BaseEntity中）
+//	public static final String[] COLUMN_NAME_COMMON = {
+//			"remark", "tenant_id", "revision", "create_time", "create_by", "update_time", "update_by" };
 
 	// 页面不需要显示的列表字段
 	public static final String[] COLUMN_NAME_NOT_LIST = {
-			"id", "create_by", "create_time", "del_flag", "update_by", "update_time" };
+			"id", "del_flag", "tenant_id", "revision", "create_time", "create_by", "update_time", "update_by" };
 
 	// 页面不需要查询的字段
 	public static final String[] COLUMN_NAME_NOT_QUERY = {
-			"id", "create_by", "create_time", "del_flag", "update_by", "update_time", "remark" };
+			"id", "del_flag", "remark", "tenant_id", "revision", "create_by", "create_time", "update_by", "update_time" };
 
 	// Entity基类字段
 	public static final String[] BASE_ENTITY = {
-			"createBy", "createTime", "updateBy", "updateTime", "remark" };
+			"remark", "tenantId", "revision", "createTime", "createBy", "updateTime", "updateBy" };
 
 	// Tree基类字段
 	public static final String[] TREE_ENTITY = {
@@ -93,6 +114,9 @@ public class GenConstants {
 	// 字符串类型
 	public static final String TYPE_STRING = "String";
 
+	// 短整型
+	public static final String TYPE_SHORT = "Short";
+
 	// 整型
 	public static final String TYPE_INTEGER = "Integer";
 
@@ -105,7 +129,7 @@ public class GenConstants {
 	// 高精度计算类型
 	public static final String TYPE_BIGDECIMAL = "BigDecimal";
 
-
+	// 布尔类型
 	public static final String TYPE_BOOLEAN = "Boolean";
 
 	// 时间类型
@@ -119,5 +143,8 @@ public class GenConstants {
 
 	// 需要
 	public static final Boolean REQUIRE = true;
+
+	// 不需要
+	public static final Boolean NOT_REQUIRE = false;
 
 }

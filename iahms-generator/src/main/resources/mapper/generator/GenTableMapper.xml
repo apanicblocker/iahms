@@ -79,12 +79,12 @@
     </select>
 
     <select id="selectDbTableList" parameterType="GenTable" resultMap="GenTableResult">
-        SELECT table_name, table_comment, create_time, update_time
+        SELECT table_schema, table_name, table_comment, create_time, update_time
         FROM information_schema.tables
         WHERE table_schema = (SELECT database())
-        AND table_name NOT LIKE 'qrtz_%'
-        AND table_name NOT LIKE 'gen_%'
-        AND table_name NOT IN (SELECT table_name FROM gen_table)
+            AND table_name NOT LIKE 'qrtz_%'
+            AND table_name NOT LIKE 'gen_%'
+            AND table_name NOT IN (SELECT table_name FROM gen_table)
         <if test="tableName != null and tableName != ''">
             AND lower(table_name) LIKE lower(concat('%', #{tableName}, '%'))
         </if>
@@ -97,6 +97,7 @@
         <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
             AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
         </if>
+        ORDER BY create_time DESC
     </select>
 
     <select id="selectDbTableListByNames" resultMap="GenTableResult">
@@ -110,14 +111,6 @@
             #{name}
         </foreach>
     </select>
-
-<!--    <select id="selectTableByName" parameterType="String" resultMap="GenTableResult">-->
-<!--        SELECT table_name, table_comment, create_time, update_time-->
-<!--        FROM information_schema.tables-->
-<!--        WHERE table_comment != ''-->
-<!--          AND table_schema = (SELECT database())-->
-<!--          AND table_name = #{tableName}-->
-<!--    </select>-->
 
     <sql id="selectGenTableVo">
         SELECT t.table_id, t.table_name, t.table_comment, t.sub_table_name, t.sub_table_fk_name, t.class_name, t.tpl_category,
@@ -136,6 +129,7 @@
     <select id="selectGenTableByName" parameterType="String" resultMap="GenTableResult">
         <include refid="selectGenTableVo" />
         WHERE t.table_name = #{tableName}
+        ORDER BY c.sort
     </select>
 
     <select id="selectGenTableAll" parameterType="String" resultMap="GenTableResult">
@@ -211,6 +205,10 @@
         <foreach item="tableId" collection="array" open="(" separator="," close=")">
             #{tableId}
         </foreach>
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM gen_table
     </delete>
 
 </mapper>

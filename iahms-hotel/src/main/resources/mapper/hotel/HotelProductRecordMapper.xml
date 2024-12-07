@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.apkr.hotel.mapper.HotelProductRecordMapper">
 
     <resultMap id="HotelProductRecordResult" type="HotelProductRecord">
@@ -9,105 +9,91 @@
         <result property="orderId" column="order_id" />
         <result property="productId" column="product_id" />
         <result property="quantity" column="quantity" />
+        <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
         <result property="updateBy" column="update_by" />
         <result property="updateTime" column="update_time" />
-        <association property="product" column="product_id" javaType="HotelProduct">
-            <id property="productId" column="product_id" />
-            <result property="productTypeId" column="product_type_id" />
-            <result property="name" column="name" />
-            <result property="price" column="price" />
-            <result property="inventory" column="inventory" />
-            <result property="description" column="description" />
-            <result property="delFlag" column="del_flag" />
-        </association>
     </resultMap>
 
-    <sql id="SelectProductRecordVo">
-        SELECT pr.product_record_id, pr.order_id, pr.product_id, pr.quantity, pr.revision, pr.create_by, pr.create_time, pr.update_by, pr.update_time
-            p.product_id, p.product_type_id, p.name, p.price, p.inventory, p.description, p.del_flag
-        FROM hotel_product_record AS pr
-            LEFT JOIN hotel_product AS p ON pr.product_id = p.product_id
+    <sql id="selectHotelProductRecordVo">
+        SELECT product_record_id, order_id, product_id, quantity, tenant_id, revision, create_by, create_time, update_by, update_time
+        FROM hotel_product_record
     </sql>
 
-    <select id="selectProductRecordList" parameterType="HotelProductRecord" resultMap="HotelProductRecordResult">
-        <include refid="SelectProductRecordVo" />
+    <select id="selectHotelProductRecordList" parameterType="HotelProductRecord" resultMap="HotelProductRecordResult">
+        <include refid="selectHotelProductRecordVo" />
         <where>
-            <if test="productRecordId != null">
-                AND pr.product_record_id = #{productRecordId}
+            <if test="orderId != null ">
+                and order_id = #{orderId}
             </if>
-            <if test="orderId != null">
-                AND pr.order_id = #{orderId}
+            <if test="productId != null ">
+                and product_id = #{productId}
             </if>
-            <if test="productId != null">
-                AND pr.product_id = #{productId}
-            </if>
-            <if test="revision != null">
-                AND pr.revision = #{revision}
-            </if>
-            <if test="params.beginQuantity != null and params.beginQuantity != ''">
-                AND pr.quantity &gt;= #{params.beginQuantity}
-            </if>
-            <if test="params.endQuantity != null and params.endQuantity != ''">
-                AND pr.quantity &lt;= #{params.endQuantity}
-            </if>
-            <if test="params.beginCreateTime != null and params.beginCreateTime != ''">
-                AND pr.create_time &gt;= #{params.beginCreateTime}
-            </if>
-            <if test="params.endCreateTime != null and params.endCreateTime != ''">
-                AND pr.create_time &lt;= #{params.endCreateTime}
+            <if test="quantity != null ">
+                and quantity = #{quantity}
             </if>
         </where>
     </select>
 
-    <select id="selectProductRecordById" parameterType="Long" resultMap="HotelProductRecordResult">
-        <include refid="SelectProductRecordVo" />
-        WHERE pr.product_record_id = #{productRecordId}
+    <select id="selectHotelProductRecordByProductRecordId" parameterType="Long" resultMap="HotelProductRecordResult">
+        <include refid="selectHotelProductRecordVo" />
+        WHERE product_record_id = #{productRecordId}
     </select>
 
-    <insert id="insertProductRecord" parameterType="HotelProductRecord" useGeneratedKeys="true" keyProperty="productRecordId">
-        INSERT INTO hotel_product_record(
-        <if test="productRecordId != null">product_record_id,</if>
-        <if test="orderId != null">order_id,</if>
-        <if test="productId != null">product_id,</if>
-        <if test="quantity != null">quantity,</if>
-        <if test="revision != null">revision,</if>
-        <if test="createBy != null">create_by,</if>
-            create_time
-        ) VALUES(
-        <if test="productRecordId != null">#{productRecordId},</if>
-        <if test="orderId != null">#{orderId},</if>
-        <if test="productId != null">#{productId},</if>
-        <if test="quantity != null">#{quantity},</if>
-        <if test="revision != null">#{revision},</if>
-        <if test="createBy != null">#{createBy},</if>
-            current_timestamp()
-        )
+    <insert id="insertHotelProductRecord" parameterType="HotelProductRecord">
+        INSERT INTO hotel_product_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productRecordId != null">product_record_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productRecordId != null">#{productRecordId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
-    <update id="updateProductRecord" parameterType="HotelProductRecord">
+    <update id="updateHotelProductRecord" parameterType="HotelProductRecord">
         UPDATE hotel_product_record
-        <set>
+        <trim prefix="SET" suffixOverrides=",">
             <if test="orderId != null">order_id = #{orderId},</if>
             <if test="productId != null">product_id = #{productId},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
-            update_time = current_timestamp()
-        </set>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
         WHERE product_record_id = #{productRecordId}
     </update>
 
-    <delete id="deleteProductRecordById" parameterType="Long">
+    <delete id="deleteHotelProductRecordByProductRecordId" parameterType="Long">
         DELETE FROM hotel_product_record
         WHERE product_record_id = #{productRecordId}
     </delete>
 
-    <delete id="deleteProductRecordByIds" parameterType="Long[]">
-        DELETE FROM hotel_product_record
-        WHERE product_record_id IN
+    <delete id="deleteHotelProductRecordByProductRecordIds" parameterType="Long[]">
+        DELETE FROM hotel_product_record WHERE product_record_id IN
         <foreach collection="array" item="productRecordId" open="(" separator="," close=")">
             #{productRecordId}
         </foreach>

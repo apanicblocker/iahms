@@ -9,10 +9,9 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Data
 @Schema(title = "基类")
@@ -22,10 +21,10 @@ public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// 不想做多租户了 T_T
-//	/** 租户号 */
-//	@Schema(title = "租户号")
-//	@JsonIgnore
-//	private Long tenantId;
+	/** 租户号 */
+	@Schema(title = "租户号")
+	@JsonIgnore
+	private Long tenantId;
 
 	/** 乐观锁 */
 	@Schema(title = "乐观锁")
@@ -40,7 +39,7 @@ public class BaseEntity implements Serializable {
 	@Schema(title = "创建时间")
 //	@JSONField(serialize = false)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Timestamp createTime;
+	private Date createTime;
 
 	/** 更新人 */
 	@Schema(title = "更新者")
@@ -49,7 +48,7 @@ public class BaseEntity implements Serializable {
 	/** 更新时间 */
 	@Schema(title = "更新时间")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Timestamp updateTime;
+	private Date updateTime;
 
 	/** 备注 */
 	@Schema(title = "备注")

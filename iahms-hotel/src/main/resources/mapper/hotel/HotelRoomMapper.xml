@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.apkr.hotel.mapper.HotelRoomMapper">
 
     <resultMap id="HotelRoomResult" type="HotelRoom">
         <id property="roomId" column="room_id" />
         <result property="roomTypeId" column="room_type_id" />
-        <result property="number" column="number" />
         <result property="price" column="price" />
+        <result property="number" column="number" />
         <result property="dirtyFlag" column="dirty_flag" />
         <result property="delFlag" column="del_flag" />
         <result property="remark" column="remark" />
+        <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
@@ -19,79 +20,95 @@
         <result property="updateTime" column="update_time" />
     </resultMap>
 
-    <sql id="selectRoomStateRecordVo">
-        SELECT room_id, room_type_id, number, price, dirty_flag, del_flag, remark, revision, create_by, create_time,
-            update_by, update_time
+    <sql id="selectHotelRoomVo">
+        SELECT room_id, room_type_id, price, number, dirty_flag, del_flag, remark, tenant_id, revision, create_by, create_time, update_by, update_time
         FROM hotel_room
     </sql>
 
-    <select id="selectRoomList" parameterType="HotelRoom" resultMap="HotelRoomResult">
-        <include refid="selectRoomStateRecordVo" />
+    <select id="selectHotelRoomList" parameterType="HotelRoom" resultMap="HotelRoomResult">
+        <include refid="selectHotelRoomVo" />
         <where>
-            <if test="roomId != null">
-                AND room_id = #{roomId}
+            <if test="roomTypeId != null ">
+                and room_type_id = #{roomTypeId}
             </if>
-            <if test="roomTypeId != null">
-                AND room_type_id = #{roomTypeId}
+            <if test="price != null ">
+                and price = #{price}
             </if>
-            <if test="number != null and number != ''">
-                AND number = #{number}
+            <if test="number != null  and number != ''">
+                and number = #{number}
             </if>
-            <if test="price != null">
-                AND price = #{price}
-            </if>
-            <if test="dirtyFlag != null">
-                AND dirty_flag = #{dirtyFlag}
-            </if>
-            <if test="delFlag != null">
-                AND del_flag = #{delFlag}
+            <if test="dirtyFlag != null ">
+                and dirty_flag = #{dirtyFlag}
             </if>
         </where>
     </select>
 
-    <insert id="insertRoom" parameterType="HotelRoom" useGeneratedKeys="true" keyProperty="roomId">
-        INSERT INTO hotel_room(
-        <if test="roomTypeId != null">room_type_id,</if>
-        <if test="number != null and number != ''">number,</if>
-        <if test="price != null">price,</if>
-        <if test="dirtyFlag != null">dirty_flag,</if>
-        <if test="delFlag != null">del_flag,</if>
-        <if test="remark != null and remark != ''">remark,</if>
-        <if test="createBy != null">create_by,</if>
-            create_time
-        ) VALUES(
-        <if test="roomTypeId != null">#{roomTypeId},</if>
-        <if test="number != null and number != ''">#{number},</if>
-        <if test="price != null">#{price},</if>
-        <if test="dirtyFlag != null">#{dirtyFlag},</if>
-        <if test="delFlag != null">#{delFlag},</if>
-        <if test="remark != null and remark != ''">#{remark},</if>
-        <if test="createBy != null">#{createBy},</if>
-            current_timestamp()
-        )
+    <select id="selectHotelRoomByRoomId" parameterType="Long" resultMap="HotelRoomResult">
+        <include refid="selectHotelRoomVo" />
+        WHERE room_id = #{roomId}
+    </select>
+
+    <insert id="insertHotelRoom" parameterType="HotelRoom">
+        INSERT INTO hotel_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roomId != null">room_id,</if>
+            <if test="roomTypeId != null">room_type_id,</if>
+            <if test="price != null">price,</if>
+            <if test="number != null">number,</if>
+            <if test="dirtyFlag != null">dirty_flag,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roomId != null">#{roomId},</if>
+            <if test="roomTypeId != null">#{roomTypeId},</if>
+            <if test="price != null">#{price},</if>
+            <if test="number != null">#{number},</if>
+            <if test="dirtyFlag != null">#{dirtyFlag},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
-    <update id="updateRoom" parameterType="HotelRoom">
+    <update id="updateHotelRoom" parameterType="HotelRoom">
         UPDATE hotel_room
-        <set>
+        <trim prefix="SET" suffixOverrides=",">
             <if test="roomTypeId != null">room_type_id = #{roomTypeId},</if>
-            <if test="number != null and number != ''">number = #{number},</if>
             <if test="price != null">price = #{price},</if>
+            <if test="number != null">number = #{number},</if>
             <if test="dirtyFlag != null">dirty_flag = #{dirtyFlag},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
-            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
-            update_time = current_timestamp()
-        </set>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
         WHERE room_id = #{roomId}
     </update>
 
-    <delete id="deleteRoomById" parameterType="Long">
-        UPDATE hotel_room SET del_flag = true WHERE room_id = #{roomId}
+    <delete id="deleteHotelRoomByRoomId" parameterType="Long">
+        DELETE FROM hotel_room
+        WHERE room_id = #{roomId}
     </delete>
 
-    <delete id="deleteRoomByIds" parameterType="Long[]">
-        UPDATE hotel_room SET del_flag = true WHERE room_id IN
+    <delete id="deleteHotelRoomByRoomIds" parameterType="Long[]">
+        DELETE FROM hotel_room WHERE room_id IN
         <foreach collection="array" item="roomId" open="(" separator="," close=")">
             #{roomId}
         </foreach>

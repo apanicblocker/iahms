@@ -1,21 +1,61 @@
 package cn.apkr.hotel.mapper;
 
+import java.util.List;
 import cn.apkr.hotel.domain.HotelRoomType;
 
-import java.util.List;
-
+/**
+ * 房型Mapper接口
+ * 
+ * @author apkr
+ * @date 2024-12-06
+ */
 public interface HotelRoomTypeMapper {
 
-	List<HotelRoomType> selectRoomTypeList(HotelRoomType roomType);
+    /**
+     * 查询房型
+     * 
+     * @param roomTypeId 房型主键
+     * @return 房型
+     */
+    public HotelRoomType selectHotelRoomTypeByRoomTypeId(Long roomTypeId);
 
-	HotelRoomType selectRoomTypeById(Long roomTypeId);
+    /**
+     * 查询房型列表
+     * 
+     * @param hotelRoomType 房型
+     * @return 房型集合
+     */
+    public List<HotelRoomType> selectHotelRoomTypeList(HotelRoomType hotelRoomType);
 
-	int insertRoomType(HotelRoomType roomType);
+    /**
+     * 新增房型
+     * 
+     * @param hotelRoomType 房型
+     * @return 结果
+     */
+    public int insertHotelRoomType(HotelRoomType hotelRoomType);
 
-	int updateRoomType(HotelRoomType roomType);
+    /**
+     * 修改房型
+     * 
+     * @param hotelRoomType 房型
+     * @return 结果
+     */
+    public int updateHotelRoomType(HotelRoomType hotelRoomType);
 
-	int deleteRoomTypeById(Long roomTypeId);
+    /**
+     * 删除房型
+     * 
+     * @param roomTypeId 房型主键
+     * @return 结果
+     */
+    public int deleteHotelRoomTypeByRoomTypeId(Long roomTypeId);
 
-	int deleteRoomTypeByIds(Long[] roomTypeIds);
-	
+    /**
+     * 批量删除房型
+     * 
+     * @param roomTypeIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteHotelRoomTypeByRoomTypeIds(Long[] roomTypeIds);
 }

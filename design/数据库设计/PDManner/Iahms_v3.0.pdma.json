@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-11-20 17:58:14",
-  "updatedTime": "2024-11-28 23:44:20",
+  "updatedTime": "2024-12-7 14:19:58",
   "dbConns": [],
   "profile": {
     "default": {
@@ -3139,7 +3139,7 @@
       },
       "defKey": "hotel_customer",
       "defName": "客户",
-      "comment": "该表是 user 表的一个属性扩展表",
+      "comment": "",
       "properties": {
         "partitioned by": "(date string)",
         "row format delimited": "",
@@ -4909,7 +4909,7 @@
           "codeRoot": ""
         }
       },
-      "defKey": "hotel_room_state_record",
+      "defKey": "hotel_room_status_record",
       "defName": "房态记录",
       "comment": "",
       "properties": {
@@ -5052,7 +5052,7 @@
       ],
       "fields": [
         {
-          "defKey": "room_state_record_id",
+          "defKey": "room_status_record_id",
           "defName": "房态记录ID",
           "comment": "",
           "type": "",
@@ -5088,7 +5088,7 @@
           "id": "D3E3BC7E-34BE-46AC-8EF4-9B21E64F7847"
         },
         {
-          "defKey": "room_state",
+          "defKey": "room_status",
           "defName": "房间状态",
           "comment": "",
           "type": "",

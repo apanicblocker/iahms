@@ -1,21 +1,61 @@
 package cn.apkr.hotel.mapper;
 
+import java.util.List;
 import cn.apkr.hotel.domain.HotelProductType;
 
-import java.util.List;
-
+/**
+ * 商品类型Mapper接口
+ * 
+ * @author apkr
+ * @date 2024-12-06
+ */
 public interface HotelProductTypeMapper {
 
-	List<HotelProductType> selectProductTypeList(HotelProductType productType);
+    /**
+     * 查询商品类型
+     * 
+     * @param productTypeId 商品类型主键
+     * @return 商品类型
+     */
+    public HotelProductType selectHotelProductTypeByProductTypeId(Long productTypeId);
 
-	HotelProductType selectProductTypeById(Long productTypeId);
+    /**
+     * 查询商品类型列表
+     * 
+     * @param hotelProductType 商品类型
+     * @return 商品类型集合
+     */
+    public List<HotelProductType> selectHotelProductTypeList(HotelProductType hotelProductType);
 
-	int insertProductType(HotelProductType productType);
+    /**
+     * 新增商品类型
+     * 
+     * @param hotelProductType 商品类型
+     * @return 结果
+     */
+    public int insertHotelProductType(HotelProductType hotelProductType);
 
-	int updateProductType(HotelProductType productType);
+    /**
+     * 修改商品类型
+     * 
+     * @param hotelProductType 商品类型
+     * @return 结果
+     */
+    public int updateHotelProductType(HotelProductType hotelProductType);
 
-	int deleteProductTypeById(Long productTypeId);
+    /**
+     * 删除商品类型
+     * 
+     * @param productTypeId 商品类型主键
+     * @return 结果
+     */
+    public int deleteHotelProductTypeByProductTypeId(Long productTypeId);
 
-	int deleteProductTypeByIds(Long[] productTypeIds);
-	
+    /**
+     * 批量删除商品类型
+     * 
+     * @param productTypeIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteHotelProductTypeByProductTypeIds(Long[] productTypeIds);
 }

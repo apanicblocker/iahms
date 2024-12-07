@@ -1,45 +1,50 @@
 package cn.apkr.hotel.domain;
 
+import java.math.BigDecimal;
+import java.io.Serial;
 import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 
-import java.io.Serial;
-import java.math.BigDecimal;
-import java.util.List;
-
-@Schema(title = "房间类型表")
+/**
+ * 房型对象 hotel_room_type
+ *
+ * @author apkr
+ * @date 2024-12-06
+ */
+@Schema(title = "房型")
 @Alias("HotelRoomType")
-@Data
 @EqualsAndHashCode(callSuper = true)
+@Data
 public class HotelRoomType extends BaseEntity {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	/** 房间类型ID */
-	@Schema(title = "房间类型ID")
-	private Long roomTypeId;
+    /** 房型ID */
+    @Schema(title = "房型ID")
+    private Long roomTypeId;
 
-	/** 房间类型名称 */
-	@Schema(title = "房间类型名称")
-	private String roomName;
+    /** 房型名称 */
+    @Schema(title = "房型名称")
+    private String roomName;
 
-	/** 房间类型昵称 */
-	@Schema(title = "房间类型昵称")
-	private String nickName;
+    /** 房型别名 */
+    @Schema(title = "房型别名")
+    private String nickName;
 
-	/** 房间类型数量 */
-	@Schema(title = "房间类型数量")
-	private Integer quantity;
+    /** 房型标价 */
+    @Schema(title = "房型标价")
+    private BigDecimal price;
 
-	/** 房间类型描述 */
-	@Schema(title = "房间类型描述")
-	private String description;
+    /** 房型数量 */
+    @Schema(title = "房型数量")
+    private Integer quantity;
 
-	// 属于该房型的房间信息
-	@Schema(title = "属于该房型的房间信息")
-	private List<HotelRoom> rooms;
+    /** 房型描述 */
+    @Schema(title = "房型描述")
+    private String description;
+
 }

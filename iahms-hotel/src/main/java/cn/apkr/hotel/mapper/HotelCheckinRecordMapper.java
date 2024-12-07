@@ -1,21 +1,61 @@
 package cn.apkr.hotel.mapper;
 
+import java.util.List;
 import cn.apkr.hotel.domain.HotelCheckinRecord;
 
-import java.util.List;
-
+/**
+ * 入住记录（开房记录）Mapper接口
+ * 
+ * @author apkr
+ * @date 2024-12-06
+ */
 public interface HotelCheckinRecordMapper {
 
-	List<HotelCheckinRecord> selectCheckinRecordList(HotelCheckinRecord checkinRecord);
+    /**
+     * 查询入住记录（开房记录）
+     * 
+     * @param checkinRecordId 入住记录（开房记录）主键
+     * @return 入住记录（开房记录）
+     */
+    public HotelCheckinRecord selectHotelCheckinRecordByCheckinRecordId(Long checkinRecordId);
 
-	HotelCheckinRecord selectCheckinRecordById(Long checkinRecordId);
+    /**
+     * 查询入住记录（开房记录）列表
+     * 
+     * @param hotelCheckinRecord 入住记录（开房记录）
+     * @return 入住记录（开房记录）集合
+     */
+    public List<HotelCheckinRecord> selectHotelCheckinRecordList(HotelCheckinRecord hotelCheckinRecord);
 
-	int insertCheckinRecord(HotelCheckinRecord checkinRecord);
+    /**
+     * 新增入住记录（开房记录）
+     * 
+     * @param hotelCheckinRecord 入住记录（开房记录）
+     * @return 结果
+     */
+    public int insertHotelCheckinRecord(HotelCheckinRecord hotelCheckinRecord);
 
-	int updateCheckinRecord(HotelCheckinRecord checkinRecord);
+    /**
+     * 修改入住记录（开房记录）
+     * 
+     * @param hotelCheckinRecord 入住记录（开房记录）
+     * @return 结果
+     */
+    public int updateHotelCheckinRecord(HotelCheckinRecord hotelCheckinRecord);
 
-	int deleteCheckinRecordById(Long checkinRecordId);
+    /**
+     * 删除入住记录（开房记录）
+     * 
+     * @param checkinRecordId 入住记录（开房记录）主键
+     * @return 结果
+     */
+    public int deleteHotelCheckinRecordByCheckinRecordId(Long checkinRecordId);
 
-	int deleteCheckinRecordByIds(Long[] checkinRecordIds);
-
+    /**
+     * 批量删除入住记录（开房记录）
+     * 
+     * @param checkinRecordIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteHotelCheckinRecordByCheckinRecordIds(Long[] checkinRecordIds);
 }

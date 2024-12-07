@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.apkr.hotel.mapper.HotelCheckinRecordMapper">
 
     <resultMap id="HotelCheckinRecordResult" type="HotelCheckinRecord">
@@ -16,153 +16,141 @@
         <result property="actCheckinTime" column="act_checkin_time" />
         <result property="preCheckoutTime" column="pre_checkout_time" />
         <result property="actCheckoutTime" column="act_checkout_time" />
-        <result property="delFlag" column="del_flag" />
         <result property="remark" column="remark" />
+        <result property="delFlag" column="del_flag" />
+        <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
         <result property="updateBy" column="update_by" />
         <result property="updateTime" column="update_time" />
-        <association property="room" column="room_id" javaType="HotelRoom" resultMap="RoomResult" />
-        <collection property="customers" javaType="java.util.List" resultMap="CustomerResult" />
     </resultMap>
 
-    <resultMap id="RoomResult" type="HotelRoom">
-        <id property="roomId" column="room_id" />
-        <result property="roomTypeId" column="room_type_id" />
-        <result property="number" column="number" />
-        <result property="price" column="price" />
-        <result property="dirtyFlag" column="dirty_flag" />
-        <result property="delFlag" column="del_flag" />
-    </resultMap>
-
-    <resultMap id="CustomerResult" type="HotelCustomer">
-        <id property="customerId" column="customer_id" />
-        <result property="origin" column="origin" />
-        <result property="name" column="name" />
-        <result property="idNumber" column="id_number" />
-        <result property="phoneNumber" column="phone_number" />
-        <result property="gender" column="gender" />
-        <result property="birthday" column="birthday" />
-        <result property="region" column="region" />
-        <result property="email" column="email" />
-        <result property="checkinTimes" column="checkin_times" />
-        <result property="delFlag" column="del_flag" />
-    </resultMap>
-
-    <sql id="selectCheckinRecordVo">
-        SELECT cr.checkin_record_id, cr.order_id, cr.room_id, cr.customer_id, cr.room_amount, cr.checkin_type, cr.checkin_status,
-            cr.pre_checkin_time, cr.act_checkin_time, cr.pre_checkout_time, cr.act_checkout_time, cr.del_flag, cr.remark, cr.revision,
-            cr.create_by, cr.create_time, cr.update_by, cr.update_time,
-            r.room_id, r.room_type_id, r.number, r.price, r.dirty_flag, r.del_flag,
-            c.customer_id, c.origin, c.name, c.id_number, c.phone_number, c.gender, c.birthday, c.region, c.email, c.checkin_times, c.del_flag
-        FROM hotel_checkin_record AS cr
-            LEFT JOIN hotel_room AS r ON cr.room_id = r.room_id
-            LEFT JOIN hotel_checkin_customer_link AS cc ON cr.customer_id = cc.customer_id
-            LEFT JOIN hotel_customer AS c ON cc.customer_id = c.customer_id
+    <sql id="selectHotelCheckinRecordVo">
+        SELECT checkin_record_id, order_id, room_id, customer_id, room_amount, checkin_type, checkin_status, pre_checkin_time, act_checkin_time, pre_checkout_time, act_checkout_time, remark, del_flag, tenant_id, revision, create_by, create_time, update_by, update_time
+        FROM hotel_checkin_record
     </sql>
 
-    <select id="selectCheckinRecordList" parameterType="HotelCheckinRecord" resultMap="HotelCheckinRecordResult">
-        <include refid="selectCheckinRecordVo" />
+    <select id="selectHotelCheckinRecordList" parameterType="HotelCheckinRecord" resultMap="HotelCheckinRecordResult">
+        <include refid="selectHotelCheckinRecordVo" />
         <where>
-            <if test="checkinRecordId != null">
-                AND cr.checkin_record_id = #{checkinRecordId}
+            <if test="orderId != null ">
+                and order_id = #{orderId}
             </if>
-            <if test="orderId != null">
-                AND cr.order_id = #{orderId}
+            <if test="roomId != null ">
+                and room_id = #{roomId}
             </if>
-            <if test="roomId != null">
-                AND cr.room_id = #{roomId}
+            <if test="customerId != null ">
+                and customer_id = #{customerId}
             </if>
-            <if test="customerId != null">
-                AND cr.customer_id = #{customerId}
+            <if test="roomAmount != null ">
+                and room_amount = #{roomAmount}
             </if>
-            <if test="roomAmount != null">
-                AND cr.room_amount = #{roomAmount}
+            <if test="checkinType != null ">
+                and checkin_type = #{checkinType}
             </if>
-            <if test="checkinType != null">
-                AND cr.checkin_type = #{checkinType}
+            <if test="checkinStatus != null ">
+                and checkin_status = #{checkinStatus}
             </if>
-            <if test="checkinStatus != null">
-                AND cr.checkin_status = #{checkinStatus}
+            <if test="preCheckinTime != null ">
+                and pre_checkin_time = #{preCheckinTime}
             </if>
-            <if test="delFlag != null">
-                AND cr.del_flag = #{delFlag}
+            <if test="actCheckinTime != null ">
+                and act_checkin_time = #{actCheckinTime}
+            </if>
+            <if test="preCheckoutTime != null ">
+                and pre_checkout_time = #{preCheckoutTime}
+            </if>
+            <if test="actCheckoutTime != null ">
+                and act_checkout_time = #{actCheckoutTime}
             </if>
         </where>
     </select>
 
-    <select id="selectCheckinRecordById" parameterType="Long" resultMap="HotelCheckinRecordResult">
-        <include refid="selectCheckinRecordVo" />
-        WHERE cr.checkin_record_id = #{checkinRecordId}
+    <select id="selectHotelCheckinRecordByCheckinRecordId" parameterType="Long" resultMap="HotelCheckinRecordResult">
+        <include refid="selectHotelCheckinRecordVo" />
+        WHERE checkin_record_id = #{checkinRecordId}
     </select>
 
-    <insert id="insertCheckinRecord" parameterType="HotelCheckinRecord" useGeneratedKeys="true" keyProperty="checkinRecordId">
-        INSERT INTO hotel_checkin_record(
-        <if test="orderId != null">order_id,</if>
-        <if test="roomId != null">room_id,</if>
-        <if test="customerId != null">customer_id,</if>
-        <if test="roomAmount != null">room_amount,</if>
-        <if test="checkinType != null">checkin_type,</if>
-        <if test="checkinStatus != null">checkin_status,</if>
-        <if test="preCheckinTime != null">pre_checkin_time,</if>
-        <if test="actCheckinTime != null">act_checkin_time,</if>
-        <if test="preCheckoutTime != null">pre_checkout_time,</if>
-        <if test="actCheckoutTime != null">act_checkout_time,</if>
-        <if test="delFlag != null">del_flag,</if>
-        <if test="remark != null and remark != ''">remark,</if>
-        <if test="revision != null">revision,</if>
-        <if test="createBy != null">create_by,</if>
-            create_time
-        ) VALUES(
-        <if test="orderId != null">orderId,</if>
-        <if test="roomId != null">roomId,</if>
-        <if test="customerId != null">customerId,</if>
-        <if test="roomAmount != null">roomAmount,</if>
-        <if test="checkinType != null">checkinType,</if>
-        <if test="checkinStatus != null">checkinStatus,</if>
-        <if test="preCheckinTime != null">preCheckinTime,</if>
-        <if test="actCheckinTime != null">actCheckinTime,</if>
-        <if test="preCheckoutTime != null">preCheckoutTime,</if>
-        <if test="actCheckoutTime != null">actCheckoutTime,</if>
-        <if test="delFlag != null">delFlag,</if>
-        <if test="remark != null and remark != ''">remark,</if>
-        <if test="revision != null">revision,</if>
-        <if test="createBy != null">createBy,</if>
-            current_timestamp()
-        )
+    <insert id="insertHotelCheckinRecord" parameterType="HotelCheckinRecord">
+        INSERT INTO hotel_checkin_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="checkinRecordId != null">checkin_record_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="roomId != null">room_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="roomAmount != null">room_amount,</if>
+            <if test="checkinType != null">checkin_type,</if>
+            <if test="checkinStatus != null">checkin_status,</if>
+            <if test="preCheckinTime != null">pre_checkin_time,</if>
+            <if test="actCheckinTime != null">act_checkin_time,</if>
+            <if test="preCheckoutTime != null">pre_checkout_time,</if>
+            <if test="actCheckoutTime != null">act_checkout_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="checkinRecordId != null">#{checkinRecordId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="roomId != null">#{roomId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="roomAmount != null">#{roomAmount},</if>
+            <if test="checkinType != null">#{checkinType},</if>
+            <if test="checkinStatus != null">#{checkinStatus},</if>
+            <if test="preCheckinTime != null">#{preCheckinTime},</if>
+            <if test="actCheckinTime != null">#{actCheckinTime},</if>
+            <if test="preCheckoutTime != null">#{preCheckoutTime},</if>
+            <if test="actCheckoutTime != null">#{actCheckoutTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
-    <update id="updateCheckinRecord" parameterType="HotelCheckinRecord">
+    <update id="updateHotelCheckinRecord" parameterType="HotelCheckinRecord">
         UPDATE hotel_checkin_record
-        <set>
-            <if test="orderId != null">order_id=#{orderId},</if>
-            <if test="roomId != null">room_id=#{roomId},</if>
-            <if test="customerId != null">customer_id=#{customerId},</if>
-            <if test="roomAmount != null">room_amount=#{roomAmount},</if>
-            <if test="checkinType != null">checkin_type=#{checkinType},</if>
-            <if test="checkinStatus != null">checkin_status=#{checkinStatus},</if>
-            <if test="preCheckinTime != null">pre_checkin_time=#{preCheckinTime},</if>
-            <if test="actCheckinTime != null">act_checkin_time=#{actCheckinTime},</if>
-            <if test="preCheckoutTime != null">pre_checkout_time=#{preCheckoutTime},</if>
-            <if test="actCheckoutTime != null">act_checkout_time=#{actCheckoutTime},</if>
-            <if test="delFlag != null">del_flag=#{delFlag},</if>
-            <if test="remark != null and remark != ''">remark=#{remark},</if>
-            <if test="revision != null">revision=#{revision},</if>
-            <if test="updateBy != null">update_by=#{updateBy},</if>
-            update_time = current_time()
-        </set>
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="roomId != null">room_id = #{roomId},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="roomAmount != null">room_amount = #{roomAmount},</if>
+            <if test="checkinType != null">checkin_type = #{checkinType},</if>
+            <if test="checkinStatus != null">checkin_status = #{checkinStatus},</if>
+            <if test="preCheckinTime != null">pre_checkin_time = #{preCheckinTime},</if>
+            <if test="actCheckinTime != null">act_checkin_time = #{actCheckinTime},</if>
+            <if test="preCheckoutTime != null">pre_checkout_time = #{preCheckoutTime},</if>
+            <if test="actCheckoutTime != null">act_checkout_time = #{actCheckoutTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
         WHERE checkin_record_id = #{checkinRecordId}
     </update>
 
-    <delete id="deleteCheckinRecordById" parameterType="Long">
-        UPDATE hotel_checkin_record SET del_flag = true
+    <delete id="deleteHotelCheckinRecordByCheckinRecordId" parameterType="Long">
+        DELETE FROM hotel_checkin_record
         WHERE checkin_record_id = #{checkinRecordId}
     </delete>
 
-    <delete id="deleteCheckinRecordByIds" parameterType="Long[]">
-        UPDATE hotel_checkin_record SET del_flag = true
-        WHERE checkin_record_id IN
+    <delete id="deleteHotelCheckinRecordByCheckinRecordIds" parameterType="Long[]">
+        DELETE FROM hotel_checkin_record WHERE checkin_record_id IN
         <foreach collection="array" item="checkinRecordId" open="(" separator="," close=")">
             #{checkinRecordId}
         </foreach>

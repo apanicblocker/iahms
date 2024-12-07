@@ -24,4 +24,6 @@ public interface GenTableMapper {
 
 	int deleteGenTableByIds(Long[] ids);
 
+	int deleteAll();
+
 }

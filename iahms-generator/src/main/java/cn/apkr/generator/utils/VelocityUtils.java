@@ -8,6 +8,8 @@ import cn.apkr.generator.domain.GenTableColumn;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import org.apache.velocity.VelocityContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,14 +18,25 @@ import java.util.Set;
 
 public class VelocityUtils {
 
+	private static final Logger log = LoggerFactory.getLogger(VelocityUtils.class);
+
 	// 项目空间路径
 	private static final String PROJECT_PATH = "main/java";
 
 	// mybatis空间路径
-	private static final String MYBATIS_PATH = "main/resource/mapper";
+	private static final String MYBATIS_PATH = "main/resources/mapper";
 
 	// 默认上级菜单，系统工具（非必要）
 	private static final String DEFAULT_PARENT_MENU_ID = "3";
+
+//	// test
+//	public static void initMapperContext(VelocityContext context, GenTable table) {
+//		String packageName = table.getPackageName();
+//		context.put("packageName", packageName);
+//		context.put("className", StringUtils.uncapitalize(table.getClassName()));
+//		context.put("ClassName", table.getClassName());
+//		context.put("columns", table.getColumns());
+//	}
 
 	public static VelocityContext prepareContext(GenTable genTable) {
 		String moduleName = genTable.getModuleName();
@@ -63,6 +76,10 @@ public class VelocityUtils {
 
 	public static void setMenuVelocityContext(VelocityContext context, GenTable genTable) {
 		String options = genTable.getOptions();
+		if (StringUtils.isEmpty(options)) {
+			log.warn("业务字段为空：{}", genTable.getTableName());
+			return;
+		}
 		JSONObject paramsObj = JSON.parseObject(options);
 		String treeCode = getTreeCode(paramsObj);
 		String treeParentCode = getTreeCode(paramsObj);
@@ -126,8 +143,7 @@ public class VelocityUtils {
 	 *
 	 * @return 模板列表
 	 */
-	public static List<String> getTemplateList(String tplCategory)
-	{
+	public static List<String> getTemplateList(String tplCategory) {
 		List<String> templates = new ArrayList<String>();
 		templates.add("vm/java/domain.java.vm");
 		templates.add("vm/java/mapper.java.vm");
@@ -137,16 +153,13 @@ public class VelocityUtils {
 		templates.add("vm/xml/mapper.xml.vm");
 		templates.add("vm/sql/sql.vm");
 		templates.add("vm/js/api.js.vm");
-		if (GenConstants.TPL_CRUD.equals(tplCategory))
-		{
+		if (GenConstants.TPL_CRUD.equals(tplCategory)) {
 			templates.add("vm/vue/index.vue.vm");
 		}
-		else if (GenConstants.TPL_TREE.equals(tplCategory))
-		{
+		else if (GenConstants.TPL_TREE.equals(tplCategory)) {
 			templates.add("vm/vue/index-tree.vue.vm");
 		}
-		else if (GenConstants.TPL_SUB.equals(tplCategory))
-		{
+		else if (GenConstants.TPL_SUB.equals(tplCategory)) {
 			templates.add("vm/vue/index.vue.vm");
 			templates.add("vm/java/sub-domain.java.vm");
 		}

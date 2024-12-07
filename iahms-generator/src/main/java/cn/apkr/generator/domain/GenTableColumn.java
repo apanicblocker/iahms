@@ -1,5 +1,6 @@
 package cn.apkr.generator.domain;
 
+import cn.apkr.common.constant.GenConstants;
 import cn.apkr.common.core.domain.BaseEntity;
 import cn.apkr.common.utils.StringUtils;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serial;
+import java.util.Arrays;
 
 @Alias("GenTableColumn")
 @Data
@@ -54,6 +56,10 @@ public class GenTableColumn extends BaseEntity {
 
 	private Integer sort;
 
+	public String getCapJavaField() {
+		return StringUtils.capitalize(javaField);
+	}
+
 	public boolean isSuperColumn() {
 		return isSuperColumn(this.javaField);
 	}
@@ -61,7 +67,7 @@ public class GenTableColumn extends BaseEntity {
 	public static boolean isSuperColumn(String javaField) {
 		return StringUtils.equalsAnyIgnoreCase(javaField,
 				// BaseEntity
-				"createBy", "createTime", "updateBy", "updateTime", "remark",
+				"remark", "tenantId", "revision", "createTime", "createBy", "updateTime", "updateBy",
 				// TreeEntity
 				"parentName", "parentId", "orderNum", "ancestors");
 	}

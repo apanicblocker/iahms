@@ -4,6 +4,7 @@ import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.common.core.domain.entity.SysUser;
 import cn.apkr.common.utils.email.EmailProperties;
 import cn.apkr.common.utils.email.EmailUtils;
+import cn.apkr.generator.mapper.GenTableMapper;
 import cn.apkr.system.service.ISysUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @Tag(name = "测试模块")
 @RestController
@@ -23,6 +25,9 @@ public class TestController {
 
     @Autowired
     private ISysUserService userService;
+
+    @Autowired
+    private GenTableMapper genTableMapper;
 
     @GetMapping("/hello")
     public String hello() {
@@ -39,5 +44,10 @@ public class TestController {
     public String send() {
         EmailUtils.sendMail(emailProperties, "2013690140@qq.com", "邮箱模块测试", "总有一天我会成为百万富翁！");
         return "send already";
+    }
+
+    public static void main(String[] args) {
+        Boolean a = null;
+        System.out.println(Objects.isNull(a));
     }
 }

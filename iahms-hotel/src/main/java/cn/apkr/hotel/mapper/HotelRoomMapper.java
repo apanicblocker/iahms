@@ -1,21 +1,61 @@
 package cn.apkr.hotel.mapper;
 
+import java.util.List;
 import cn.apkr.hotel.domain.HotelRoom;
 
-import java.util.List;
-
+/**
+ * 房间Mapper接口
+ * 
+ * @author apkr
+ * @date 2024-12-06
+ */
 public interface HotelRoomMapper {
 
-	List<HotelRoom> selectRoomList(HotelRoom room);
+    /**
+     * 查询房间
+     * 
+     * @param roomId 房间主键
+     * @return 房间
+     */
+    public HotelRoom selectHotelRoomByRoomId(Long roomId);
 
-	HotelRoom selectRoomById(Long roomId);
+    /**
+     * 查询房间列表
+     * 
+     * @param hotelRoom 房间
+     * @return 房间集合
+     */
+    public List<HotelRoom> selectHotelRoomList(HotelRoom hotelRoom);
 
-	int insertRoom(HotelRoom room);
+    /**
+     * 新增房间
+     * 
+     * @param hotelRoom 房间
+     * @return 结果
+     */
+    public int insertHotelRoom(HotelRoom hotelRoom);
 
-	int updateRoom(HotelRoom room);
+    /**
+     * 修改房间
+     * 
+     * @param hotelRoom 房间
+     * @return 结果
+     */
+    public int updateHotelRoom(HotelRoom hotelRoom);
 
-	int deleteRoomById(Long roomId);
+    /**
+     * 删除房间
+     * 
+     * @param roomId 房间主键
+     * @return 结果
+     */
+    public int deleteHotelRoomByRoomId(Long roomId);
 
-	int deleteRoomByIds(Long[] roomIds);
-
+    /**
+     * 批量删除房间
+     * 
+     * @param roomIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteHotelRoomByRoomIds(Long[] roomIds);
 }

@@ -192,11 +192,11 @@ CREATE TABLE hotel_checkin_record(
     PRIMARY KEY (checkin_record_id)
 )  COMMENT = '入住记录（开房记录）';
 
-DROP TABLE IF EXISTS hotel_room_state_record;
-CREATE TABLE hotel_room_state_record(
-    `room_state_record_id` BIGINT AUTO_INCREMENT COMMENT '房态记录ID' ,
+DROP TABLE IF EXISTS hotel_room_status_record;
+CREATE TABLE hotel_room_status_record(
+    `room_status_record_id` BIGINT AUTO_INCREMENT COMMENT '房态记录ID' ,
     `room_id` BIGINT   COMMENT '房间ID' ,
-    `room_state` TINYINT   COMMENT '房间状态' ,
+    `room_status` TINYINT   COMMENT '房间状态' ,
     `start_time` TIMESTAMP   COMMENT '开始时间' ,
     `end_time` TIMESTAMP   COMMENT '结束时间' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
@@ -205,7 +205,7 @@ CREATE TABLE hotel_room_state_record(
     `create_time` TIMESTAMP  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ,
     `update_by` BIGINT   COMMENT '更新人' ,
     `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
-    PRIMARY KEY (room_state_record_id)
+    PRIMARY KEY (room_status_record_id)
 )  COMMENT = '房态记录';
 
 DROP TABLE IF EXISTS hotel_checkin_customer_link;
@@ -322,6 +322,7 @@ CREATE TABLE hotel_product(
     `inventory` INT   COMMENT '库存' ,
     `description` VARCHAR(900)   COMMENT '商品描述' ,
     `del_flag` BOOLEAN  DEFAULT FALSE COMMENT '删除标识' ,
+    `remark` VARCHAR(500)   COMMENT '备注' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
     `revision` INT   COMMENT '乐观锁' ,
     `create_by` BIGINT   COMMENT '创建人' ,

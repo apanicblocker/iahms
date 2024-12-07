@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.apkr.hotel.mapper.HotelProductTypeMapper">
 
     <resultMap id="HotelProductTypeResult" type="HotelProductType">
@@ -9,82 +9,87 @@
         <result property="name" column="name" />
         <result property="description" column="description" />
         <result property="remark" column="remark" />
+        <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
         <result property="updateBy" column="update_by" />
         <result property="updateTime" column="update_time" />
-        <collection property="products" javaType="java.util.List" resultMap="ProductResult" />
     </resultMap>
 
-    <resultMap id="ProductResult" type="HotelProduct">
-        <id property="productId" column="product_id" />
-        <result property="productTypeId" column="product_type_id" />
-        <result property="name" column="name" />
-        <result property="description" column="description" />
-        <result property="price" column="price" />
-        <result property="inventory" column="inventory" />
-        <result property="description" column="description" />
-    </resultMap>
-
-    <sql id="selectProductTypeVo">
-        SELECT pt.product_type_id, pt.name, pt.description, pt.remark, pt.revision, pt.create_by, pt.create_time, pt.update_by, pt.update_time,
-            p.product_id, p.product_type_id, p.name, p.description, p.price, p.inventory, p.del_flag
-        FROM hotel_product_type AS pt
-            LEFT JOIN hotel_product AS p ON pt.product_type_id = p.product_type_id AND p.del_flag = 0
+    <sql id="selectHotelProductTypeVo">
+        SELECT product_type_id, name, description, remark, tenant_id, revision, create_by, create_time, update_by, update_time
+        FROM hotel_product_type
     </sql>
 
-    <select id="selectProductTypeList" parameterType="HotelProductType" resultMap="HotelProductTypeResult">
-        <include refid="selectProductTypeVo" />
+    <select id="selectHotelProductTypeList" parameterType="HotelProductType" resultMap="HotelProductTypeResult">
+        <include refid="selectHotelProductTypeVo" />
         <where>
-            <if test="productTypeId != null">
-                AND pt.product_type_id = #{productTypeId}
+            <if test="name != null  and name != ''">
+                AND name like concat('%', #{name}, '%')
             </if>
-            <if test="name != null and name != ''">
-                AND pt.name like concat('%', #{name}, '%')
-            </if>
-            <if test="description != null and description != ''">
-                AND pt.description like concat('%', #{description}, '%')
-            </if>
-            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
-                AND date_format(pt.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
-            </if>
-            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
-                AND date_format(pt.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            <if test="description != null  and description != ''">
+                and description = #{description}
             </if>
         </where>
     </select>
 
-    <insert id="insertProductType" parameterType="HotelProductType" useGeneratedKeys="true" keyProperty="productTypeId">
-        INSERT INTO hotel_product_type(
-        <if test="name != null and name != ''">name,</if>
-        <if test="description != null and description != ''">description,</if>
-        <if test="createBy != null and createBy != ''">create_by,</if>
-            create_time
-        ) VALUES(
-        <if test="name != null and name != ''">#{name},</if>
-        <if test="description != null and description != ''">#{description},</if>
-        <if test="createBy != null and createBy != ''">#{createBy},</if>
-            current_timestamp()
-        )
+    <select id="selectHotelProductTypeByProductTypeId" parameterType="Long" resultMap="HotelProductTypeResult">
+        <include refid="selectHotelProductTypeVo" />
+        WHERE product_type_id = #{productTypeId}
+    </select>
+
+    <insert id="insertHotelProductType" parameterType="HotelProductType">
+        INSERT INTO hotel_product_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productTypeId != null">product_type_id,</if>
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="remark != null">remark,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productTypeId != null">#{productTypeId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
-    <update id="updateProductType" parameterType="HotelProductType">
+    <update id="updateHotelProductType" parameterType="HotelProductType">
         UPDATE hotel_product_type
-        <set>
-            <if test="name != null and name != ''">name=#{name},</if>
-            <if test="description != null and description != ''">description=#{description},</if>
-            <if test="updateBy != null and updateBy != ''">update_by=#{updateBy},</if>
-            update_time = current_timestamp()
-        </set>
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
         WHERE product_type_id = #{productTypeId}
     </update>
 
-    <delete id="deleteProductTypeById" parameterType="Long">
-        DELETE FROM hotel_product_type WHERE product_type_id = #{productTypeId}
+    <delete id="deleteHotelProductTypeByProductTypeId" parameterType="Long">
+        DELETE FROM hotel_product_type
+        WHERE product_type_id = #{productTypeId}
     </delete>
 
-    <delete id="deleteProductTypeByIds" parameterType="Long[]">
+    <delete id="deleteHotelProductTypeByProductTypeIds" parameterType="Long[]">
         DELETE FROM hotel_product_type WHERE product_type_id IN
         <foreach collection="array" item="productTypeId" open="(" separator="," close=")">
             #{productTypeId}

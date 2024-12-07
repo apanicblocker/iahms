@@ -18,4 +18,6 @@ public interface GenTableColumnMapper {
 
 	int deleteGenTableColumns(List<GenTableColumn> genTableColumns);
 
+	int deleteAll();
+
 }

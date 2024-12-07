@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.apkr.hotel.mapper.HotelPayRecordMapper">
-    
+
     <resultMap id="HotelPayRecordResult" type="HotelPayRecord">
         <id property="payRecordId" column="pay_record_id" />
         <result property="customerId" column="customer_id" />
@@ -11,120 +11,115 @@
         <result property="payType" column="pay_type" />
         <result property="payMethod" column="pay_method" />
         <result property="amount" column="amount" />
+        <result property="payTime" column="pay_time" />
         <result property="remark" column="remark" />
+        <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
         <result property="updateBy" column="update_by" />
         <result property="updateTime" column="update_time" />
-        <association property="customer" column="customer_id" javaType="HotelCustomer" resultMap="CustomerResult" />
     </resultMap>
 
-    <resultMap id="CustomerResult" type="HotelCustomer">
-        <id property="customerId" column="customer_id" />
-        <result property="origin" column="origin" />
-        <result property="name" column="name" />
-        <result property="idNumber" column="id_number" />
-        <result property="phoneNumber" column="phone_number" />
-        <result property="gender" column="gender" />
-        <result property="birthday" column="birthday" />
-        <result property="region" column="region" />
-        <result property="email" column="email" />
-        <result property="checkinTimes" column="checkin_times" />
-        <result property="delFlag" column="del_flag" />
-    </resultMap>
-
-    <sql id="SelectPayRecordVo">
-        SELECT pr.pay_record_id, pr.customer_id, pr.order_id, pr.pay_type, pr.pay_method, pr.amount, pr.remark, pr.revision,
-            pr.create_by, pr.create_time, pr.update_by, pr.update_time,
-            c.customer_id, c.origin, c.name, c.id_number, c.phone_number, c.gender, c.birthday, c.region, c.email, c.checkin_times, c.del_flag
-        FROM hotel_pay_record AS pr
-            LEFT JOIN hotel_customer AS c ON pr.customer_id = c.customer_id
+    <sql id="selectHotelPayRecordVo">
+        SELECT pay_record_id, customer_id, order_id, pay_type, pay_method, amount, pay_time, remark, tenant_id, revision, create_by, create_time, update_by, update_time
+        FROM hotel_pay_record
     </sql>
 
-    <select id="selectPayRecordList" parameterType="HotelPayRecord" resultMap="HotelPayRecordResult">
-        <include refid="SelectPayRecordVo" />
+    <select id="selectHotelPayRecordList" parameterType="HotelPayRecord" resultMap="HotelPayRecordResult">
+        <include refid="selectHotelPayRecordVo" />
         <where>
-            <if test="payRecordId != null">
-                AND pr.pay_record_id = #{payRecordId}
+            <if test="customerId != null ">
+                and customer_id = #{customerId}
             </if>
-            <if test="customerId != null">
-                AND pr.customer_id = #{customerId}
+            <if test="orderId != null ">
+                and order_id = #{orderId}
             </if>
-            <if test="orderId != null">
-                AND pr.order_id = #{orderId}
+            <if test="payType != null ">
+                and pay_type = #{payType}
             </if>
-            <if test="payType != null">
-                AND pr.pay_type = #{payType}
+            <if test="payMethod != null ">
+                and pay_method = #{payMethod}
             </if>
-            <if test="payMethod != null">
-                AND pr.pay_method = #{payMethod}
+            <if test="amount != null ">
+                and amount = #{amount}
             </if>
-            <if test="amount != null">
-                AND pr.amount = #{amount}
-            </if>
-            <if test="delFlag != null">
-                AND pr.del_flag = #{delFlag}
-            </if>
-            <if test="revision != null">
-                AND pr.revision = #{revision}
-            </if>
-            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
-                <![CDATA[ AND pr.create_time >= date_format(#{params.beginTime}, '%Y-%m-%d') ]]>
-            </if>
-            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
-                <![CDATA[ AND pr.create_time <= date_format(#{params.endTime}, '%Y-%m-%d') ]]>
+            <if test="payTime != null ">
+                and pay_time = #{payTime}
             </if>
         </where>
     </select>
 
-    <insert id="insertPayRecord" parameterType="HotelPayRecord" useGeneratedKeys="true" keyProperty="payRecordId">
-        INSERT INTO hotel_pay_record(
-        <if test="customerId != null">customer_id,</if>
-        <if test="orderId != null">order_id,</if>
-        <if test="payType != null">pay_type,</if>
-        <if test="payMethod != null">pay_method,</if>
-        <if test="amount != null">amount,</if>
-        <if test="remark != null and remark != ''">remark,</if>
-        <if test="revision != null">revision,</if>
-        <if test="createBy != null">create_by,</if>
-            create_time
-        ) VALUES(
-        <if test="customerId != null">#{customerId},</if>
-        <if test="orderId != null">#{orderId},</if>
-        <if test="payType != null">#{payType},</if>
-        <if test="payMethod != null">#{payMethod},</if>
-        <if test="amount != null">#{amount},</if>
-        <if test="remark != null and remark != ''">#{remark},</if>
-        <if test="revision != null">#{revision},</if>
-        <if test="createBy != null">#{createBy},</if>
-            current_time()
-        )
+    <select id="selectHotelPayRecordByPayRecordId" parameterType="Long" resultMap="HotelPayRecordResult">
+        <include refid="selectHotelPayRecordVo" />
+        WHERE pay_record_id = #{payRecordId}
+    </select>
+
+    <insert id="insertHotelPayRecord" parameterType="HotelPayRecord">
+        INSERT INTO hotel_pay_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payRecordId != null">pay_record_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="payType != null">pay_type,</if>
+            <if test="payMethod != null">pay_method,</if>
+            <if test="amount != null">amount,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payRecordId != null">#{payRecordId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="payType != null">#{payType},</if>
+            <if test="payMethod != null">#{payMethod},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
-    <update id="updatePayRecord" parameterType="HotelPayRecord">
+    <update id="updateHotelPayRecord" parameterType="HotelPayRecord">
         UPDATE hotel_pay_record
-        <set>
+        <trim prefix="SET" suffixOverrides=",">
             <if test="customerId != null">customer_id = #{customerId},</if>
             <if test="orderId != null">order_id = #{orderId},</if>
             <if test="payType != null">pay_type = #{payType},</if>
             <if test="payMethod != null">pay_method = #{payMethod},</if>
             <if test="amount != null">amount = #{amount},</if>
-            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
-            update_time = current_time()
-        </set>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
         WHERE pay_record_id = #{payRecordId}
     </update>
 
-    <delete id="deletePayRecordById" parameterType="Long">
-        DELETE FROM hotel_pay_record WHERE pay_record_id = #{payRecordId}
+    <delete id="deleteHotelPayRecordByPayRecordId" parameterType="Long">
+        DELETE FROM hotel_pay_record
+        WHERE pay_record_id = #{payRecordId}
     </delete>
 
-    <delete id="deletePayRecordByIds" parameterType="Long[]">
+    <delete id="deleteHotelPayRecordByPayRecordIds" parameterType="Long[]">
         DELETE FROM hotel_pay_record WHERE pay_record_id IN
-        <foreach item="payRecordId" collection="array" open="(" separator="," close=")">
+        <foreach collection="array" item="payRecordId" open="(" separator="," close=")">
             #{payRecordId}
         </foreach>
     </delete>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper 
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.apkr.hotel.mapper.HotelCustomerMapper">
 
     <resultMap id="HotelCustomerResult" type="HotelCustomer">
@@ -17,122 +17,134 @@
         <result property="checkinTimes" column="checkin_times" />
         <result property="delFlag" column="del_flag" />
         <result property="remark" column="remark" />
+        <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
         <result property="updateBy" column="update_by" />
         <result property="updateTime" column="update_time" />
-        <collection property="tags" javaType="java.util.List" resultMap="TagResult" />
     </resultMap>
 
-    <resultMap id="TagResult" type="HotelTag">
-        <id property="tagId" column="tag_id" />
-        <result property="label" column="label" />
-        <result property="color" column="color" />
-    </resultMap>
-
-    <sql id="selectCustomerVo">
-        select c.customer_id, c.origin, c.name, c.id_number, c.phone_number, c.gender, c.birthday, c.region, c.email, c.checkin_times, c.del_flag, c.revision, c.create_by, c.create_time, c.update_by, c.update_time, c.remark,
-            t.tag_id, t.label, t.color
-        from hotel_customer c
-            left join hotel_tag_customer_link tc on c.customer_id = tc.customer_id
-            left join hotel_tag t on t.tag_id = tc.tag_id
+    <sql id="selectHotelCustomerVo">
+        SELECT customer_id, origin, name, id_number, phone_number, gender, birthday, region, email, checkin_times, del_flag, remark, tenant_id, revision, create_by, create_time, update_by, update_time
+        FROM hotel_customer
     </sql>
 
-    <!-- HotelCustomer条件查询 -->
-    <select id="selectCustomerList" parameterType="HotelCustomer" resultMap="HotelCustomerResult">
-        <include refid="selectCustomerVo" />
+    <select id="selectHotelCustomerList" parameterType="HotelCustomer" resultMap="HotelCustomerResult">
+        <include refid="selectHotelCustomerVo" />
         <where>
-            <if test="origin != null">
-                and c.origin = #{origin}
+            <if test="origin != null ">
+                and origin = #{origin}
             </if>
-            <if test="name != null and name != ''">
-                and c.name like concat('%', #{name}, '%')
+            <if test="name != null  and name != ''">
+                AND name like concat('%', #{name}, '%')
             </if>
-            <if test="idNumber != null and idNumber != ''">
-                and c.id_number = #{idNumber}
+            <if test="idNumber != null  and idNumber != ''">
+                and id_number = #{idNumber}
             </if>
-            <if test="phoneNumber != null and phoneNumber != ''">
-                and c.phone_number = #{phoneNumber}
+            <if test="phoneNumber != null  and phoneNumber != ''">
+                and phone_number = #{phoneNumber}
             </if>
-            <if test="gender != null">
-                and c.gender = #{gender}
+            <if test="gender != null ">
+                and gender = #{gender}
             </if>
-            <if test="region != null and region != ''">
-                and c.region like concat('%', #{region}, '%')
+            <if test="birthday != null ">
+                and birthday = #{birthday}
             </if>
-            <if test="email != null and email != ''">
-                and c.email = #{email}
+            <if test="region != null  and region != ''">
+                and region = #{region}
             </if>
-            <if test="checkinTimes != null">
-                and c.checkin_times = #{checkinTimes}
+            <if test="email != null  and email != ''">
+                and email = #{email}
             </if>
-            <if test="delFlag != null">
-                and c.del_flag = #{delFlag}
+            <if test="checkinTimes != null ">
+                and checkin_times = #{checkinTimes}
             </if>
         </where>
     </select>
 
-    <insert id="insertCustomer" keyProperty="customerId" useGeneratedKeys="true">
-        insert into hotel_customer(
-        <if test="customerId != null and customerId != 0">customer_id,</if>
-        <if test="origin != null and origin != ''">origin,</if>
-        <if test="name != null and name != ''">name,</if>
-        <if test="idNumber != null and idNumber != ''">id_number,</if>
-        <if test="gender != null and gender != ''">gender,</if>
-        <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
-        <if test="birthday != null">birthday,</if>
-        <if test="region != null and region != ''">region,</if>
-        <if test="email != null and email != ''">email,</if>
-        <if test="checkinTimes != null and checkinTimes != ''">checkin_times,</if>
-        <if test="remark != null and remark != ''">remark,</if>
-        <if test="createBy != null and createBy != ''">create_by,</if>
-            create_time
-        ) values(
-        <if test="customerId != null and customerId != 0">#{customerId},</if>
-        <if test="origin != null and origin != ''">#{origin},</if>
-        <if test="name != null and name != ''">#{name},</if>
-        <if test="idNumber != null and idNumber != ''">#{idNumber},</if>
-        <if test="gender != null and gender != ''">#{gender},</if>
-        <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
-        <if test="birthday != null">#{birthday},</if>
-        <if test="region != null and region != ''">#{region},</if>
-        <if test="email != null and email != ''">#{email},</if>
-        <if test="checkinTimes != null and checkinTimes != ''">#{checkinTimes},</if>
-        <if test="remark != null and remark != ''">#{remark},</if>
-        <if test="createBy != null and createBy != ''">#{createBy},</if>
-            current_timestamp()
-        )
+    <select id="selectHotelCustomerByCustomerId" parameterType="Long" resultMap="HotelCustomerResult">
+        <include refid="selectHotelCustomerVo" />
+        WHERE customer_id = #{customerId}
+    </select>
+
+    <insert id="insertHotelCustomer" parameterType="HotelCustomer">
+        INSERT INTO hotel_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">customer_id,</if>
+            <if test="origin != null">origin,</if>
+            <if test="name != null">name,</if>
+            <if test="idNumber != null">id_number,</if>
+            <if test="phoneNumber != null">phone_number,</if>
+            <if test="gender != null">gender,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="region != null">region,</if>
+            <if test="email != null">email,</if>
+            <if test="checkinTimes != null">checkin_times,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">#{customerId},</if>
+            <if test="origin != null">#{origin},</if>
+            <if test="name != null">#{name},</if>
+            <if test="idNumber != null">#{idNumber},</if>
+            <if test="phoneNumber != null">#{phoneNumber},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="region != null">#{region},</if>
+            <if test="email != null">#{email},</if>
+            <if test="checkinTimes != null">#{checkinTimes},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
-    <update id="updateCustomer" parameterType="HotelCustomer">
-        update hotel_customer
-        <set>
-            <if test="origin != null and origin != ''">origin = #{origin},</if>
-            <if test="name != null and name != ''">name = #{name},</if>
-            <if test="idNumber != null and idNumber != ''">id_number = #{idNumber},</if>
-            <if test="gender != null and gender != ''">gender = #{gender},</if>
-            <if test="phoneNumber != null and phoneNumber != ''">phone_number = #{phoneNumber},</if>
+    <update id="updateHotelCustomer" parameterType="HotelCustomer">
+        UPDATE hotel_customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="origin != null">origin = #{origin},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="idNumber != null">id_number = #{idNumber},</if>
+            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
+            <if test="gender != null">gender = #{gender},</if>
             <if test="birthday != null">birthday = #{birthday},</if>
-            <if test="region != null and region != ''">region = #{region},</if>
-            <if test="email != null and email != ''">email = #{email},</if>
-            <if test="checkinTimes != null and checkinTimes != ''">checkin_times = #{checkinTimes},</if>
-            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="region != null">region = #{region},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="checkinTimes != null">checkin_times = #{checkinTimes},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
-            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
-            update_time = current_timestamp()
-        </set>
-        where customer_id = #{customerId}
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        WHERE customer_id = #{customerId}
     </update>
 
-    <delete id="deleteCustomerById" parameterType="Long">
-        update hotel_customer set del_flag = true, update_time = current_timestamp()
-        where customer_id = #{customerId}
+    <delete id="deleteHotelCustomerByCustomerId" parameterType="Long">
+        DELETE FROM hotel_customer
+        WHERE customer_id = #{customerId}
     </delete>
 
-    <delete id="deleteCustomerByIds" parameterType="Long[]">
-        update hotel_customer set del_flag = true, update_time = current_timestamp() where customer_id in
-        <foreach item="customerId" collection="array" open="(" separator="," close=")">
+    <delete id="deleteHotelCustomerByCustomerIds" parameterType="Long[]">
+        DELETE FROM hotel_customer WHERE customer_id IN
+        <foreach collection="array" item="customerId" open="(" separator="," close=")">
             #{customerId}
         </foreach>
     </delete>

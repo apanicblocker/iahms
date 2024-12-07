@@ -213,6 +213,10 @@ public class TokenService {
         }
     }
 
+    public boolean isTokenExpired(String token) {
+        return parseClaims(token).getExpiration().before(new Date());
+    }
+
     /**
      * 刷新令牌有效期
      * @param loginUser 登录信息

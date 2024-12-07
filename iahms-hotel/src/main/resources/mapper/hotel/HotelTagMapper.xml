@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.apkr.hotel.mapper.HotelTagMapper">
 
     <resultMap id="HotelTagResult" type="HotelTag">
         <id property="tagId" column="tag_id" />
         <result property="label" column="label" />
         <result property="color" column="color" />
+        <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
@@ -15,71 +16,78 @@
         <result property="updateTime" column="update_time" />
     </resultMap>
 
-    <sql id="selectTagVo">
-        select tag_id, label, color, revision, create_by, create_time, update_by, update_time
-        from hotel_tag
+    <sql id="selectHotelTagVo">
+        SELECT tag_id, label, color, tenant_id, revision, create_by, create_time, update_by, update_time
+        FROM hotel_tag
     </sql>
 
-    <select id="selectTagList" parameterType="HotelTag" resultMap="HotelTagResult">
-        <include refid="selectTagVo" />
+    <select id="selectHotelTagList" parameterType="HotelTag" resultMap="HotelTagResult">
+        <include refid="selectHotelTagVo" />
         <where>
-            <if test="tagId != null and tagId != ''">
-                and tag_id = #{tagId}
+            <if test="label != null  and label != ''">
+                and label = #{label}
             </if>
-            <if test="label != null and label != ''">
-                and label like concat('%', #{label}, '%')
-            </if>
-            <if test="color != null and color != ''">
-                and color like concat('%', #{color}, '%')
-            </if>
-            <if test="revision != null and revision != ''">
-                and revision = #{revision}
-            </if>
-            <if test="createBy != null and createBy != ''">
-                and create_by = #{createBy}
-            </if>
-            <if test="updateBy != null and updateBy != ''">
-                and update_by = #{updateBy}
+            <if test="color != null  and color != ''">
+                and color = #{color}
             </if>
         </where>
     </select>
 
-    <insert id="insertTag" keyProperty="tagId" useGeneratedKeys="true">
-        insert into hotel_tag(
-        <if test="tagId != null and tagId != 0">tag_id,</if>
-        <if test="label != null and label != ''">label,</if>
-        <if test="color != null and color != ''">color,</if>
-        <if test="remark != null and remark != ''">remark,</if>
-        <if test="createBy != null and createBy != ''">create_by,</if>
-            create_time
-        ) values(
-        <if test="tagId != null and tagId != 0">#{tagId},</if>
-        <if test="label != null and label != ''">#{label},</if>
-        <if test="color!= null and color != ''">#{color},</if>
-        <if test="remark != null and remark != ''">#{remark},</if>
-        <if test="createBy != null and createBy != ''">#{createBy},</if>
-            current_timestamp()
-        )
+    <select id="selectHotelTagByTagId" parameterType="Long" resultMap="HotelTagResult">
+        <include refid="selectHotelTagVo" />
+        WHERE tag_id = #{tagId}
+    </select>
+
+    <insert id="insertHotelTag" parameterType="HotelTag">
+        INSERT INTO hotel_tag
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tagId != null">tag_id,</if>
+            <if test="label != null">label,</if>
+            <if test="color != null">color,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tagId != null">#{tagId},</if>
+            <if test="label != null">#{label},</if>
+            <if test="color != null">#{color},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
-    <update id="updateTag" parameterType="HotelTag">
-        update hotel_tag
-        <set>
-            <if test="label != null and label != ''">label = #{label},</if>
-            <if test="color != null and color != ''">color = #{color},</if>
-            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
-            update_time = current_timestamp()
-        </set>
-        where tag_id = #{tagId}
+    <update id="updateHotelTag" parameterType="HotelTag">
+        UPDATE hotel_tag
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="label != null">label = #{label},</if>
+            <if test="color != null">color = #{color},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        WHERE tag_id = #{tagId}
     </update>
 
-    <delete id="deleteTagById" parameterType="Long">
-        delete from hotel_tag where tag_id = #{tagId}
+    <delete id="deleteHotelTagByTagId" parameterType="Long">
+        DELETE FROM hotel_tag
+        WHERE tag_id = #{tagId}
     </delete>
 
-    <delete id="deleteTagByIds" parameterType="Long[]">
-        delete from hotel_tag where tag_id in
-        <foreach item="tagId" collection="array" open="(" separator="," close=")">
+    <delete id="deleteHotelTagByTagIds" parameterType="Long[]">
+        DELETE FROM hotel_tag WHERE tag_id IN
+        <foreach collection="array" item="tagId" open="(" separator="," close=")">
             #{tagId}
         </foreach>
     </delete>
