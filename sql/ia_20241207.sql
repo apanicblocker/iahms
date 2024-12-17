@@ -26,14 +26,14 @@ CREATE TABLE sys_user(
     `username` VARCHAR(100)   COMMENT '用户名;登录用' ,
     `nickname` VARCHAR(100)   COMMENT '昵称' ,
     `password` VARCHAR(255)   COMMENT '密码' ,
-    `gender` TINYINT   COMMENT '性别' ,
+    `gender` VARCHAR(100)   COMMENT '性别' ,
     `avatar` VARCHAR(255)   COMMENT '头像地址' ,
     `phone_number` VARCHAR(32)   COMMENT '电话号码' ,
     `login_ip` VARCHAR(128)   COMMENT '最后登录IP' ,
     `login_date` TIMESTAMP   COMMENT '最后登录时间' ,
-    `status` BOOLEAN  DEFAULT TRUE COMMENT '启用状态' ,
-    `del_flag` BOOLEAN  DEFAULT FALSE COMMENT '删除标识' ,
-    `remark` VARCHAR(500)  DEFAULT NULL COMMENT '备注' ,
+    `status` BOOLEAN  DEFAULT 1 COMMENT '启用状态' ,
+    `del_flag` BOOLEAN  DEFAULT 0 COMMENT '删除标识' ,
+    `remark` VARCHAR(500)   COMMENT '备注' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
     `revision` INT   COMMENT '乐观锁' ,
     `create_by` BIGINT   COMMENT '创建人' ,
@@ -84,7 +84,7 @@ CREATE TABLE sys_role(
     `role_name` VARCHAR(100)   COMMENT '角色名称' ,
     `role_key` VARCHAR(100)   COMMENT '权限字符' ,
     `sort_number` INT   COMMENT '排序数字' ,
-    `data_scope` TINYINT   COMMENT '数据范围' ,
+    `data_scope` VARCHAR(100)   COMMENT '数据范围' ,
     `status` BOOLEAN  DEFAULT TRUE COMMENT '启用状态' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
     `revision` INT   COMMENT '乐观锁' ,
@@ -112,15 +112,18 @@ CREATE TABLE sys_user_role_link(
 DROP TABLE IF EXISTS hotel_customer;
 CREATE TABLE hotel_customer(
     `customer_id` BIGINT AUTO_INCREMENT COMMENT '客户ID' ,
-    `origin` TINYINT   COMMENT '客源' ,
+    `origin` VARCHAR(100)   COMMENT '客源' ,
     `name` VARCHAR(100)   COMMENT '姓名;真实姓名' ,
     `id_number` VARCHAR(32)   COMMENT '身份证号' ,
     `phone_number` VARCHAR(32)   COMMENT '电话号码' ,
-    `gender` TINYINT   COMMENT '性别' ,
-    `birthday` TIMESTAMP   COMMENT '生日' ,
+    `gender` VARCHAR(100)   COMMENT '性别' ,
+    `birthday` DATE   COMMENT '生日' ,
     `region` VARCHAR(255)   COMMENT '地区' ,
     `email` VARCHAR(255)   COMMENT '邮箱' ,
     `checkin_times` INT   COMMENT '入住次数' ,
+    `total_spent` DECIMAL(10,2)  DEFAULT 0 COMMENT '总消费金额' ,
+    `last_spent_time` TIMESTAMP   COMMENT '最近消费时间' ,
+    `black_flag` BOOLEAN  DEFAULT FALSE COMMENT '黑名单标识' ,
     `del_flag` BOOLEAN  DEFAULT FALSE COMMENT '删除标识' ,
     `remark` VARCHAR(255)   COMMENT '备注' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
@@ -130,7 +133,7 @@ CREATE TABLE hotel_customer(
     `update_by` BIGINT   COMMENT '更新人' ,
     `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
     PRIMARY KEY (customer_id)
-)  COMMENT = '客户;该表是 user 表的一个属性扩展表';
+)  COMMENT = '客户';
 
 DROP TABLE IF EXISTS hotel_room;
 CREATE TABLE hotel_room(
@@ -175,8 +178,8 @@ CREATE TABLE hotel_checkin_record(
     `room_id` BIGINT   COMMENT '房间ID' ,
     `customer_id` BIGINT   COMMENT '客户ID;主要的开房客人（出问题先找他）' ,
     `room_amount` DECIMAL(10,2)   COMMENT '房费' ,
-    `checkin_type` TINYINT   COMMENT '入住类型' ,
-    `checkin_status` TINYINT   COMMENT '入住状态' ,
+    `checkin_type` VARCHAR(100)   COMMENT '入住类型' ,
+    `checkin_status` VARCHAR(100)   COMMENT '入住状态' ,
     `pre_checkin_time` TIMESTAMP   COMMENT '预计入住时间' ,
     `act_checkin_time` TIMESTAMP   COMMENT '实际入住时间' ,
     `pre_checkout_time` TIMESTAMP   COMMENT '预计退房时间' ,
@@ -190,13 +193,13 @@ CREATE TABLE hotel_checkin_record(
     `update_by` BIGINT   COMMENT '更新人' ,
     `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
     PRIMARY KEY (checkin_record_id)
-)  COMMENT = '入住记录（开房记录）';
+)  COMMENT = '入住记录';
 
 DROP TABLE IF EXISTS hotel_room_status_record;
 CREATE TABLE hotel_room_status_record(
     `room_status_record_id` BIGINT AUTO_INCREMENT COMMENT '房态记录ID' ,
     `room_id` BIGINT   COMMENT '房间ID' ,
-    `room_status` TINYINT   COMMENT '房间状态' ,
+    `room_status` VARCHAR(100)   COMMENT '房间状态' ,
     `start_time` TIMESTAMP   COMMENT '开始时间' ,
     `end_time` TIMESTAMP   COMMENT '结束时间' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
@@ -252,10 +255,10 @@ DROP TABLE IF EXISTS sys_oper_log;
 CREATE TABLE sys_oper_log(
     `oper_id` BIGINT AUTO_INCREMENT COMMENT '日志主键' ,
     `title` VARCHAR(100)   COMMENT '模块标题' ,
-    `business_type` TINYINT   COMMENT '业务类型' ,
+    `business_type` VARCHAR(100)   COMMENT '业务类型' ,
     `method` VARCHAR(100)   COMMENT '方法名称' ,
     `request_method` VARCHAR(32)   COMMENT '请求方式' ,
-    `operator_type` TINYINT   COMMENT '操作类别' ,
+    `operator_type` VARCHAR(100)   COMMENT '操作类别' ,
     `oper_name` VARCHAR(100)   COMMENT '操作人员' ,
     `oper_url` VARCHAR(255)   COMMENT '请求URL' ,
     `oper_ip` VARCHAR(128)   COMMENT '主机地址' ,
@@ -265,7 +268,7 @@ CREATE TABLE sys_oper_log(
     `status` BOOLEAN  DEFAULT TRUE COMMENT '操作状态' ,
     `error_msg` VARCHAR(2000)   COMMENT '错误消息' ,
     `oper_time` TIMESTAMP   COMMENT '操作时间' ,
-    `cost_time` BIGINT(20)   COMMENT '消耗时间' ,
+    `cost_time` BIGINT   COMMENT '消耗时间' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
     `revision` INT   COMMENT '乐观锁' ,
     PRIMARY KEY (oper_id)
@@ -282,7 +285,7 @@ CREATE TABLE hotel_order(
     `number` VARCHAR(255)   COMMENT '订单号' ,
     `customer_id` BIGINT   COMMENT '客户ID' ,
     `total_amount` DECIMAL(10,2)   COMMENT '订单总金额' ,
-    `order_status` TINYINT   COMMENT '订单状态' ,
+    `order_status` VARCHAR(100)   COMMENT '订单状态' ,
     `del_flag` BOOLEAN  DEFAULT FALSE COMMENT '删除标识' ,
     `remark` VARCHAR(255)   COMMENT '备注' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,
@@ -299,8 +302,8 @@ CREATE TABLE hotel_pay_record(
     `pay_record_id` BIGINT AUTO_INCREMENT COMMENT '支付记录ID' ,
     `customer_id` BIGINT   COMMENT '客户ID' ,
     `order_id` BIGINT   COMMENT '订单ID' ,
-    `pay_type` TINYINT   COMMENT '支付类型' ,
-    `pay_method` TINYINT   COMMENT '支付方式' ,
+    `pay_type` VARCHAR(100)   COMMENT '支付类型' ,
+    `pay_method` VARCHAR(100)   COMMENT '支付方式' ,
     `amount` DECIMAL(10,2)   COMMENT '支付金额' ,
     `pay_time` TIMESTAMP   COMMENT '支付时间' ,
     `remark` VARCHAR(255)   COMMENT '备注' ,
@@ -405,7 +408,7 @@ CREATE TABLE gen_table(
     `business_name` VARCHAR(30)   COMMENT '生成业务名' ,
     `function_name` VARCHAR(50)   COMMENT '生成功能名' ,
     `function_author` VARCHAR(50)   COMMENT '生成功能作者' ,
-    `gen_type` TINYINT  DEFAULT 0 COMMENT '生成代码方式;0zip压缩包 1自定义路径' ,
+    `gen_type` VARCHAR(100)  DEFAULT 0 COMMENT '生成代码方式;0zip压缩包 1自定义路径' ,
     `gen_path` VARCHAR(200)  DEFAULT '/' COMMENT '生成路径;不填默认项目路径' ,
     `options` VARCHAR(900)   COMMENT '其他生成选项' ,
     `tenant_id` BIGINT   COMMENT '租户号' ,

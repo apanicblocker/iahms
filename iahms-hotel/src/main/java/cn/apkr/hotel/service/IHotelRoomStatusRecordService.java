@@ -7,7 +7,7 @@ import cn.apkr.hotel.domain.HotelRoomStatusRecord;
  * 房态记录Service接口
  * 
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 public interface IHotelRoomStatusRecordService {
 

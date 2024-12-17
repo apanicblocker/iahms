@@ -7,7 +7,7 @@ import cn.apkr.hotel.domain.HotelProduct;
  * 商品Service接口
  * 
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 public interface IHotelProductService {
 

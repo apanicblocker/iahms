@@ -25,7 +25,7 @@ public class SysDictData extends BaseEntity {
 
 	/** 字典排序 */
 	@Schema(title = "字典排序")
-	private String dictSort;
+	private Integer dictSort;
 
 	/** 字典标签 */
 	@Schema(title = "字典标签")

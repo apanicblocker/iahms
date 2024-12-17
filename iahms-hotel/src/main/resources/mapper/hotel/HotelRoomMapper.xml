@@ -28,17 +28,17 @@
     <select id="selectHotelRoomList" parameterType="HotelRoom" resultMap="HotelRoomResult">
         <include refid="selectHotelRoomVo" />
         <where>
-            <if test="roomTypeId != null ">
-                and room_type_id = #{roomTypeId}
+            <if test="roomTypeId != null">
+                AND room_type_id = #{roomTypeId}
             </if>
-            <if test="price != null ">
-                and price = #{price}
+            <if test="price != null">
+                AND price = #{price}
             </if>
-            <if test="number != null  and number != ''">
-                and number = #{number}
+            <if test="number != null and number != ''">
+                AND number = #{number}
             </if>
-            <if test="dirtyFlag != null ">
-                and dirty_flag = #{dirtyFlag}
+            <if test="dirtyFlag != null">
+                AND dirty_flag = #{dirtyFlag}
             </if>
         </where>
     </select>
@@ -54,10 +54,10 @@
             <if test="roomId != null">room_id,</if>
             <if test="roomTypeId != null">room_type_id,</if>
             <if test="price != null">price,</if>
-            <if test="number != null">number,</if>
+            <if test="number != null and number != ''">number,</if>
             <if test="dirtyFlag != null">dirty_flag,</if>
             <if test="delFlag != null">del_flag,</if>
-            <if test="remark != null">remark,</if>
+            <if test="remark != null and remark != ''">remark,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
@@ -70,10 +70,10 @@
             <if test="roomId != null">#{roomId},</if>
             <if test="roomTypeId != null">#{roomTypeId},</if>
             <if test="price != null">#{price},</if>
-            <if test="number != null">#{number},</if>
+            <if test="number != null and number != ''">#{number},</if>
             <if test="dirtyFlag != null">#{dirtyFlag},</if>
             <if test="delFlag != null">#{delFlag},</if>
-            <if test="remark != null">#{remark},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -88,10 +88,10 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="roomTypeId != null">room_type_id = #{roomTypeId},</if>
             <if test="price != null">price = #{price},</if>
-            <if test="number != null">number = #{number},</if>
+            <if test="number != null and number != ''">number = #{number},</if>
             <if test="dirtyFlag != null">dirty_flag = #{dirtyFlag},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
             <if test="createBy != null">create_by = #{createBy},</if>

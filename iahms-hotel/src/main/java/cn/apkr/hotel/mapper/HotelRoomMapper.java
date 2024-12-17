@@ -7,7 +7,7 @@ import cn.apkr.hotel.domain.HotelRoom;
  * 房间Mapper接口
  * 
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 public interface HotelRoomMapper {
 

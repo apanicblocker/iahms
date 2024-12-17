@@ -29,23 +29,23 @@
     <select id="selectHotelPayRecordList" parameterType="HotelPayRecord" resultMap="HotelPayRecordResult">
         <include refid="selectHotelPayRecordVo" />
         <where>
-            <if test="customerId != null ">
-                and customer_id = #{customerId}
+            <if test="customerId != null">
+                AND customer_id = #{customerId}
             </if>
-            <if test="orderId != null ">
-                and order_id = #{orderId}
+            <if test="orderId != null">
+                AND order_id = #{orderId}
             </if>
-            <if test="payType != null ">
-                and pay_type = #{payType}
+            <if test="payType != null and payType != ''">
+                AND pay_type = #{payType}
             </if>
-            <if test="payMethod != null ">
-                and pay_method = #{payMethod}
+            <if test="payMethod != null and payMethod != ''">
+                AND pay_method = #{payMethod}
             </if>
-            <if test="amount != null ">
-                and amount = #{amount}
+            <if test="amount != null">
+                AND amount = #{amount}
             </if>
-            <if test="payTime != null ">
-                and pay_time = #{payTime}
+            <if test="payTime != null">
+                AND pay_time = #{payTime}
             </if>
         </where>
     </select>
@@ -61,11 +61,11 @@
             <if test="payRecordId != null">pay_record_id,</if>
             <if test="customerId != null">customer_id,</if>
             <if test="orderId != null">order_id,</if>
-            <if test="payType != null">pay_type,</if>
-            <if test="payMethod != null">pay_method,</if>
+            <if test="payType != null and payType != ''">pay_type,</if>
+            <if test="payMethod != null and payMethod != ''">pay_method,</if>
             <if test="amount != null">amount,</if>
             <if test="payTime != null">pay_time,</if>
-            <if test="remark != null">remark,</if>
+            <if test="remark != null and remark != ''">remark,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
@@ -78,11 +78,11 @@
             <if test="payRecordId != null">#{payRecordId},</if>
             <if test="customerId != null">#{customerId},</if>
             <if test="orderId != null">#{orderId},</if>
-            <if test="payType != null">#{payType},</if>
-            <if test="payMethod != null">#{payMethod},</if>
+            <if test="payType != null and payType != ''">#{payType},</if>
+            <if test="payMethod != null and payMethod != ''">#{payMethod},</if>
             <if test="amount != null">#{amount},</if>
             <if test="payTime != null">#{payTime},</if>
-            <if test="remark != null">#{remark},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -97,11 +97,11 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="customerId != null">customer_id = #{customerId},</if>
             <if test="orderId != null">order_id = #{orderId},</if>
-            <if test="payType != null">pay_type = #{payType},</if>
-            <if test="payMethod != null">pay_method = #{payMethod},</if>
+            <if test="payType != null and payType != ''">pay_type = #{payType},</if>
+            <if test="payMethod != null and payMethod != ''">pay_method = #{payMethod},</if>
             <if test="amount != null">amount = #{amount},</if>
             <if test="payTime != null">pay_time = #{payTime},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
             <if test="createBy != null">create_by = #{createBy},</if>

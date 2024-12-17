@@ -1,0 +1,21 @@
+## <<暂时作废>>
+
+/**
+ * 入住记录
+ * @export
+ * @interface ${ClassName}
+ */
+export interface ${ClassName} {
+
+#foreach ($column in $columns)
+  /**
+    * ${column.columnComment}
+    * @type {${column.tsType}}
+    * @memberof ${ClassName}
+    */
+  ${column.javaField}?: ${column.tsType};
+#end
+
+}
+
+

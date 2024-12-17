@@ -30,6 +30,9 @@ public class GenConstants {
 	// 上级菜单名称字段
 	public static final String PARENT_MENU_NAME = "parentMenuName";
 
+	// 特殊JAVA字段映射类型
+	public static final String[] SPECIAL_COLUMN_TYPE = { "tinyint(1)" };
+
 //	// 数据库数字类型
 //	public static final String[] COLUMN_TYPE_NUM = {
 //			"tinyint", "smallint", "mediumint", "int", "number", "integer",
@@ -40,6 +43,7 @@ public class GenConstants {
 	static {
 		COLUMN_TYPE_NUM_MAP.put("bigint", "Long");
 		COLUMN_TYPE_NUM_MAP.put("int", "Integer");
+		COLUMN_TYPE_NUM_MAP.put("tinyint(1)", "Boolean");
 		COLUMN_TYPE_NUM_MAP.put("tinyint", "Integer");
 		COLUMN_TYPE_NUM_MAP.put("float", "Float");
 		COLUMN_TYPE_NUM_MAP.put("double", "Double");
@@ -62,23 +66,22 @@ public class GenConstants {
 
 	// 页面不需要编辑的字段
 	public static final String[] COLUMN_NAME_NOT_EDIT = {
-			"id", "del_flag", "tenant_id", "revision", "create_time", "create_by" };
-
-//	// 数据表通用字段（已经在BaseEntity中）
-//	public static final String[] COLUMN_NAME_COMMON = {
-//			"remark", "tenant_id", "revision", "create_time", "create_by", "update_time", "update_by" };
+			"id", "del_flag", "tenant_id", "revision", "create_by", "create_time" };
 
 	// 页面不需要显示的列表字段
 	public static final String[] COLUMN_NAME_NOT_LIST = {
-			"id", "del_flag", "tenant_id", "revision", "create_time", "create_by", "update_time", "update_by" };
+			"id", "del_flag", "tenant_id", "revision",
+			"create_by", "create_time", "update_by", "update_time" };
 
 	// 页面不需要查询的字段
 	public static final String[] COLUMN_NAME_NOT_QUERY = {
-			"id", "del_flag", "remark", "tenant_id", "revision", "create_by", "create_time", "update_by", "update_time" };
+			"id", "del_flag", "remark", "tenant_id", "revision",
+			"create_by", "create_time", "update_by", "update_time" };
 
 	// Entity基类字段
 	public static final String[] BASE_ENTITY = {
-			"remark", "tenantId", "revision", "createTime", "createBy", "updateTime", "updateBy" };
+			"delFlag", "remark", "tenantId", "revision",
+			"createBy", "createTime", "updateBy", "updateTime" };
 
 	// Tree基类字段
 	public static final String[] TREE_ENTITY = {

@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-11-20 17:58:14",
-  "updatedTime": "2024-12-7 14:19:58",
+  "updatedTime": "2024-12-16 21:44:03",
   "dbConns": [],
   "profile": {
     "default": {
@@ -365,7 +365,7 @@
       {
         "type": "dbDDL",
         "applyFor": "dictSQLTemplate",
-        "content": "/* 插入字典总表[{{=it.dict.defKey}}-{{=it.dict.defName}}] */\nINSERT INTO SYS_DICT(KEY_,LABEL,INTRO,REVISION) VALUES('{{=it.dict.defKey}}','{{=it.dict.defName}}','{{=it.dict.intro}}',1);\n/* 插入字典明细表 */\n{{~it.dict.items:item:index}}\nINSERT INTO SYS_DICT_ITEM(DICT_KEY,KEY_,LABEL,SORT_,INTRO,REVISION) VALUES('{{=it.dict.defKey}}','{{=item.defKey}}','{{=item.defName}}','{{=item.sort}}','{{=item.intro}}',1);\n{{~}}"
+        "content": "-- 插入字典总表[{{=it.dict.defKey}}-{{=it.dict.defName}}]\nINSERT INTO sys_dict_type(dict_name, dict_type, revision) VALUES('{{=it.dict.defName}}', '{{=it.dict.defKey}}', 1);\n-- 插入字典明细表\nINSERT INTO sys_dict_data(dict_type, dict_label, dict_value, dict_sort, revision) VALUES\n{{~it.dict.items:item:index}}\n('{{=it.dict.defKey}}', '{{=item.defName}}', '{{=item.defKey}}', {{=item.sort}}, 1){{? index < it.dict.items.length - 1}},{{??}};{{?}}\n{{~}}"
       },
       {
         "applyFor": "81CCA482-3F4D-4EAC-8CF9-F5E7BC098AD2",
@@ -1157,7 +1157,8 @@
       "headers": [
         {
           "refKey": "hideInGraph",
-          "hideInGraph": true
+          "hideInGraph": true,
+          "freeze": false
         },
         {
           "refKey": "defKey",
@@ -1166,7 +1167,7 @@
         },
         {
           "refKey": "defName",
-          "freeze": false,
+          "freeze": true,
           "hideInGraph": false
         },
         {
@@ -1307,7 +1308,8 @@
           "attr8": "",
           "attr9": "",
           "id": "A8297D55-D108-4C51-97A0-EE4662BE9A6D",
-          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "username",
@@ -1335,7 +1337,8 @@
           "attr8": "",
           "attr9": "",
           "id": "8CAF5678-AED7-4132-B026-02AC344755B9",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "nickname",
@@ -1353,7 +1356,17 @@
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
-          "id": "9782BA5D-E530-40B8-9F5D-6B4CD06D8F88"
+          "id": "9782BA5D-E530-40B8-9F5D-6B4CD06D8F88",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "password",
@@ -1381,7 +1394,8 @@
           "attr8": "",
           "attr9": "",
           "id": "591F80E3-0241-4B28-9B42-225E60B2364B",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "gender",
@@ -1395,11 +1409,21 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "136C6624-4497-41A1-9D75-84D54B1DD6BA",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
-          "id": "2B3C58DD-1DF4-46F4-8793-BE43CDF236F6"
+          "id": "2B3C58DD-1DF4-46F4-8793-BE43CDF236F6",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "avatar",
@@ -1427,7 +1451,8 @@
           "attr8": "",
           "attr9": "",
           "id": "041A4B1F-FDE9-41C6-8700-84D259101983",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "phone_number",
@@ -1455,14 +1480,15 @@
           "attr8": "",
           "attr9": "",
           "id": "4B2F3F7B-322A-496A-996A-97F9DDF059EA",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "login_ip",
           "defName": "最后登录IP",
           "comment": "",
-          "type": "VARCHAR",
-          "len": 128,
+          "type": "",
+          "len": "",
           "scale": "",
           "primaryKey": false,
           "notNull": false,
@@ -1472,8 +1498,18 @@
           "refDict": "",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
-          "domain": "",
-          "id": "298F07CE-B472-4DA4-BCD7-7B2EED36DA6E"
+          "domain": "FCA46CBB-B58B-4690-8B63-B19E95D0CA63",
+          "id": "298F07CE-B472-4DA4-BCD7-7B2EED36DA6E",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "login_date",
@@ -1491,7 +1527,17 @@
           "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
           "extProps": {},
           "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
-          "id": "92F052A8-EA0E-4449-96B6-DF4A30DDF7E0"
+          "id": "92F052A8-EA0E-4449-96B6-DF4A30DDF7E0",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "status",
@@ -1503,7 +1549,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoIncrement": false,
-          "defaultValue": "TRUE",
+          "defaultValue": "1",
           "hideInGraph": false,
           "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
           "refDict": "",
@@ -1521,7 +1567,8 @@
           "id": "4253CE67-6D81-42BB-A14C-48E82D3963EE",
           "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
           "isStandard": true,
-          "refStandard": "CAB96AFB-54F4-4410-8452-370297A67009"
+          "refStandard": "CAB96AFB-54F4-4410-8452-370297A67009",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "del_flag",
@@ -1533,7 +1580,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoIncrement": false,
-          "defaultValue": "FALSE",
+          "defaultValue": "0",
           "hideInGraph": false,
           "refDict": "",
           "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
@@ -1541,7 +1588,17 @@
           "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
           "id": "DF01D471-FAFF-4C3D-AF0F-9FC56393E256",
           "isStandard": true,
-          "refStandard": "4751B67B-6B86-4C32-AA79-63EBD3F4F4C7"
+          "refStandard": "4751B67B-6B86-4C32-AA79-63EBD3F4F4C7",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "remark",
@@ -1553,13 +1610,23 @@
           "primaryKey": false,
           "notNull": false,
           "autoIncrement": false,
-          "defaultValue": "NULL",
+          "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "E3DB3F4D-BACE-45C7-81F5-F10C2AA7C50E",
-          "id": "08F8E7C5-35D1-4079-B116-936E885AE347"
+          "id": "08F8E7C5-35D1-4079-B116-936E885AE347",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "uiHint": "642D2E0A-8846-4549-BE56-8C0473F26EDE"
         },
         {
           "defKey": "tenant_id",
@@ -1572,12 +1639,22 @@
           "notNull": false,
           "autoIncrement": false,
           "defaultValue": "",
-          "hideInGraph": true,
+          "hideInGraph": false,
           "domain": "32B72CA0-59F6-4D82-9CB1-26716B4AB9B1",
           "refDict": "",
           "uiHint": "",
           "id": "44FC4333-E281-4FAC-9F76-D04F0515A1BF",
-          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "extProps": {}
         },
         {
           "defKey": "revision",
@@ -1591,11 +1668,21 @@
           "notNull": false,
           "autoIncrement": false,
           "defaultValue": "",
-          "hideInGraph": true,
+          "hideInGraph": false,
           "refDict": "",
           "uiHint": "",
           "id": "AD060ED9-693C-4AB7-98B4-4E1420AB6FDA",
-          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811"
+          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "extProps": {}
         },
         {
           "defKey": "create_by",
@@ -1609,11 +1696,21 @@
           "notNull": false,
           "autoIncrement": false,
           "defaultValue": "",
-          "hideInGraph": true,
+          "hideInGraph": false,
           "refDict": "",
           "uiHint": "",
           "id": "5608CCC5-2FFF-44E0-B483-ABE13CDE51ED",
-          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "extProps": {}
         },
         {
           "defKey": "create_time",
@@ -1627,11 +1724,21 @@
           "notNull": false,
           "autoIncrement": false,
           "defaultValue": "CURRENT_TIMESTAMP",
-          "hideInGraph": true,
+          "hideInGraph": false,
           "refDict": "",
           "uiHint": "",
           "id": "7AAF71C8-E6A9-4542-87B7-AFC4BFC3D9DD",
-          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3"
+          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "extProps": {}
         },
         {
           "defKey": "update_by",
@@ -1645,11 +1752,21 @@
           "notNull": false,
           "autoIncrement": false,
           "defaultValue": "",
-          "hideInGraph": true,
+          "hideInGraph": false,
           "refDict": "",
           "uiHint": "",
           "id": "B6B301DD-8051-4132-836B-B73683221C8D",
-          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D"
+          "baseType": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": "",
+          "extProps": {}
         },
         {
           "defKey": "update_time",
@@ -1663,14 +1780,23 @@
           "notNull": false,
           "autoIncrement": false,
           "defaultValue": "",
-          "hideInGraph": true,
+          "hideInGraph": false,
           "refDict": "",
           "uiHint": "",
           "id": "DAA00017-5BD4-481F-B914-4DB15A4E6DD2",
           "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
           "extProps": {
             "on_update": "CURRENT_TIMESTAMP"
-          }
+          },
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "attr4": "",
+          "attr5": "",
+          "attr6": "",
+          "attr7": "",
+          "attr8": "",
+          "attr9": ""
         }
       ],
       "correlations": [],
@@ -2214,6 +2340,24 @@
           "id": "4AD13986-C638-49E2-A08D-3ADD588626F9"
         },
         {
+          "defKey": "dict_type",
+          "defName": "字典类型",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
+          "id": "07A21BDA-04FA-4660-8BF4-B1580DE74879"
+        },
+        {
           "defKey": "dict_sort",
           "defName": "字典排序",
           "comment": "",
@@ -2266,24 +2410,6 @@
           "extProps": {},
           "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
           "id": "CF2DFCED-A5B4-4184-87D8-D94ADD7D02BD"
-        },
-        {
-          "defKey": "dict_type",
-          "defName": "字典类型",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": false,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "refDict": "",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-          "extProps": {},
-          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
-          "id": "07A21BDA-04FA-4660-8BF4-B1580DE74879"
         },
         {
           "defKey": "is_default",
@@ -2658,7 +2784,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "DFB73BC6-6889-4FFB-9732-748DE7860437",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "D1E24682-C7A1-4AEE-BB1A-A1DD239143EC"
@@ -3310,7 +3436,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "D3269874-BEB6-4F71-AD83-04DB884F4B2B"
@@ -3381,8 +3507,8 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "refDict": "136C6624-4497-41A1-9D75-84D54B1DD6BA",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "D411B1EB-04B9-4F95-8157-371C84F39465"
@@ -3400,9 +3526,9 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
+          "baseType": "BA32784D-4BC0-49F8-A386-38D645E2144F",
           "extProps": {},
-          "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
+          "domain": "CE50C2D8-886E-48D6-A3AC-B7C31D04C9B3",
           "id": "6D5E48F0-9304-43FE-824F-5719119C431C"
         },
         {
@@ -3458,6 +3584,60 @@
           "extProps": {},
           "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
           "id": "6B6CB608-F17E-4DCA-BD4F-0B771C8E2A24"
+        },
+        {
+          "defKey": "total_spent",
+          "defName": "总消费金额",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "1A0BDC09-0792-4174-9E8E-80BE8DF44B8E",
+          "extProps": {},
+          "domain": "C3B1681B-99F9-4818-9E80-DE1652A51D85",
+          "id": "024E13A8-6DBC-4387-B56E-8E27D5BA82DA"
+        },
+        {
+          "defKey": "last_spent_time",
+          "defName": "最近消费时间",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
+          "extProps": {},
+          "domain": "F7E32D50-943F-4D2A-A5D6-09B290C85E5B",
+          "id": "C0436556-C80F-471C-87AD-36E64B0DDF76"
+        },
+        {
+          "defKey": "black_flag",
+          "defName": "黑名单标识",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "FALSE",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
+          "extProps": {},
+          "domain": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF",
+          "id": "5DDF39F5-418E-467D-BFB3-CFB8FAE0A798"
         },
         {
           "defKey": "del_flag",
@@ -4408,7 +4588,7 @@
         }
       },
       "defKey": "hotel_checkin_record",
-      "defName": "入住记录（开房记录）",
+      "defName": "入住记录",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -4652,7 +4832,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "A1DC5A2C-C329-481A-86BD-8898245316DB",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "5C46A658-727D-4737-B934-7EEEF4BEAF63"
@@ -4670,7 +4850,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "4BD32F5C-E966-4AB1-8B29-AEDF8B0C2BD7",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "639F00FE-2959-4B32-BA71-795D30E22774"
@@ -5100,7 +5280,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "4113429B-DAD0-4600-AFEF-FFBDBC2106B4",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "8CBEF543-19C5-4254-B0D4-7F8B7CE36F54"
@@ -6380,7 +6560,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "81BD70E6-1F65-442A-931B-CD7AE559B701"
@@ -6434,7 +6614,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "117CC077-7963-4AEC-BDA9-52E673C40FC2"
@@ -6618,7 +6798,7 @@
           "defName": "消耗时间",
           "comment": "",
           "type": "BIGINT",
-          "len": 20,
+          "len": "",
           "scale": "",
           "primaryKey": false,
           "notNull": false,
@@ -7044,8 +7224,8 @@
           "uiHint": null
         },
         {
-          "defKey": "order_status",
-          "defName": "订单状态",
+          "defKey": "checkout_status",
+          "defName": "结帐状态",
           "comment": "",
           "type": "",
           "len": "",
@@ -7055,12 +7235,11 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "EF1E8D93-A4F5-4505-87B7-21C8FD52856F",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "refDict": "1B2B2E95-830A-4621-A0CF-BF68FB251A90",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
-          "id": "83F9353E-1E44-416A-9389-F56FCEEF06D1",
-          "uiHint": null
+          "id": "6EA8B351-BC16-42E4-BFB8-62A77B6EBDAF"
         },
         {
           "defKey": "del_flag",
@@ -7540,7 +7719,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "C05A5E85-B9C8-4D75-89DA-37FDD3B88B57",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "5A2631C4-5246-439E-ADAF-F66C8BCDBF20",
@@ -7559,7 +7738,7 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "AA955573-8174-4193-A50C-3646C78A4C8E",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "533EF011-B112-4226-9E6D-D75B1DA4AAD8",
@@ -10112,7 +10291,7 @@
           "defaultValue": "0",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "4449D860-CDF7-47F5-9EB2-B81A52B1274F"
@@ -10291,7 +10470,7 @@
   "views": [],
   "dicts": [
     {
-      "defKey": "CheckinType",
+      "defKey": "hotel_checkin_type",
       "defName": "入住类型",
       "sort": "",
       "intro": "",
@@ -10348,7 +10527,7 @@
       ]
     },
     {
-      "defKey": "CheckinStatus",
+      "defKey": "hotel_checkin_status",
       "defName": "入住状态",
       "sort": "",
       "intro": "",
@@ -10453,7 +10632,7 @@
       ]
     },
     {
-      "defKey": "Gender",
+      "defKey": "sys_gender",
       "defName": "性别",
       "sort": "",
       "intro": "",
@@ -10498,7 +10677,7 @@
       ]
     },
     {
-      "defKey": "RoomStatus",
+      "defKey": "hotel_room_status",
       "defName": "房间状态",
       "sort": "",
       "intro": "",
@@ -10567,7 +10746,7 @@
       ]
     },
     {
-      "defKey": "DataScope",
+      "defKey": "sys_data_scope",
       "defName": "数据范围",
       "sort": "",
       "intro": "",
@@ -10600,7 +10779,55 @@
       ]
     },
     {
-      "defKey": "PayMethod",
+      "defKey": "hotel_order_status",
+      "defName": "订单状态",
+      "sort": "",
+      "intro": "",
+      "id": "EF1E8D93-A4F5-4505-87B7-21C8FD52856F",
+      "items": [
+        {
+          "defKey": "0",
+          "defName": "欠款",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "24C44F4A-1DDC-4668-AC9C-DE4062E8775B",
+          "baseType": ""
+        },
+        {
+          "defKey": "1",
+          "defName": "多收",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "F6D34047-A884-46CA-9FF8-320EDF0A001B",
+          "baseType": ""
+        },
+        {
+          "defKey": "2",
+          "defName": "已收齐",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "50E6381B-516B-46FB-837B-E27BD50BDF38",
+          "baseType": ""
+        }
+      ]
+    },
+    {
+      "defKey": "hotel_pay_method",
       "defName": "支付方式",
       "sort": "",
       "intro": "",
@@ -10657,7 +10884,7 @@
       ]
     },
     {
-      "defKey": "PayType",
+      "defKey": "hotel_pay_type",
       "defName": "支付类型",
       "sort": "",
       "intro": "",
@@ -10702,23 +10929,80 @@
       ]
     },
     {
-      "defKey": "OrderStatus",
-      "defName": "订单状态",
+      "defKey": "hotel_checkout_status",
+      "defName": "结帐状态",
       "sort": "",
       "intro": "",
-      "id": "EF1E8D93-A4F5-4505-87B7-21C8FD52856F",
+      "id": "1B2B2E95-830A-4621-A0CF-BF68FB251A90",
       "items": [
         {
-          "defKey": "",
-          "defName": "",
-          "sort": "",
+          "defKey": "0",
+          "defName": "欠款",
+          "sort": "1",
           "parentKey": "",
           "intro": "",
           "enabled": true,
           "attr1": "",
           "attr2": "",
           "attr3": "",
-          "id": "366CD498-820D-4C15-A611-F16043F273BA"
+          "id": "5C1E8392-FB52-4F60-A621-637F7C0378CB"
+        },
+        {
+          "defKey": "1",
+          "defName": "多收",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "6398B4CB-5139-419B-81A1-7DA35C5909EF"
+        },
+        {
+          "defKey": "2",
+          "defName": "已收齐",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "EC80BF4C-7D06-4FCE-9E24-243A1DF42E62"
+        }
+      ]
+    },
+    {
+      "defKey": "hotel_customer_origin",
+      "defName": "客户来源",
+      "sort": "",
+      "intro": "",
+      "id": "A2D74A3E-42D0-4A3E-A315-2C8F5EDA8D25",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "自来客",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "C45C385F-C410-40FE-9CAE-CA13D01D1581"
+        },
+        {
+          "defKey": "2",
+          "defName": "手动录入",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "94CA4AE3-7789-4AEE-9DD0-B6D767990048"
         }
       ]
     }
@@ -10766,12 +11050,14 @@
       "refViews": [],
       "refDiagrams": [],
       "refDicts": [
+        "A2D74A3E-42D0-4A3E-A315-2C8F5EDA8D25",
         "A1DC5A2C-C329-481A-86BD-8898245316DB",
         "4BD32F5C-E966-4AB1-8B29-AEDF8B0C2BD7",
         "4113429B-DAD0-4600-AFEF-FFBDBC2106B4",
         "AA955573-8174-4193-A50C-3646C78A4C8E",
         "C05A5E85-B9C8-4D75-89DA-37FDD3B88B57",
-        "EF1E8D93-A4F5-4505-87B7-21C8FD52856F"
+        "EF1E8D93-A4F5-4505-87B7-21C8FD52856F",
+        "1B2B2E95-830A-4621-A0CF-BF68FB251A90"
       ],
       "id": "B6E962FC-9EF9-4B4A-B536-B7B17237F972",
       "undefined": [],
@@ -10883,8 +11169,14 @@
       },
       {
         "defKey": "date",
-        "id": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
         "defName": "日期",
+        "id": "BA32784D-4BC0-49F8-A386-38D645E2144F",
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "DATE"
+      },
+      {
+        "defKey": "datetime",
+        "id": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
+        "defName": "日期时间",
         "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "DATETIME",
         "A4E23CB7-BB01-4BD1-9F71-F73F3E15A542": "DATE",
         "BFC87171-C74F-494A-B7C2-76B9C55FACC9": "DATETIME",
@@ -10908,8 +11200,8 @@
       },
       {
         "defKey": "timestamp",
-        "defName": "日期（时区同步）",
         "id": "91C500D4-FDD0-4779-83B2-145E4A85B4E3",
+        "defName": "日期时间（时区同步）",
         "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "TIMESTAMP",
         "797A1496-D649-4261-89B4-544132EC3F36": "Date",
         "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "Date",
@@ -10965,8 +11257,8 @@
       },
       {
         "defKey": "tinyint",
-        "defName": "微整数",
         "id": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
+        "defName": "微整数",
         "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "TINYINT",
         "797A1496-D649-4261-89B4-544132EC3F36": "Short",
         "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "Short",
@@ -10974,8 +11266,8 @@
       },
       {
         "defKey": "bigint",
-        "defName": "长整数",
         "id": "ADADDD44-903F-4709-855A-FFCC0E10B02D",
+        "defName": "长整数",
         "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BIGINT",
         "797A1496-D649-4261-89B4-544132EC3F36": "long",
         "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "long",
@@ -10983,8 +11275,8 @@
       },
       {
         "defKey": "boolean",
-        "defName": "布尔值",
         "id": "DF8A7142-B22C-426E-8CBD-63D9E5C9545D",
+        "defName": "布尔值",
         "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BOOLEAN",
         "797A1496-D649-4261-89B4-544132EC3F36": "Boolean",
         "895CFD1D-4273-4D32-A2C4-CAC70200AB5B": "Boolean",
@@ -11066,6 +11358,15 @@
       "id": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF"
     },
     {
+      "defKey": "Date",
+      "defName": "日期",
+      "applyFor": "BA32784D-4BC0-49F8-A386-38D645E2144F",
+      "len": "",
+      "scale": "",
+      "uiHint": "",
+      "id": "CE50C2D8-886E-48D6-A3AC-B7C31D04C9B3"
+    },
+    {
       "defKey": "DateTime",
       "defName": "日期时间",
       "applyFor": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
@@ -11086,8 +11387,8 @@
     {
       "defKey": "DictData",
       "defName": "数据字典",
-      "applyFor": "E35F698B-B1F7-4BFC-8BAF-3FCEBF80712A",
-      "len": "",
+      "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+      "len": 100,
       "scale": "",
       "uiHint": "",
       "id": "73FD2BAD-2358-4336-B96D-45DC897BD792"

@@ -5,17 +5,19 @@ import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 /**
  * 购物记录对象 hotel_product_record
  *
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 @Schema(title = "购物记录")
 @Alias("HotelProductRecord")
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Data
 public class HotelProductRecord extends BaseEntity {
 

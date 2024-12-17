@@ -1,22 +1,29 @@
 package cn.apkr.hotel.domain;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serial;
+import java.util.Set;
+
 import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 /**
- * 客户;该是 user 的一个属性扩展对象 hotel_customer
+ * 客户对象 hotel_customer
  *
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-09
  */
-@Schema(title = "客户;该表是 user 表的一个属性扩展表")
+@Schema(title = "客户")
 @Alias("HotelCustomer")
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class HotelCustomer extends BaseEntity {
@@ -65,8 +72,25 @@ public class HotelCustomer extends BaseEntity {
     @Schema(title = "入住次数")
     private Integer checkinTimes;
 
-    /** 删除标识 */
-    @Schema(title = "删除标识")
-    private Integer delFlag;
+    /** 总消费金额 */
+    @Schema(title = "总消费金额")
+    private BigDecimal totalSpent;
+
+    /** 最近消费时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(title = "最近消费时间")
+    private Timestamp lastSpentTime;
+
+    /** 黑名单标识 */
+    @Schema(title = "黑名单标识")
+    private Boolean blackFlag;
+
+    // 标签ID数组
+    @Schema(title = "标签ID数组")
+    private Long[] tagIds;
+
+    // 标签列表
+    @Schema(title = "标签列表")
+    private Set<HotelTag> tags;
 
 }

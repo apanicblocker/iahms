@@ -6,17 +6,19 @@ import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 /**
  * 房间对象 hotel_room
  *
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 @Schema(title = "房间")
 @Alias("HotelRoom")
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Data
 public class HotelRoom extends BaseEntity {
 
@@ -41,10 +43,6 @@ public class HotelRoom extends BaseEntity {
 
     /** 是否脏房 */
     @Schema(title = "是否脏房")
-    private Integer dirtyFlag;
-
-    /** 删除标识 */
-    @Schema(title = "删除标识")
-    private Integer delFlag;
+    private Boolean dirtyFlag;
 
 }

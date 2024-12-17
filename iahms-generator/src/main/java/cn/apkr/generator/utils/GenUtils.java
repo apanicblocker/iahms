@@ -1,7 +1,6 @@
 package cn.apkr.generator.utils;
 
 import cn.apkr.common.constant.GenConstants;
-import cn.apkr.common.exception.UtilException;
 import cn.apkr.common.utils.StringUtils;
 import cn.apkr.generator.config.GenConfig;
 import cn.apkr.generator.domain.GenTable;
@@ -28,12 +27,16 @@ public class GenUtils {
 	 * 初始化列属性字段
 	 */
 	public static void initColumnField(GenTableColumn column, GenTable table) {
-		String dataType = getDbType(column.getColumnType());
+		String dataType = column.getColumnType();
+		if (!arraysContains(GenConstants.SPECIAL_COLUMN_TYPE, dataType)) {
+			// 特殊字段保留字段类型的括号内容（例：tinyint(1) -> Boolean）
+			dataType = getSimpleType(dataType);
+		}
 		String columnName = column.getColumnName();
 		column.setTableId(table.getTableId());
 		column.setCreateBy(table.getCreateBy());
 		// 设置java字段名
-		column.setJavaField(StringUtils.toCamelCase(columnName));
+		column.setJavaField(StringUtils.lowUnderscore2CamelCase(columnName));
 		// 设置默认类型
 		column.setJavaType(GenConstants.TYPE_STRING);
 		column.setQueryType(GenConstants.QUERY_EQ);
@@ -134,17 +137,26 @@ public class GenUtils {
 		return StringUtils.substring(packageName, lastIndex + 1, nameLength);
 	}
 
+//	/**
+//	 * 获取业务名
+//	 * @param tableName 表名
+//	 * @return 业务名
+//	 */
+//	public static String getBusinessName(String tableName) {
+//		int lastIndex = tableName.lastIndexOf("_");
+//		int nameLength = tableName.length();
+//		return StringUtils.substring(tableName, lastIndex + 1, nameLength);
+//	}
 	/**
-	 * 获取业务名
-	 *
+	 * 获取业务名，去掉第一个 '_' 左边的字串把右边的变成驼峰命名作为业务名
 	 * @param tableName 表名
 	 * @return 业务名
 	 */
-	public static String getBusinessName(String tableName)
-	{
-		int lastIndex = tableName.lastIndexOf("_");
+	public static String getBusinessName(String tableName) {
+		int firstIndex = tableName.indexOf("_");
 		int nameLength = tableName.length();
-		return StringUtils.substring(tableName, lastIndex + 1, nameLength);
+		String entityName = StringUtils.substring(tableName, firstIndex + 1, nameLength);
+		return StringUtils.lowUnderscore2CamelCase(entityName);
 	}
 
 	/**
@@ -162,7 +174,7 @@ public class GenUtils {
 			String[] searchList = StringUtils.split(tablePrefix, ",");
 			tableName = replaceFirst(tableName, searchList);
 		}
-		return StringUtils.convertToCamelCase(tableName);
+		return StringUtils.capUnderscore2CamelCase(tableName);
 	}
 
 	/**
@@ -198,19 +210,14 @@ public class GenUtils {
 	}
 
 	/**
-	 * 获取数据库类型字段
-	 *
+	 * 截取列类型，剔除括号内容
 	 * @param columnType 列类型
 	 * @return 截取后的列类型
 	 */
-	public static String getDbType(String columnType)
-	{
-		if (StringUtils.indexOf(columnType, "(") > 0)
-		{
+	public static String getSimpleType(String columnType) {
+		if (StringUtils.indexOf(columnType, "(") > 0) {
 			return StringUtils.substringBefore(columnType, "(");
-		}
-		else
-		{
+		} else {
 			return columnType;
 		}
 	}

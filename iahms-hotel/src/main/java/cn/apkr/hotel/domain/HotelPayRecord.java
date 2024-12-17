@@ -8,16 +8,18 @@ import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 /**
  * 支付记录对象 hotel_pay_record
  *
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 @Schema(title = "支付记录")
 @Alias("HotelPayRecord")
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class HotelPayRecord extends BaseEntity {
@@ -39,18 +41,18 @@ public class HotelPayRecord extends BaseEntity {
 
     /** 支付类型 */
     @Schema(title = "支付类型")
-    private Integer payType;
+    private String payType;
 
     /** 支付方式 */
     @Schema(title = "支付方式")
-    private Integer payMethod;
+    private String payMethod;
 
     /** 支付金额 */
     @Schema(title = "支付金额")
     private BigDecimal amount;
 
     /** 支付时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(title = "支付时间")
     private Date payTime;
 

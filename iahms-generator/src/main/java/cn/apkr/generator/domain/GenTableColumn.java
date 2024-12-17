@@ -6,6 +6,7 @@ import cn.apkr.common.utils.StringUtils;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serial;
@@ -66,10 +67,7 @@ public class GenTableColumn extends BaseEntity {
 
 	public static boolean isSuperColumn(String javaField) {
 		return StringUtils.equalsAnyIgnoreCase(javaField,
-				// BaseEntity
-				"remark", "tenantId", "revision", "createTime", "createBy", "updateTime", "updateBy",
-				// TreeEntity
-				"parentName", "parentId", "orderNum", "ancestors");
+				ArrayUtils.addAll(GenConstants.TREE_ENTITY, GenConstants.BASE_ENTITY));
 	}
 
 	public boolean isUsableColumn() {

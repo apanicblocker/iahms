@@ -29,15 +29,6 @@ public class VelocityUtils {
 	// 默认上级菜单，系统工具（非必要）
 	private static final String DEFAULT_PARENT_MENU_ID = "3";
 
-//	// test
-//	public static void initMapperContext(VelocityContext context, GenTable table) {
-//		String packageName = table.getPackageName();
-//		context.put("packageName", packageName);
-//		context.put("className", StringUtils.uncapitalize(table.getClassName()));
-//		context.put("ClassName", table.getClassName());
-//		context.put("columns", table.getColumns());
-//	}
-
 	public static VelocityContext prepareContext(GenTable genTable) {
 		String moduleName = genTable.getModuleName();
 		String businessName = genTable.getBusinessName();
@@ -77,7 +68,7 @@ public class VelocityUtils {
 	public static void setMenuVelocityContext(VelocityContext context, GenTable genTable) {
 		String options = genTable.getOptions();
 		if (StringUtils.isEmpty(options)) {
-			log.warn("业务字段为空：{}", genTable.getTableName());
+			log.warn("业务字段(options)为空：{}", genTable.getTableName());
 			return;
 		}
 		JSONObject paramsObj = JSON.parseObject(options);
@@ -104,7 +95,7 @@ public class VelocityUtils {
 		String subTableName = genTable.getSubTableName();
 		String subTableFkName = genTable.getSubTableFkName();
 		String subClassName = genTable.getSubTable().getClassName();
-		String subTableFkClassName = StringUtils.convertToCamelCase(subTableFkName);
+		String subTableFkClassName = StringUtils.capUnderscore2CamelCase(subTableFkName);
 
 		context.put("subTable", subTable);
 		context.put("subTableName", subTableName);
@@ -152,7 +143,7 @@ public class VelocityUtils {
 		templates.add("vm/java/controller.java.vm");
 		templates.add("vm/xml/mapper.xml.vm");
 		templates.add("vm/sql/sql.vm");
-		templates.add("vm/js/api.js.vm");
+		templates.add("vm/ts/api.ts.vm");
 		if (GenConstants.TPL_CRUD.equals(tplCategory)) {
 			templates.add("vm/vue/index.vue.vm");
 		}
@@ -210,8 +201,8 @@ public class VelocityUtils {
 		else if (template.contains("sql.vm")) {
 			fileName = businessName + "Menu.sql";
 		}
-		else if (template.contains("api.js.vm")) {
-			fileName = StringUtils.format("{}/api/{}/{}.js", vuePath, moduleName, businessName);
+		else if (template.contains("api.ts.vm")) {
+			fileName = StringUtils.format("{}/api/{}/{}.ts", vuePath, moduleName, businessName);
 		}
 		else if (template.contains("index.vue.vm")) {
 			fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
@@ -317,7 +308,7 @@ public class VelocityUtils {
 	 */
 	public static String getTreeCode(JSONObject paramsObj) {
 		if (paramsObj.containsKey(GenConstants.TREE_CODE)) {
-			return StringUtils.toCamelCase(paramsObj.getString(GenConstants.TREE_CODE));
+			return StringUtils.lowUnderscore2CamelCase(paramsObj.getString(GenConstants.TREE_CODE));
 		}
 		return StringUtils.EMPTY;
 	}
@@ -329,7 +320,7 @@ public class VelocityUtils {
 	 */
 	public static String getTreeParentCode(JSONObject paramsObj) {
 		if (paramsObj.containsKey(GenConstants.TREE_PARENT_CODE)) {
-			return StringUtils.toCamelCase(paramsObj.getString(GenConstants.TREE_PARENT_CODE));
+			return StringUtils.lowUnderscore2CamelCase(paramsObj.getString(GenConstants.TREE_PARENT_CODE));
 		}
 		return StringUtils.EMPTY;
 	}
@@ -341,7 +332,7 @@ public class VelocityUtils {
 	 */
 	public static String getTreeName(JSONObject paramsObj) {
 		if (paramsObj.containsKey(GenConstants.TREE_NAME)) {
-			return StringUtils.toCamelCase(paramsObj.getString(GenConstants.TREE_NAME));
+			return StringUtils.lowUnderscore2CamelCase(paramsObj.getString(GenConstants.TREE_NAME));
 		}
 		return StringUtils.EMPTY;
 	}

@@ -26,17 +26,17 @@
     <select id="selectHotelRoomStatusRecordList" parameterType="HotelRoomStatusRecord" resultMap="HotelRoomStatusRecordResult">
         <include refid="selectHotelRoomStatusRecordVo" />
         <where>
-            <if test="roomId != null ">
-                and room_id = #{roomId}
+            <if test="roomId != null">
+                AND room_id = #{roomId}
             </if>
-            <if test="roomStatus != null ">
-                and room_status = #{roomStatus}
+            <if test="roomStatus != null and roomStatus != ''">
+                AND room_status = #{roomStatus}
             </if>
-            <if test="startTime != null ">
-                and start_time = #{startTime}
+            <if test="startTime != null">
+                AND start_time = #{startTime}
             </if>
-            <if test="endTime != null ">
-                and end_time = #{endTime}
+            <if test="endTime != null">
+                AND end_time = #{endTime}
             </if>
         </where>
     </select>
@@ -51,7 +51,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="roomStatusRecordId != null">room_status_record_id,</if>
             <if test="roomId != null">room_id,</if>
-            <if test="roomStatus != null">room_status,</if>
+            <if test="roomStatus != null and roomStatus != ''">room_status,</if>
             <if test="startTime != null">start_time,</if>
             <if test="endTime != null">end_time,</if>
             <if test="tenantId != null">tenant_id,</if>
@@ -65,7 +65,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="roomStatusRecordId != null">#{roomStatusRecordId},</if>
             <if test="roomId != null">#{roomId},</if>
-            <if test="roomStatus != null">#{roomStatus},</if>
+            <if test="roomStatus != null and roomStatus != ''">#{roomStatus},</if>
             <if test="startTime != null">#{startTime},</if>
             <if test="endTime != null">#{endTime},</if>
             <if test="tenantId != null">#{tenantId},</if>
@@ -81,7 +81,7 @@
         UPDATE hotel_room_status_record
         <trim prefix="SET" suffixOverrides=",">
             <if test="roomId != null">room_id = #{roomId},</if>
-            <if test="roomStatus != null">room_status = #{roomStatus},</if>
+            <if test="roomStatus != null and roomStatus != ''">room_status = #{roomStatus},</if>
             <if test="startTime != null">start_time = #{startTime},</if>
             <if test="endTime != null">end_time = #{endTime},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>

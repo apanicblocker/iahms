@@ -9,7 +9,7 @@
         <result property="number" column="number" />
         <result property="customerId" column="customer_id" />
         <result property="totalAmount" column="total_amount" />
-        <result property="orderStatus" column="order_status" />
+        <result property="checkoutStatus" column="checkout_status" />
         <result property="delFlag" column="del_flag" />
         <result property="remark" column="remark" />
         <result property="tenantId" column="tenant_id" />
@@ -21,24 +21,24 @@
     </resultMap>
 
     <sql id="selectHotelOrderVo">
-        SELECT order_id, number, customer_id, total_amount, order_status, del_flag, remark, tenant_id, revision, create_by, create_time, update_by, update_time
+        SELECT order_id, number, customer_id, total_amount, checkout_status, del_flag, remark, tenant_id, revision, create_by, create_time, update_by, update_time
         FROM hotel_order
     </sql>
 
     <select id="selectHotelOrderList" parameterType="HotelOrder" resultMap="HotelOrderResult">
         <include refid="selectHotelOrderVo" />
         <where>
-            <if test="number != null  and number != ''">
-                and number = #{number}
+            <if test="number != null and number != ''">
+                AND number = #{number}
             </if>
-            <if test="customerId != null ">
-                and customer_id = #{customerId}
+            <if test="customerId != null">
+                AND customer_id = #{customerId}
             </if>
-            <if test="totalAmount != null ">
-                and total_amount = #{totalAmount}
+            <if test="totalAmount != null">
+                AND total_amount = #{totalAmount}
             </if>
-            <if test="orderStatus != null ">
-                and order_status = #{orderStatus}
+            <if test="checkoutStatus != null and checkoutStatus != ''">
+                AND checkout_status = #{checkoutStatus}
             </if>
         </where>
     </select>
@@ -52,12 +52,12 @@
         INSERT INTO hotel_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderId != null">order_id,</if>
-            <if test="number != null">number,</if>
+            <if test="number != null and number != ''">number,</if>
             <if test="customerId != null">customer_id,</if>
             <if test="totalAmount != null">total_amount,</if>
-            <if test="orderStatus != null">order_status,</if>
+            <if test="checkoutStatus != null and checkoutStatus != ''">checkout_status,</if>
             <if test="delFlag != null">del_flag,</if>
-            <if test="remark != null">remark,</if>
+            <if test="remark != null and remark != ''">remark,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
@@ -68,12 +68,12 @@
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderId != null">#{orderId},</if>
-            <if test="number != null">#{number},</if>
+            <if test="number != null and number != ''">#{number},</if>
             <if test="customerId != null">#{customerId},</if>
             <if test="totalAmount != null">#{totalAmount},</if>
-            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="checkoutStatus != null and checkoutStatus != ''">#{checkoutStatus},</if>
             <if test="delFlag != null">#{delFlag},</if>
-            <if test="remark != null">#{remark},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -86,12 +86,12 @@
     <update id="updateHotelOrder" parameterType="HotelOrder">
         UPDATE hotel_order
         <trim prefix="SET" suffixOverrides=",">
-            <if test="number != null">number = #{number},</if>
+            <if test="number != null and number != ''">number = #{number},</if>
             <if test="customerId != null">customer_id = #{customerId},</if>
             <if test="totalAmount != null">total_amount = #{totalAmount},</if>
-            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="checkoutStatus != null and checkoutStatus != ''">checkout_status = #{checkoutStatus},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
             <if test="createBy != null">create_by = #{createBy},</if>

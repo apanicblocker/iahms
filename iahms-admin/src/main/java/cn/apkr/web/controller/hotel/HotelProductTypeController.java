@@ -1,31 +1,28 @@
 package cn.apkr.web.controller.hotel;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import cn.apkr.common.annotation.Log;
 import cn.apkr.common.core.controller.BaseController;
 import cn.apkr.common.core.domain.AjaxResult;
+import cn.apkr.common.core.page.TableDataInfo;
 import cn.apkr.common.enums.BusinessType;
 import cn.apkr.hotel.domain.HotelProductType;
 import cn.apkr.hotel.service.IHotelProductTypeService;
-import cn.apkr.common.core.page.TableDataInfo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 商品类型Controller
  *
  * @author apkr
- * @datetime 2024-12-06
+ * @date 2024-12-16
  */
+@Tag(name = "商品类型")
 @RestController
-@RequestMapping("/hotel/product/type")
+@RequestMapping("/hotel/productType")
 public class HotelProductTypeController extends BaseController {
 
     @Autowired
@@ -34,6 +31,7 @@ public class HotelProductTypeController extends BaseController {
     /**
      * 查询商品类型列表
      */
+    @Operation(summary = "查询商品类型列表")
     @GetMapping("/list")
     public TableDataInfo list(HotelProductType hotelProductType) {
         startPage();
@@ -44,6 +42,7 @@ public class HotelProductTypeController extends BaseController {
     /**
      * 获取商品类型详细信息
      */
+    @Operation(summary = "获取商品类型详细信息")
     @GetMapping(value = "/{productTypeId}")
     public AjaxResult getByProductTypeId(@PathVariable("productTypeId") Long productTypeId) {
         return success(hotelProductTypeService.selectHotelProductTypeByProductTypeId(productTypeId));
@@ -52,6 +51,7 @@ public class HotelProductTypeController extends BaseController {
     /**
      * 新增商品类型
      */
+    @Operation(summary = "新增商品类型")
     @Log(title = "商品类型", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HotelProductType hotelProductType) {
@@ -61,6 +61,7 @@ public class HotelProductTypeController extends BaseController {
     /**
      * 修改商品类型
      */
+    @Operation(summary = "修改商品类型")
     @Log(title = "商品类型", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HotelProductType hotelProductType) {
@@ -70,9 +71,10 @@ public class HotelProductTypeController extends BaseController {
     /**
      * 删除商品类型
      */
+    @Operation(summary = "删除商品类型")
     @Log(title = "商品类型", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{productTypeIds}")
-    public AjaxResult remove(@PathVariable Long[] productTypeIds) {
+    public AjaxResult remove(@PathVariable("productTypeIds") Long[] productTypeIds) {
         return toAjax(hotelProductTypeService.deleteHotelProductTypeByProductTypeIds(productTypeIds));
     }
 }

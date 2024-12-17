@@ -28,20 +28,20 @@
     <select id="selectHotelRoomTypeList" parameterType="HotelRoomType" resultMap="HotelRoomTypeResult">
         <include refid="selectHotelRoomTypeVo" />
         <where>
-            <if test="roomName != null  and roomName != ''">
+            <if test="roomName != null and roomName != ''">
                 AND room_name like concat('%', #{roomName}, '%')
             </if>
-            <if test="nickName != null  and nickName != ''">
+            <if test="nickName != null and nickName != ''">
                 AND nick_name like concat('%', #{nickName}, '%')
             </if>
-            <if test="price != null ">
-                and price = #{price}
+            <if test="price != null">
+                AND price = #{price}
             </if>
-            <if test="quantity != null ">
-                and quantity = #{quantity}
+            <if test="quantity != null">
+                AND quantity = #{quantity}
             </if>
-            <if test="description != null  and description != ''">
-                and description = #{description}
+            <if test="description != null and description != ''">
+                AND description = #{description}
             </if>
         </where>
     </select>
@@ -55,12 +55,12 @@
         INSERT INTO hotel_room_type
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="roomTypeId != null">room_type_id,</if>
-            <if test="roomName != null">room_name,</if>
-            <if test="nickName != null">nick_name,</if>
+            <if test="roomName != null and roomName != ''">room_name,</if>
+            <if test="nickName != null and nickName != ''">nick_name,</if>
             <if test="price != null">price,</if>
             <if test="quantity != null">quantity,</if>
-            <if test="description != null">description,</if>
-            <if test="remark != null">remark,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="remark != null and remark != ''">remark,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
@@ -71,12 +71,12 @@
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="roomTypeId != null">#{roomTypeId},</if>
-            <if test="roomName != null">#{roomName},</if>
-            <if test="nickName != null">#{nickName},</if>
+            <if test="roomName != null and roomName != ''">#{roomName},</if>
+            <if test="nickName != null and nickName != ''">#{nickName},</if>
             <if test="price != null">#{price},</if>
             <if test="quantity != null">#{quantity},</if>
-            <if test="description != null">#{description},</if>
-            <if test="remark != null">#{remark},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -89,12 +89,12 @@
     <update id="updateHotelRoomType" parameterType="HotelRoomType">
         UPDATE hotel_room_type
         <trim prefix="SET" suffixOverrides=",">
-            <if test="roomName != null">room_name = #{roomName},</if>
-            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="roomName != null and roomName != ''">room_name = #{roomName},</if>
+            <if test="nickName != null and nickName != ''">nick_name = #{nickName},</if>
             <if test="price != null">price = #{price},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
-            <if test="description != null">description = #{description},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
             <if test="createBy != null">create_by = #{createBy},</if>

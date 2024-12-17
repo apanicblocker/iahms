@@ -6,16 +6,18 @@ import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 /**
  * 商品对象 hotel_product
  *
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 @Schema(title = "商品")
 @Alias("HotelProduct")
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class HotelProduct extends BaseEntity {
@@ -46,9 +48,5 @@ public class HotelProduct extends BaseEntity {
     /** 商品描述 */
     @Schema(title = "商品描述")
     private String description;
-
-    /** 删除标识 */
-    @Schema(title = "删除标识")
-    private Integer delFlag;
 
 }

@@ -42,9 +42,6 @@ public class SysUser extends BaseEntity {
     /** 启用状态 */
     private Boolean status;
 
-    /** 删除标识 */
-    private Boolean delFlag;
-
     /** 角色组 */
     private List<SysRole> roles;
 

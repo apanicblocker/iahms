@@ -20,7 +20,7 @@ public class PageDomain {
 		if (StringUtils.isEmpty(orderByColumn)) {
 			return "";
 		}
-		return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
+		return StringUtils.camelCase2lowUnderscore(orderByColumn) + " " + isAsc;
 	}
 
 	public void setIsAsc(String isAsc)

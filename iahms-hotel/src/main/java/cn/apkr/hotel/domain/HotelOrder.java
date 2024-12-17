@@ -6,16 +6,18 @@ import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 /**
  * 订单对象 hotel_order
  *
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 @Schema(title = "订单")
 @Alias("HotelOrder")
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class HotelOrder extends BaseEntity {
@@ -39,12 +41,8 @@ public class HotelOrder extends BaseEntity {
     @Schema(title = "订单总金额")
     private BigDecimal totalAmount;
 
-    /** 订单状态 */
-    @Schema(title = "订单状态")
-    private Integer orderStatus;
-
-    /** 删除标识 */
-    @Schema(title = "删除标识")
-    private Integer delFlag;
+    /** 结帐状态 */
+    @Schema(title = "结帐状态")
+    private String checkoutStatus;
 
 }

@@ -7,17 +7,19 @@ import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 /**
  * 房态记录对象 hotel_room_status_record
  *
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 @Schema(title = "房态记录")
 @Alias("HotelRoomStatusRecord")
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Data
 public class HotelRoomStatusRecord extends BaseEntity {
 
@@ -34,15 +36,15 @@ public class HotelRoomStatusRecord extends BaseEntity {
 
     /** 房间状态 */
     @Schema(title = "房间状态")
-    private Integer roomStatus;
+    private String roomStatus;
 
     /** 开始时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(title = "开始时间")
     private Date startTime;
 
     /** 结束时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(title = "结束时间")
     private Date endTime;
 

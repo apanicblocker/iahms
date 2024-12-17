@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashSet;
 import java.util.Set;
 
-@Tag(name = "登录验证")
+@Tag(name = "登录")
 @RestController
 public class SysLoginController {
 
@@ -41,6 +41,7 @@ public class SysLoginController {
 		return ajax;
 	}
 
+	// 这是从ruoyi那借鉴过来的接口，感觉我用不太上
 	@Operation(summary = "获取用户信息")
 	@GetMapping("/getInfo")
 	public AjaxResult getInfo() {

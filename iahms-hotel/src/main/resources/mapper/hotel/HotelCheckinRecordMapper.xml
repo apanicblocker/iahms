@@ -34,35 +34,35 @@
     <select id="selectHotelCheckinRecordList" parameterType="HotelCheckinRecord" resultMap="HotelCheckinRecordResult">
         <include refid="selectHotelCheckinRecordVo" />
         <where>
-            <if test="orderId != null ">
-                and order_id = #{orderId}
+            <if test="orderId != null">
+                AND order_id = #{orderId}
             </if>
-            <if test="roomId != null ">
-                and room_id = #{roomId}
+            <if test="roomId != null">
+                AND room_id = #{roomId}
             </if>
-            <if test="customerId != null ">
-                and customer_id = #{customerId}
+            <if test="customerId != null">
+                AND customer_id = #{customerId}
             </if>
-            <if test="roomAmount != null ">
-                and room_amount = #{roomAmount}
+            <if test="roomAmount != null">
+                AND room_amount = #{roomAmount}
             </if>
-            <if test="checkinType != null ">
-                and checkin_type = #{checkinType}
+            <if test="checkinType != null and checkinType != ''">
+                AND checkin_type = #{checkinType}
             </if>
-            <if test="checkinStatus != null ">
-                and checkin_status = #{checkinStatus}
+            <if test="checkinStatus != null and checkinStatus != ''">
+                AND checkin_status = #{checkinStatus}
             </if>
-            <if test="preCheckinTime != null ">
-                and pre_checkin_time = #{preCheckinTime}
+            <if test="preCheckinTime != null">
+                AND pre_checkin_time = #{preCheckinTime}
             </if>
-            <if test="actCheckinTime != null ">
-                and act_checkin_time = #{actCheckinTime}
+            <if test="actCheckinTime != null">
+                AND act_checkin_time = #{actCheckinTime}
             </if>
-            <if test="preCheckoutTime != null ">
-                and pre_checkout_time = #{preCheckoutTime}
+            <if test="preCheckoutTime != null">
+                AND pre_checkout_time = #{preCheckoutTime}
             </if>
-            <if test="actCheckoutTime != null ">
-                and act_checkout_time = #{actCheckoutTime}
+            <if test="actCheckoutTime != null">
+                AND act_checkout_time = #{actCheckoutTime}
             </if>
         </where>
     </select>
@@ -80,13 +80,13 @@
             <if test="roomId != null">room_id,</if>
             <if test="customerId != null">customer_id,</if>
             <if test="roomAmount != null">room_amount,</if>
-            <if test="checkinType != null">checkin_type,</if>
-            <if test="checkinStatus != null">checkin_status,</if>
+            <if test="checkinType != null and checkinType != ''">checkin_type,</if>
+            <if test="checkinStatus != null and checkinStatus != ''">checkin_status,</if>
             <if test="preCheckinTime != null">pre_checkin_time,</if>
             <if test="actCheckinTime != null">act_checkin_time,</if>
             <if test="preCheckoutTime != null">pre_checkout_time,</if>
             <if test="actCheckoutTime != null">act_checkout_time,</if>
-            <if test="remark != null">remark,</if>
+            <if test="remark != null and remark != ''">remark,</if>
             <if test="delFlag != null">del_flag,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
@@ -102,13 +102,13 @@
             <if test="roomId != null">#{roomId},</if>
             <if test="customerId != null">#{customerId},</if>
             <if test="roomAmount != null">#{roomAmount},</if>
-            <if test="checkinType != null">#{checkinType},</if>
-            <if test="checkinStatus != null">#{checkinStatus},</if>
+            <if test="checkinType != null and checkinType != ''">#{checkinType},</if>
+            <if test="checkinStatus != null and checkinStatus != ''">#{checkinStatus},</if>
             <if test="preCheckinTime != null">#{preCheckinTime},</if>
             <if test="actCheckinTime != null">#{actCheckinTime},</if>
             <if test="preCheckoutTime != null">#{preCheckoutTime},</if>
             <if test="actCheckoutTime != null">#{actCheckoutTime},</if>
-            <if test="remark != null">#{remark},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
             <if test="delFlag != null">#{delFlag},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
@@ -126,13 +126,13 @@
             <if test="roomId != null">room_id = #{roomId},</if>
             <if test="customerId != null">customer_id = #{customerId},</if>
             <if test="roomAmount != null">room_amount = #{roomAmount},</if>
-            <if test="checkinType != null">checkin_type = #{checkinType},</if>
-            <if test="checkinStatus != null">checkin_status = #{checkinStatus},</if>
+            <if test="checkinType != null and checkinType != ''">checkin_type = #{checkinType},</if>
+            <if test="checkinStatus != null and checkinStatus != ''">checkin_status = #{checkinStatus},</if>
             <if test="preCheckinTime != null">pre_checkin_time = #{preCheckinTime},</if>
             <if test="actCheckinTime != null">act_checkin_time = #{actCheckinTime},</if>
             <if test="preCheckoutTime != null">pre_checkout_time = #{preCheckoutTime},</if>
             <if test="actCheckoutTime != null">act_checkout_time = #{actCheckoutTime},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>

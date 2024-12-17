@@ -25,14 +25,14 @@
     <select id="selectHotelProductRecordList" parameterType="HotelProductRecord" resultMap="HotelProductRecordResult">
         <include refid="selectHotelProductRecordVo" />
         <where>
-            <if test="orderId != null ">
-                and order_id = #{orderId}
+            <if test="orderId != null">
+                AND order_id = #{orderId}
             </if>
-            <if test="productId != null ">
-                and product_id = #{productId}
+            <if test="productId != null">
+                AND product_id = #{productId}
             </if>
-            <if test="quantity != null ">
-                and quantity = #{quantity}
+            <if test="quantity != null">
+                AND quantity = #{quantity}
             </if>
         </where>
     </select>

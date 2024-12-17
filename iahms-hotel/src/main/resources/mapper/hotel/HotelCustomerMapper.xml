@@ -15,6 +15,9 @@
         <result property="region" column="region" />
         <result property="email" column="email" />
         <result property="checkinTimes" column="checkin_times" />
+        <result property="totalSpent" column="total_spent" />
+        <result property="lastSpentTime" column="last_spent_time" />
+        <result property="blackFlag" column="black_flag" />
         <result property="delFlag" column="del_flag" />
         <result property="remark" column="remark" />
         <result property="tenantId" column="tenant_id" />
@@ -23,49 +26,101 @@
         <result property="createTime" column="create_time" />
         <result property="updateBy" column="update_by" />
         <result property="updateTime" column="update_time" />
+        <collection property="tags" javaType="java.util.Set" resultMap="TagResult" />
     </resultMap>
 
-    <sql id="selectHotelCustomerVo">
-        SELECT customer_id, origin, name, id_number, phone_number, gender, birthday, region, email, checkin_times, del_flag, remark, tenant_id, revision, create_by, create_time, update_by, update_time
-        FROM hotel_customer
+    <resultMap id="TagResult" type="HotelTag">
+        <id property="tagId" column="tag_id" />
+        <result property="label" column="label" />
+        <result property="color" column="color" />
+    </resultMap>
+
+    <sql id="selectHotelCustomerWithTagVo">
+        SELECT c.customer_id, c.origin, c.name, c.id_number, c.phone_number, c.gender, c.birthday, c.region, c.email,
+                c.checkin_times, c.total_spent, c.last_spent_time, c.black_flag, c.del_flag, c.remark, c.tenant_id,
+                c.revision, c.create_by, c.create_time, c.update_by, c.update_time,
+                t.tag_id, t.label, t.color
+        FROM hotel_customer AS c
+            LEFT JOIN hotel_tag_customer_link tc ON c.customer_id = tc.customer_id
+            LEFT JOIN hotel_tag t ON tc.tag_id = t.tag_id
     </sql>
 
     <select id="selectHotelCustomerList" parameterType="HotelCustomer" resultMap="HotelCustomerResult">
-        <include refid="selectHotelCustomerVo" />
+        <include refid="selectHotelCustomerWithTagVo" />
         <where>
-            <if test="origin != null ">
-                and origin = #{origin}
+            <if test="origin != null and origin != ''">
+                AND c.origin = #{origin}
             </if>
             <if test="name != null  and name != ''">
-                AND name like concat('%', #{name}, '%')
+                AND c.name like concat('%', #{name}, '%')
             </if>
-            <if test="idNumber != null  and idNumber != ''">
-                and id_number = #{idNumber}
+            <if test="idNumber != null and idNumber != ''">
+                AND c.id_number = #{idNumber}
             </if>
-            <if test="phoneNumber != null  and phoneNumber != ''">
-                and phone_number = #{phoneNumber}
+            <if test="phoneNumber != null and phoneNumber != ''">
+                AND c.phone_number = #{phoneNumber}
             </if>
-            <if test="gender != null ">
-                and gender = #{gender}
+            <if test="gender != null and gender != ''">
+                AND c.gender = #{gender}
             </if>
-            <if test="birthday != null ">
-                and birthday = #{birthday}
+            <if test="region != null and region != ''">
+                AND c.region = #{region}
             </if>
-            <if test="region != null  and region != ''">
-                and region = #{region}
+            <if test="email != null and email != ''">
+                AND c.email = #{email}
             </if>
-            <if test="email != null  and email != ''">
-                and email = #{email}
+            <if test="blackFlag != null">
+                AND c.black_flag = #{blackFlag}
             </if>
-            <if test="checkinTimes != null ">
-                and checkin_times = #{checkinTimes}
+            <if test="params.keyword != null and params.keyword != ''">
+                AND (c.name LIKE concat('%',#{params.keyword},'%')
+                OR c.phone_number LIKE concat('%',#{params.keyword},'%')
+<!--                OR c.id_number LIKE concat('%',#{params.keyword},'%')-->
+<!--                OR c.email LIKE concat('%',#{params.keyword},'%')-->
+<!--                OR c.region LIKE concat('%',#{params.keyword},'%'))-->
             </if>
+            <!-- 生日 -->
+            <if test="params.beginBirthday != null and params.beginBirthday != ''">
+                <![CDATA[ AND c.birthday >= #{params.beginBirthday} ]]>
+            </if>
+            <if test="params.endBirthday != null and params.endBirthday != ''">
+                <![CDATA[ AND c.birthday <= #{params.endBirthday} ]]>
+            </if>
+            <!-- 累计消费次数 -->
+            <if test="params.beginCheckinTimes != null and params.beginCheckinTimes != ''">
+                <![CDATA[ AND c.checkin_times >= #{params.beginCheckinTimes} ]]>
+            </if>
+            <if test="params.endCheckinTimes != null and params.endCheckinTimes != ''">
+                <![CDATA[ AND c.checkin_times <= #{params.endCheckinTimes} ]]>
+            </if>
+            <!-- 累计消费金额 -->
+            <if test="params.beginTotalSpent != null and params.beginTotalSpent != ''">
+                <![CDATA[ AND c.total_spent >= #{params.beginTotalSpent} ]]>
+            </if>
+            <if test="params.endTotalSpent != null and params.endTotalSpent != ''">
+                <![CDATA[ AND c.total_spent <= #{params.endTotalSpent} ]]>
+            </if>
+            <!-- 最近一次消费时间 -->
+            <if test="params.beginLastSpentTime != null and params.beginLastSpentTime != ''">
+                <![CDATA[ AND c.last_spent_time >= #{params.beginLastSpentTime} ]]>
+            </if>
+            <if test="params.endLastSpentTime != null and params.endLastSpentTime != ''">
+                <![CDATA[ AND c.last_spent_time <= #{params.endLastSpentTime} ]]>
+            </if>
+            <!-- 成为客户的时间 -->
+            <if test="params.beginCreateTime != null and params.beginCreateTime != ''">
+                <![CDATA[ AND c.create_time >= #{params.beginCreateTime} ]]>
+            </if>
+            <if test="params.endCreateTime != null and params.endCreateTime != ''">
+                <![CDATA[ AND c.create_time <= #{params.endCreateTime} ]]>
+            </if>
+            AND del_flag = 0
         </where>
     </select>
 
     <select id="selectHotelCustomerByCustomerId" parameterType="Long" resultMap="HotelCustomerResult">
-        <include refid="selectHotelCustomerVo" />
-        WHERE customer_id = #{customerId}
+        <include refid="selectHotelCustomerWithTagVo" />
+        WHERE c.customer_id = #{customerId} AND del_flag = 0
     </select>
 
     <insert id="insertHotelCustomer" parameterType="HotelCustomer">
@@ -81,14 +136,14 @@
             <if test="region != null">region,</if>
             <if test="email != null">email,</if>
             <if test="checkinTimes != null">checkin_times,</if>
+            <if test="totalSpent != null">total_spent,</if>
+            <if test="lastSpentTime != null">last_spent_time,</if>
+            <if test="blackFlag != null">black_flag,</if>
             <if test="delFlag != null">del_flag,</if>
             <if test="remark != null">remark,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateBy != null">update_by,</if>
-            <if test="updateTime != null">update_time,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -102,14 +157,14 @@
             <if test="region != null">#{region},</if>
             <if test="email != null">#{email},</if>
             <if test="checkinTimes != null">#{checkinTimes},</if>
+            <if test="totalSpent != null">#{totalSpent},</if>
+            <if test="lastSpentTime != null">#{lastSpentTime},</if>
+            <if test="blackFlag != null">#{blackFlag},</if>
             <if test="delFlag != null">#{delFlag},</if>
             <if test="remark != null">#{remark},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
-            <if test="createTime != null">#{createTime},</if>
-            <if test="updateBy != null">#{updateBy},</if>
-            <if test="updateTime != null">#{updateTime},</if>
         </trim>
     </insert>
 
@@ -125,25 +180,44 @@
             <if test="region != null">region = #{region},</if>
             <if test="email != null">email = #{email},</if>
             <if test="checkinTimes != null">checkin_times = #{checkinTimes},</if>
+            <if test="totalSpent != null">total_spent = #{totalSpent},</if>
+            <if test="lastSpentTime != null">last_spent_time = #{lastSpentTime},</if>
+            <if test="blackFlag != null">black_flag = #{blackFlag},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
-            <if test="createBy != null">create_by = #{createBy},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         WHERE customer_id = #{customerId}
     </update>
 
+    <update id="batchSetBlackFlag">
+        UPDATE hotel_customer SET black_flag = #{blackFlag}, update_by = #{updateBy}
+        WHERE customer_id IN
+        <foreach collection="customerIds" item="customerId" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </update>
+
+<!--    <delete id="deleteHotelCustomerByCustomerId" parameterType="Long">-->
+<!--        DELETE FROM hotel_customer-->
+<!--        WHERE customer_id = #{customerId}-->
+<!--    </delete>-->
+
+<!--    <delete id="deleteHotelCustomerByCustomerIds" parameterType="Long[]">-->
+<!--        DELETE FROM hotel_customer WHERE customer_id IN-->
+<!--        <foreach collection="array" item="customerId" open="(" separator="," close=")">-->
+<!--            #{customerId}-->
+<!--        </foreach>-->
+<!--    </delete>-->
+
     <delete id="deleteHotelCustomerByCustomerId" parameterType="Long">
-        DELETE FROM hotel_customer
-        WHERE customer_id = #{customerId}
+        UPDATE hotel_customer SET del_flag = true WHERE customer_id = #{customerId}
     </delete>
 
     <delete id="deleteHotelCustomerByCustomerIds" parameterType="Long[]">
-        DELETE FROM hotel_customer WHERE customer_id IN
+        UPDATE hotel_customer SET del_flag = true WHERE customer_id IN
         <foreach collection="array" item="customerId" open="(" separator="," close=")">
             #{customerId}
         </foreach>

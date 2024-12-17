@@ -9,10 +9,10 @@ import cn.apkr.hotel.domain.HotelCheckinRecord;
 import cn.apkr.hotel.service.IHotelCheckinRecordService;
 
 /**
- * 入住记录（开房记录）Service业务层处理
+ * 入住记录Service业务层处理
  * 
  * @author apkr
- * @date 2024-12-06
+ * @date 2024-12-16
  */
 @Service
 public class HotelCheckinRecordServiceImpl implements IHotelCheckinRecordService {
@@ -21,10 +21,10 @@ public class HotelCheckinRecordServiceImpl implements IHotelCheckinRecordService
     private HotelCheckinRecordMapper hotelCheckinRecordMapper;
 
     /**
-     * 查询入住记录（开房记录）
+     * 查询入住记录
      * 
-     * @param checkinRecordId 入住记录（开房记录）主键
-     * @return 入住记录（开房记录）
+     * @param checkinRecordId 入住记录主键
+     * @return 入住记录
      */
     @Override
     public HotelCheckinRecord selectHotelCheckinRecordByCheckinRecordId(Long checkinRecordId) {
@@ -32,10 +32,10 @@ public class HotelCheckinRecordServiceImpl implements IHotelCheckinRecordService
     }
 
     /**
-     * 查询入住记录（开房记录）列表
+     * 查询入住记录列表
      * 
-     * @param hotelCheckinRecord 入住记录（开房记录）
-     * @return 入住记录（开房记录）
+     * @param hotelCheckinRecord 入住记录
+     * @return 入住记录
      */
     @Override
     public List<HotelCheckinRecord> selectHotelCheckinRecordList(HotelCheckinRecord hotelCheckinRecord) {
@@ -43,9 +43,9 @@ public class HotelCheckinRecordServiceImpl implements IHotelCheckinRecordService
     }
 
     /**
-     * 新增入住记录（开房记录）
+     * 新增入住记录
      * 
-     * @param hotelCheckinRecord 入住记录（开房记录）
+     * @param hotelCheckinRecord 入住记录
      * @return 结果
      */
     @Override
@@ -55,9 +55,9 @@ public class HotelCheckinRecordServiceImpl implements IHotelCheckinRecordService
     }
 
     /**
-     * 修改入住记录（开房记录）
+     * 修改入住记录
      * 
-     * @param hotelCheckinRecord 入住记录（开房记录）
+     * @param hotelCheckinRecord 入住记录
      * @return 结果
      */
     @Override
@@ -67,9 +67,9 @@ public class HotelCheckinRecordServiceImpl implements IHotelCheckinRecordService
     }
 
     /**
-     * 批量删除入住记录（开房记录）
+     * 批量删除入住记录
      * 
-     * @param checkinRecordIds 需要删除的入住记录（开房记录）主键
+     * @param checkinRecordIds 需要删除的入住记录主键
      * @return 结果
      */
     @Override
@@ -78,9 +78,9 @@ public class HotelCheckinRecordServiceImpl implements IHotelCheckinRecordService
     }
 
     /**
-     * 删除入住记录（开房记录）信息
+     * 删除入住记录信息
      * 
-     * @param checkinRecordId 入住记录（开房记录）主键
+     * @param checkinRecordId 入住记录主键
      * @return 结果
      */
     @Override

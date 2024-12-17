@@ -30,31 +30,31 @@
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
 #if($column.isQuery)
 #if($column.queryType == "EQ")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end">
-                and $columnName = #{$javaField}
+            <if test="$javaField != null#if($javaType == 'String') and $javaField.trim() != ''#end">
+                AND $columnName = #{$javaField}
             </if>
 #elseif($queryType == "NEQ")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end">
+            <if test="$javaField != null#if($javaType == 'String') and $javaField.trim() != ''#end">
                 AND $columnName != #{$javaField}
             </if>
 #elseif($queryType == "GT")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end">
+            <if test="$javaField != null#if($javaType == 'String') and $javaField.trim() != ''#end">
                 AND $columnName &gt; #{$javaField}
             </if>
 #elseif($queryType == "GTE")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end">
+            <if test="$javaField != null#if($javaType == 'String') and $javaField.trim() != ''#end">
                 AND $columnName &gt;= #{$javaField}
             </if>
 #elseif($queryType == "LT")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end">
+            <if test="$javaField != null#if($javaType == 'String') and $javaField.trim() != ''#end">
                 AND $columnName &lt; #{$javaField}
             </if>
 #elseif($queryType == "LTE")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end">
+            <if test="$javaField != null#if($javaType == 'String') and $javaField.trim() != ''#end">
                 AND $columnName &lt;= #{$javaField}
             </if>
 #elseif($queryType == "LIKE")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end">
+            <if test="$javaField != null#if($javaType == 'String') and $javaField.trim() != ''#end">
                 AND $columnName like concat('%', #{$javaField}, '%')
             </if>
 #elseif($queryType == "BETWEEN")
@@ -77,7 +77,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
 #if($column.columnName != $pkColumn.columnName || !$pkColumn.increment)
-            <if test="$column.javaField != null#if($column.javaType == 'String' && $column.required) and $column.javaField != ''#end">$column.columnName,</if>
+            <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">$column.columnName,</if>
 #end
 #end
         </trim>
@@ -85,7 +85,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
 #if($column.columnName != $pkColumn.columnName || !$pkColumn.increment)
-            <if test="$column.javaField != null#if($column.javaType == 'String' && $column.required) and $column.javaField != ''#end">#{$column.javaField},</if>
+            <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">#{$column.javaField},</if>
 #end
 #end
         </trim>
@@ -96,7 +96,7 @@
         <trim prefix="SET" suffixOverrides=",">
 #foreach($column in $columns)
 #if($column.columnName != $pkColumn.columnName)
-            <if test="$column.javaField != null#if($column.javaType == 'String' && $column.required) and $column.javaField != ''#end">$column.columnName = #{$column.javaField},</if>
+            <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">$column.columnName = #{$column.javaField},</if>
 #end
 #end
         </trim>

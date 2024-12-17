@@ -25,11 +25,11 @@
     <select id="selectHotelProductTypeList" parameterType="HotelProductType" resultMap="HotelProductTypeResult">
         <include refid="selectHotelProductTypeVo" />
         <where>
-            <if test="name != null  and name != ''">
+            <if test="name != null and name != ''">
                 AND name like concat('%', #{name}, '%')
             </if>
-            <if test="description != null  and description != ''">
-                and description = #{description}
+            <if test="description != null and description != ''">
+                AND description = #{description}
             </if>
         </where>
     </select>
@@ -43,9 +43,9 @@
         INSERT INTO hotel_product_type
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="productTypeId != null">product_type_id,</if>
-            <if test="name != null">name,</if>
-            <if test="description != null">description,</if>
-            <if test="remark != null">remark,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="remark != null and remark != ''">remark,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
@@ -56,9 +56,9 @@
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="productTypeId != null">#{productTypeId},</if>
-            <if test="name != null">#{name},</if>
-            <if test="description != null">#{description},</if>
-            <if test="remark != null">#{remark},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
@@ -71,9 +71,9 @@
     <update id="updateHotelProductType" parameterType="HotelProductType">
         UPDATE hotel_product_type
         <trim prefix="SET" suffixOverrides=",">
-            <if test="name != null">name = #{name},</if>
-            <if test="description != null">description = #{description},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
             <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
