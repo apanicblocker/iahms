@@ -120,7 +120,7 @@ CREATE TABLE hotel_customer(
     `birthday` DATE   COMMENT '生日' ,
     `region` VARCHAR(255)   COMMENT '地区' ,
     `email` VARCHAR(255)   COMMENT '邮箱' ,
-    `checkin_times` INT   COMMENT '入住次数' ,
+    `checkin_times` INT  DEFAULT 0 COMMENT '入住次数' ,
     `total_spent` DECIMAL(10,2)  DEFAULT 0 COMMENT '总消费金额' ,
     `last_spent_time` TIMESTAMP   COMMENT '最近消费时间' ,
     `black_flag` BOOLEAN  DEFAULT FALSE COMMENT '黑名单标识' ,
@@ -134,6 +134,8 @@ CREATE TABLE hotel_customer(
     `update_time` TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ,
     PRIMARY KEY (customer_id)
 )  COMMENT = '客户';
+
+alter table hotel_customer modify column `checkin_times` INT  DEFAULT 0 COMMENT '入住次数'
 
 DROP TABLE IF EXISTS hotel_room;
 CREATE TABLE hotel_room(

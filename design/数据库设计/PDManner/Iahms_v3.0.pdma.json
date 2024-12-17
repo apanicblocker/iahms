@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-11-20 17:58:14",
-  "updatedTime": "2024-12-16 21:44:03",
+  "updatedTime": "2024-12-17 13:06:02",
   "dbConns": [],
   "profile": {
     "default": {
@@ -3577,7 +3577,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoIncrement": false,
-          "defaultValue": "",
+          "defaultValue": "0",
           "hideInGraph": false,
           "refDict": "",
           "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811",

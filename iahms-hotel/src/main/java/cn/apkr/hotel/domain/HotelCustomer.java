@@ -10,6 +10,7 @@ import java.util.Set;
 
 import cn.apkr.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -37,10 +38,12 @@ public class HotelCustomer extends BaseEntity {
 
     /** 客源 */
     @Schema(title = "客源")
-    private Integer origin;
+    @NotBlank(message = "客户来源不能为空")
+    private String origin;
 
     /** 姓名;真实姓名 */
     @Schema(title = "姓名;真实姓名")
+    @NotBlank(message = "姓名不能为空")
     private String name;
 
     /** 身份证号 */
@@ -49,11 +52,12 @@ public class HotelCustomer extends BaseEntity {
 
     /** 电话号码 */
     @Schema(title = "电话号码")
+    @NotBlank(message = "联系号码不能为空")
     private String phoneNumber;
 
     /** 性别 */
     @Schema(title = "性别")
-    private Integer gender;
+    private String gender;
 
     /** 生日 */
     @JsonFormat(pattern = "yyyy-MM-dd")

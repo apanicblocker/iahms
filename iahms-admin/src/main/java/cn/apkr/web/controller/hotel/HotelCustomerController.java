@@ -13,6 +13,7 @@ import cn.apkr.hotel.service.IHotelTagCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class HotelCustomerController extends BaseController {
     @Operation(summary = "新增客户")
     @Log(title = "客户", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody HotelCustomer hotelCustomer) {
+    public AjaxResult add(@Validated @RequestBody HotelCustomer hotelCustomer) {
         hotelCustomer.setCreateBy(SecurityUtils.getUserId());
         return toAjax(hotelCustomerService.insertHotelCustomer(hotelCustomer));
     }

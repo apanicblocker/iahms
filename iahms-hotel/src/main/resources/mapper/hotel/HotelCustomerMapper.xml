@@ -73,11 +73,12 @@
                 AND c.black_flag = #{blackFlag}
             </if>
             <if test="params.keyword != null and params.keyword != ''">
-                AND (c.name LIKE concat('%',#{params.keyword},'%')
-                OR c.phone_number LIKE concat('%',#{params.keyword},'%')
-<!--                OR c.id_number LIKE concat('%',#{params.keyword},'%')-->
-<!--                OR c.email LIKE concat('%',#{params.keyword},'%')-->
-<!--                OR c.region LIKE concat('%',#{params.keyword},'%'))-->
+                AND ( c.name LIKE concat('%', #{params.keyword}, '%')
+                    OR c.phone_number LIKE concat('%', #{params.keyword}, '%')
+<!--                    OR c.id_number LIKE concat('%', #{params.keyword}, '%')-->
+<!--                    OR c.email LIKE concat('%', #{params.keyword}, '%')-->
+<!--                    OR c.region LIKE concat('%', #{params.keyword}, '%')-->
+                )
             </if>
             <!-- 生日 -->
             <if test="params.beginBirthday != null and params.beginBirthday != ''">
