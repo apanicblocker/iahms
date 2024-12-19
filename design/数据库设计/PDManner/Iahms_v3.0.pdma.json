@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-11-20 17:58:14",
-  "updatedTime": "2024-12-17 13:06:02",
+  "updatedTime": "2024-12-19 19:57:23",
   "dbConns": [],
   "profile": {
     "default": {
@@ -3425,7 +3425,7 @@
         },
         {
           "defKey": "origin",
-          "defName": "客源",
+          "defName": "来源渠道",
           "comment": "",
           "type": "",
           "len": "",
@@ -3435,11 +3435,29 @@
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
-          "refDict": "",
+          "refDict": "A2D74A3E-42D0-4A3E-A315-2C8F5EDA8D25",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
           "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
           "id": "D3269874-BEB6-4F71-AD83-04DB884F4B2B"
+        },
+        {
+          "defKey": "source",
+          "defName": "来源方式",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "83B75BB9-B740-4C5B-BBD1-CF6DEA844B44",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
+          "id": "0F1F2A56-7460-444E-9F49-3815920E080E"
         },
         {
           "defKey": "name",
@@ -3460,8 +3478,26 @@
           "id": "4815BBD4-950D-4FFA-8EB1-7790D884FCF9"
         },
         {
-          "defKey": "id_number",
-          "defName": "身份证号",
+          "defKey": "certificate_type",
+          "defName": "证件类型",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "962D3E2B-C831-43C8-ACFC-8B6E3BDBDB7D",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "extProps": {},
+          "domain": "73FD2BAD-2358-4336-B96D-45DC897BD792",
+          "id": "060172F4-C1FF-43DA-A1FA-50058C51526F"
+        },
+        {
+          "defKey": "certificate_number",
+          "defName": "证件号码",
           "comment": "",
           "type": "",
           "len": "",
@@ -3546,7 +3582,7 @@
           "refDict": "",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
           "extProps": {},
-          "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
+          "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
           "id": "0AD7C33F-8B75-4CCC-B015-C82BB95BE87D"
         },
         {
@@ -3566,6 +3602,24 @@
           "extProps": {},
           "domain": "9092C4E0-1A54-4859-ABBB-5B62DBC27573",
           "id": "CD16EB5C-5B92-44C3-B3CD-F62087840FD0"
+        },
+        {
+          "defKey": "total_room_night",
+          "defName": "间夜数",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811",
+          "extProps": {},
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "id": "32F6A280-BD3A-47CF-BF13-0AA3AA114A34"
         },
         {
           "defKey": "checkin_times",
@@ -10975,7 +11029,7 @@
     },
     {
       "defKey": "hotel_customer_origin",
-      "defName": "客户来源",
+      "defName": "客户来源渠道",
       "sort": "",
       "intro": "",
       "id": "A2D74A3E-42D0-4A3E-A315-2C8F5EDA8D25",
@@ -11003,6 +11057,108 @@
           "attr2": "",
           "attr3": "",
           "id": "94CA4AE3-7789-4AEE-9DD0-B6D767990048"
+        }
+      ]
+    },
+    {
+      "defKey": "hotel_certificate_type",
+      "defName": "证件类型",
+      "sort": "",
+      "intro": "",
+      "id": "962D3E2B-C831-43C8-ACFC-8B6E3BDBDB7D",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "身份证",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "EA4136F9-71A7-4273-A880-AC2EAC61DA3A"
+        },
+        {
+          "defKey": "2",
+          "defName": "通行证",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "340A382C-3867-47F2-89D7-0A4F4CE6DD03"
+        },
+        {
+          "defKey": "3",
+          "defName": "军官证",
+          "sort": "3",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "24AC5647-A3AE-4812-B8A8-3C5B3F8BC7E6"
+        },
+        {
+          "defKey": "4",
+          "defName": "护照",
+          "sort": "4",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "6745784A-BFC9-4166-94E5-44660EAF4B34"
+        },
+        {
+          "defKey": "5",
+          "defName": "其他",
+          "sort": "5",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "6CF061D3-AAE7-4C58-B036-58B91A1D5446"
+        }
+      ]
+    },
+    {
+      "defKey": "hotel_customer_source",
+      "defName": "客户来源方式",
+      "sort": "",
+      "intro": "",
+      "id": "83B75BB9-B740-4C5B-BBD1-CF6DEA844B44",
+      "items": [
+        {
+          "defKey": "1",
+          "defName": "手动录入",
+          "sort": "1",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "95C0BFB8-37D4-42F8-ABE1-CADE1B615192"
+        },
+        {
+          "defKey": "2",
+          "defName": "渠道订单",
+          "sort": "2",
+          "parentKey": "",
+          "intro": "",
+          "enabled": true,
+          "attr1": "",
+          "attr2": "",
+          "attr3": "",
+          "id": "739C8780-7A68-450D-9B52-3FFB191FA1B2"
         }
       ]
     }
@@ -11051,6 +11207,8 @@
       "refDiagrams": [],
       "refDicts": [
         "A2D74A3E-42D0-4A3E-A315-2C8F5EDA8D25",
+        "83B75BB9-B740-4C5B-BBD1-CF6DEA844B44",
+        "962D3E2B-C831-43C8-ACFC-8B6E3BDBDB7D",
         "A1DC5A2C-C329-481A-86BD-8898245316DB",
         "4BD32F5C-E966-4AB1-8B29-AEDF8B0C2BD7",
         "4113429B-DAD0-4600-AFEF-FFBDBC2106B4",

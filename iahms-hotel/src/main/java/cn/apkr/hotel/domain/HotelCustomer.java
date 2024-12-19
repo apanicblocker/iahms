@@ -37,18 +37,27 @@ public class HotelCustomer extends BaseEntity {
     private Long customerId;
 
     /** 客源 */
-    @Schema(title = "客源")
-    @NotBlank(message = "客户来源不能为空")
+    @Schema(title = "来源渠道")
+    @NotBlank(message = "客户来源渠道不能为空")
     private String origin;
+
+    /** 客源 */
+    @Schema(title = "来源方式")
+    @NotBlank(message = "客户来源方式不能为空")
+    private String source;
 
     /** 姓名;真实姓名 */
     @Schema(title = "姓名;真实姓名")
     @NotBlank(message = "姓名不能为空")
     private String name;
 
-    /** 身份证号 */
-    @Schema(title = "身份证号")
-    private String idNumber;
+    /** 证件类型 */
+    @Schema(title = "证件类型")
+    private String certificateType;
+
+    /** 证件号码 */
+    @Schema(title = "证件号码")
+    private String certificateNumber;
 
     /** 电话号码 */
     @Schema(title = "电话号码")
@@ -71,6 +80,10 @@ public class HotelCustomer extends BaseEntity {
     /** 邮箱 */
     @Schema(title = "邮箱")
     private String email;
+
+    /** 间夜数 */
+    @Schema(title = "间夜数")
+    private Integer totalRoomNight;
 
     /** 入住次数 */
     @Schema(title = "入住次数")

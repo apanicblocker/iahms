@@ -7,13 +7,16 @@
     <resultMap id="HotelCustomerResult" type="HotelCustomer">
         <id property="customerId" column="customer_id" />
         <result property="origin" column="origin" />
+        <result property="source" column="source" />
         <result property="name" column="name" />
-        <result property="idNumber" column="id_number" />
+        <result property="certificateType" column="certificate_type" />
+        <result property="certificateNumber" column="certificate_number" />
         <result property="phoneNumber" column="phone_number" />
         <result property="gender" column="gender" />
         <result property="birthday" column="birthday" />
         <result property="region" column="region" />
         <result property="email" column="email" />
+        <result property="totalRoomNight" column="total_room_night" />
         <result property="checkinTimes" column="checkin_times" />
         <result property="totalSpent" column="total_spent" />
         <result property="lastSpentTime" column="last_spent_time" />
@@ -36,10 +39,10 @@
     </resultMap>
 
     <sql id="selectHotelCustomerWithTagVo">
-        SELECT c.customer_id, c.origin, c.name, c.id_number, c.phone_number, c.gender, c.birthday, c.region, c.email,
-                c.checkin_times, c.total_spent, c.last_spent_time, c.black_flag, c.del_flag, c.remark, c.tenant_id,
-                c.revision, c.create_by, c.create_time, c.update_by, c.update_time,
-                t.tag_id, t.label, t.color
+        SELECT c.customer_id, c.origin, c.source, c.name, c.certificate_type, c.certificate_number, c.phone_number, c.gender,
+            c.birthday, c.region, c.email, c.total_room_night, c.checkin_times, c.total_spent, c.last_spent_time, c.black_flag,
+            c.del_flag, c.remark, c.tenant_id, c.revision, c.create_by, c.create_time, c.update_by, c.update_time,
+            t.tag_id, t.label, t.color
         FROM hotel_customer AS c
             LEFT JOIN hotel_tag_customer_link tc ON c.customer_id = tc.customer_id
             LEFT JOIN hotel_tag t ON tc.tag_id = t.tag_id
@@ -54,8 +57,11 @@
             <if test="name != null  and name != ''">
                 AND c.name like concat('%', #{name}, '%')
             </if>
-            <if test="idNumber != null and idNumber != ''">
-                AND c.id_number = #{idNumber}
+            <if test="certificateNumber != null and certificateNumber != ''">
+                AND c.certificate_number = #{certificateNumber}
+            </if>
+            <if test="certificateType != null and certificateType != ''">
+                AND c.certificate_type = #{certificateType}
             </if>
             <if test="phoneNumber != null and phoneNumber != ''">
                 AND c.phone_number = #{phoneNumber}
@@ -75,7 +81,7 @@
             <if test="params.keyword != null and params.keyword != ''">
                 AND ( c.name LIKE concat('%', #{params.keyword}, '%')
                     OR c.phone_number LIKE concat('%', #{params.keyword}, '%')
-<!--                    OR c.id_number LIKE concat('%', #{params.keyword}, '%')-->
+<!--                    OR c.certificate_number LIKE concat('%', #{params.keyword}, '%')-->
 <!--                    OR c.email LIKE concat('%', #{params.keyword}, '%')-->
 <!--                    OR c.region LIKE concat('%', #{params.keyword}, '%')-->
                 )
@@ -87,7 +93,7 @@
             <if test="params.endBirthday != null and params.endBirthday != ''">
                 <![CDATA[ AND c.birthday <= #{params.endBirthday} ]]>
             </if>
-            <!-- 累计消费次数 -->
+            <!-- 累计入住次数 -->
             <if test="params.beginCheckinTimes != null and params.beginCheckinTimes != ''">
                 <![CDATA[ AND c.checkin_times >= #{params.beginCheckinTimes} ]]>
             </if>
@@ -129,13 +135,16 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="customerId != null">customer_id,</if>
             <if test="origin != null">origin,</if>
+            <if test="source != null">source,</if>
             <if test="name != null">name,</if>
-            <if test="idNumber != null">id_number,</if>
+            <if test="certificateType != null">certificate_type,</if>
+            <if test="certificateNumber != null">certificate_number,</if>
             <if test="phoneNumber != null">phone_number,</if>
             <if test="gender != null">gender,</if>
             <if test="birthday != null">birthday,</if>
             <if test="region != null">region,</if>
             <if test="email != null">email,</if>
+            <if test="totalRoomNight != null">total_room_night,</if>
             <if test="checkinTimes != null">checkin_times,</if>
             <if test="totalSpent != null">total_spent,</if>
             <if test="lastSpentTime != null">last_spent_time,</if>
@@ -150,13 +159,16 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="customerId != null">#{customerId},</if>
             <if test="origin != null">#{origin},</if>
+            <if test="source != null">#{source},</if>
             <if test="name != null">#{name},</if>
-            <if test="idNumber != null">#{idNumber},</if>
+            <if test="certificateType != null">#{certificateType},</if>
+            <if test="certificateNumber != null">#{certificateNumber},</if>
             <if test="phoneNumber != null">#{phoneNumber},</if>
             <if test="gender != null">#{gender},</if>
             <if test="birthday != null">#{birthday},</if>
             <if test="region != null">#{region},</if>
             <if test="email != null">#{email},</if>
+            <if test="totalRoomNight != null">#{totalRoomNight},</if>
             <if test="checkinTimes != null">#{checkinTimes},</if>
             <if test="totalSpent != null">#{totalSpent},</if>
             <if test="lastSpentTime != null">#{lastSpentTime},</if>
@@ -173,13 +185,16 @@
         UPDATE hotel_customer
         <trim prefix="SET" suffixOverrides=",">
             <if test="origin != null">origin = #{origin},</if>
+            <if test="source != null">source = #{source},</if>
             <if test="name != null">name = #{name},</if>
-            <if test="idNumber != null">id_number = #{idNumber},</if>
+            <if test="certificateType != null">certificate_type = #{certificateType},</if>
+            <if test="certificateNumber != null">certificate_number = #{certificateNumber},</if>
             <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
             <if test="gender != null">gender = #{gender},</if>
             <if test="birthday != null">birthday = #{birthday},</if>
             <if test="region != null">region = #{region},</if>
             <if test="email != null">email = #{email},</if>
+            <if test="totalRoomNight != null">total_room_night = #{totalRoomNight},</if>
             <if test="checkinTimes != null">checkin_times = #{checkinTimes},</if>
             <if test="totalSpent != null">total_spent = #{totalSpent},</if>
             <if test="lastSpentTime != null">last_spent_time = #{lastSpentTime},</if>

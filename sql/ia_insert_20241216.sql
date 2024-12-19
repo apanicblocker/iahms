@@ -20,6 +20,23 @@ INSERT INTO sys_dict_data(dict_type, dict_label, dict_value, dict_sort, revision
 ('hotel_customer_origin', '自来客', '1', 1, 1),
 ('hotel_customer_origin', '手动录入', '2', 2, 1);
 
+-- 插入字典总表[hotel_customer_source-客户来源方式]
+INSERT INTO sys_dict_type(dict_name, dict_type, revision) VALUES('客户来源方式', 'hotel_customer_source', 1);
+-- 插入字典明细表
+INSERT INTO sys_dict_data(dict_type, dict_label, dict_value, dict_sort, revision) VALUES
+('hotel_customer_source', '手动录入', '1', 1, 1),
+('hotel_customer_source', '渠道订单', '2', 2, 1);
+
+-- 插入字典总表[hotel_certificate_type-证件类型]
+INSERT INTO sys_dict_type(dict_name, dict_type, revision) VALUES('证件类型', 'hotel_certificate_type', 1);
+-- 插入字典明细表
+INSERT INTO sys_dict_data(dict_type, dict_label, dict_value, dict_sort, revision) VALUES
+('hotel_certificate_type', '身份证', '1', 1, 1),
+('hotel_certificate_type', '通行证', '2', 2, 1),
+('hotel_certificate_type', '军官证', '3', 3, 1),
+('hotel_certificate_type', '护照', '4', 4, 1),
+('hotel_certificate_type', '其他', '5', 5, 1);
+
 -- 插入字典总表[hotel_checkin_type-入住类型]
 INSERT INTO sys_dict_type(dict_name, dict_type, revision) VALUES('入住类型', 'hotel_checkin_type', 1);
 -- 插入字典明细表
@@ -84,4 +101,3 @@ INSERT INTO sys_dict_data(dict_type, dict_label, dict_value, dict_sort, revision
 ('hotel_checkout_status', '欠款', '0', 1, 1),
 ('hotel_checkout_status', '多收', '1', 2, 1),
 ('hotel_checkout_status', '已收齐', '2', 3, 1);
-
