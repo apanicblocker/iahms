@@ -5,11 +5,13 @@ import cn.apkr.common.core.controller.BaseController;
 import cn.apkr.common.core.domain.AjaxResult;
 import cn.apkr.common.core.page.TableDataInfo;
 import cn.apkr.common.enums.BusinessType;
+import cn.apkr.common.utils.SecurityUtils;
 import cn.apkr.hotel.domain.HotelTag;
 import cn.apkr.hotel.service.IHotelTagService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
  * 标签Controller
  *
  * @author apkr
- * @date 2024-12-16
+ * @date 2024-12-21
  */
 @Tag(name = "标签")
 @RestController
@@ -54,7 +56,9 @@ public class HotelTagController extends BaseController {
     @Operation(summary = "新增标签")
     @Log(title = "标签", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody HotelTag hotelTag) {
+    public AjaxResult add(@Validated @RequestBody HotelTag hotelTag) {
+        hotelTag.setCreateBy(SecurityUtils.getUserId());
+        hotelTag.setCreateName(SecurityUtils.getUsername());
         return toAjax(hotelTagService.insertHotelTag(hotelTag));
     }
 
@@ -64,7 +68,8 @@ public class HotelTagController extends BaseController {
     @Operation(summary = "修改标签")
     @Log(title = "标签", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody HotelTag hotelTag) {
+    public AjaxResult edit(@Validated @RequestBody HotelTag hotelTag) {
+        hotelTag.setUpdateBy(SecurityUtils.getUserId());
         return toAjax(hotelTagService.updateHotelTag(hotelTag));
     }
 
