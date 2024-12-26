@@ -6,8 +6,11 @@
 
     <resultMap id="HotelTagResult" type="HotelTag">
         <id property="tagId" column="tag_id" />
+        <result property="tagGroupId" column="tag_group_id" />
         <result property="label" column="label" />
         <result property="color" column="color" />
+        <result property="relCusNum" column="rel_cus_num" />
+        <result property="createName" column="create_name" />
         <result property="tenantId" column="tenant_id" />
         <result property="revision" column="revision" />
         <result property="createBy" column="create_by" />
@@ -17,18 +20,24 @@
     </resultMap>
 
     <sql id="selectHotelTagVo">
-        SELECT tag_id, label, color, tenant_id, revision, create_by, create_time, update_by, update_time
+        SELECT tag_id, tag_group_id, label, color, rel_cus_num, create_name, tenant_id, revision, create_by, create_time, update_by, update_time
         FROM hotel_tag
     </sql>
 
     <select id="selectHotelTagList" parameterType="HotelTag" resultMap="HotelTagResult">
         <include refid="selectHotelTagVo" />
         <where>
+            <if test="tagGroupId != null">
+                AND tag_group_id = #{tagGroupId}
+            </if>
             <if test="label != null and label != ''">
                 AND label = #{label}
             </if>
             <if test="color != null and color != ''">
                 AND color = #{color}
+            </if>
+            <if test="createName != null and createName != ''">
+                AND create_name like concat('%', #{createName}, '%')
             </if>
         </where>
     </select>
@@ -38,51 +47,61 @@
         WHERE tag_id = #{tagId}
     </select>
 
+    <select id="checkTagIdExists" resultType="boolean">
+        SELECT COUNT(1) FROM hotel_tag WHERE tag_id = #{tagId}
+    </select>
+
+    <select id="checkLabelExists" resultType="boolean">
+        SELECT COUNT(1) FROM hotel_tag WHERE label = #{label}
+    </select>
+
     <insert id="insertHotelTag" parameterType="HotelTag">
-        INSERT INTO hotel_tag
-        <trim prefix="(" suffix=")" suffixOverrides=",">
+        INSERT INTO hotel_tag (
             <if test="tagId != null">tag_id,</if>
+            <if test="tagGroupId != null">tag_group_id,</if>
             <if test="label != null and label != ''">label,</if>
             <if test="color != null and color != ''">color,</if>
+            <if test="createName != null and createName != ''">create_name,</if>
             <if test="tenantId != null">tenant_id,</if>
             <if test="revision != null">revision,</if>
             <if test="createBy != null">create_by,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateBy != null">update_by,</if>
-            <if test="updateTime != null">update_time,</if>
-        </trim>
-        VALUES
-        <trim prefix="(" suffix=")" suffixOverrides=",">
+            create_time
+        ) VALUES (
             <if test="tagId != null">#{tagId},</if>
+            <if test="tagGroupId != null">#{tagGroupId},</if>
             <if test="label != null and label != ''">#{label},</if>
             <if test="color != null and color != ''">#{color},</if>
+            <if test="createName != null and createName != ''">#{createName},</if>
             <if test="tenantId != null">#{tenantId},</if>
             <if test="revision != null">#{revision},</if>
             <if test="createBy != null">#{createBy},</if>
-            <if test="createTime != null">#{createTime},</if>
-            <if test="updateBy != null">#{updateBy},</if>
-            <if test="updateTime != null">#{updateTime},</if>
-        </trim>
+            current_timestamp()
+        )
     </insert>
 
     <update id="updateHotelTag" parameterType="HotelTag">
         UPDATE hotel_tag
-        <trim prefix="SET" suffixOverrides=",">
+        <set>
+            <if test="tagGroupId != null">tag_group_id = #{tagGroupId},</if>
             <if test="label != null and label != ''">label = #{label},</if>
             <if test="color != null and color != ''">color = #{color},</if>
-            <if test="tenantId != null">tenant_id = #{tenantId},</if>
             <if test="revision != null">revision = #{revision},</if>
-            <if test="createBy != null">create_by = #{createBy},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
-        </trim>
+            update_time = current_timestamp()
+        </set>
         WHERE tag_id = #{tagId}
     </update>
 
+    <update id="incrementRelCusNum">
+        UPDATE hotel_tag SET rel_cus_num = rel_cus_num + 1 WHERE tag_id = #{tagGroupId}
+    </update>
+
+    <update id="decrementRelCusNum">
+        UPDATE hotel_tag SET rel_cus_num = rel_cus_num - 1 WHERE tag_id = #{tagGroupId}
+    </update>
+
     <delete id="deleteHotelTagByTagId" parameterType="Long">
-        DELETE FROM hotel_tag
-        WHERE tag_id = #{tagId}
+        DELETE FROM hotel_tag WHERE tag_id = #{tagId}
     </delete>
 
     <delete id="deleteHotelTagByTagIds" parameterType="Long[]">

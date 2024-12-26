@@ -2,12 +2,13 @@ package cn.apkr.hotel.mapper;
 
 import java.util.List;
 import cn.apkr.hotel.domain.HotelTag;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 标签Mapper接口
  * 
  * @author apkr
- * @date 2024-12-16
+ * @date 2024-12-21
  */
 public interface HotelTagMapper {
 
@@ -28,6 +29,20 @@ public interface HotelTagMapper {
     public List<HotelTag> selectHotelTagList(HotelTag hotelTag);
 
     /**
+     * 检查标签是否存在
+     * @param tagId 标签ID
+     * @return 结果
+     */
+    boolean checkTagIdExists(@Param("tagId") Long tagId);
+
+    /**
+     * 检查标签是否存在
+     * @param label 标签名
+     * @return 结果
+     */
+    boolean checkLabelExists(@Param("label") String label);
+
+    /**
      * 新增标签
      * 
      * @param hotelTag 标签
@@ -42,6 +57,20 @@ public interface HotelTagMapper {
      * @return 结果
      */
     public int updateHotelTag(HotelTag hotelTag);
+
+    /**
+     * 客户关联数量+1
+     * @param tagId 标签ID
+     * @return 结果
+     */
+    int incrementRelCusNum(@Param("tagId") Long tagId);
+
+    /**
+     * 客户关联数量-1
+     * @param tagId 标签ID
+     * @return 结果
+     */
+    int decrementRelCusNum(@Param("tagId") Long tagId);
 
     /**
      * 删除标签

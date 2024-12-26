@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apkr.hotel.mapper.HotelTagGroupMapper">
+
+    <resultMap id="HotelTagGroupResult" type="HotelTagGroup">
+        <id property="tagGroupId" column="tag_group_id" />
+        <result property="name" column="name" />
+        <result property="createName" column="create_name" />
+        <result property="relTagNum" column="rel_tag_num" />
+        <result property="remark" column="remark" />
+        <result property="tenantId" column="tenant_id" />
+        <result property="revision" column="revision" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="selectHotelTagGroupVo">
+        SELECT tag_group_id, name, create_name, rel_tag_num, remark, tenant_id, revision, create_by, create_time, update_by, update_time
+        FROM hotel_tag_group
+    </sql>
+
+    <select id="selectHotelTagGroupList" parameterType="HotelTagGroup" resultMap="HotelTagGroupResult">
+        <include refid="selectHotelTagGroupVo" />
+        <where>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+            <if test="createName != null and createName != ''">
+                AND create_name like concat('%', #{createName}, '%')
+            </if>
+            <if test="relTagNum != null">
+                AND rel_tag_num = #{relTagNum}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectHotelTagGroupByTagGroupId" parameterType="Long" resultMap="HotelTagGroupResult">
+        <include refid="selectHotelTagGroupVo" />
+        WHERE tag_group_id = #{tagGroupId}
+    </select>
+
+    <select id="checkTagGroupIdExists" resultType="boolean">
+        SELECT COUNT(1) FROM hotel_tag_group WHERE tag_group_id = #{tagGroupId}
+    </select>
+
+    <select id="checkNameExists" resultType="boolean">
+        SELECT COUNT(1) FROM hotel_tag_group WHERE name = #{name}
+    </select>
+
+    <insert id="insertHotelTagGroup" parameterType="HotelTagGroup">
+        INSERT INTO hotel_tag_group (
+            <if test="tagGroupId != null">tag_group_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="createName != null and createName != ''">create_name,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="revision != null">revision,</if>
+            <if test="createBy != null">create_by,</if>
+            create_time
+        ) VALUES (
+            <if test="tagGroupId != null">#{tagGroupId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="createName != null and createName != ''">#{createName},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+            <if test="revision != null">#{revision},</if>
+            <if test="createBy != null">#{createBy},</if>
+            current_timestamp()
+        )
+    </insert>
+
+    <update id="updateHotelTagGroup" parameterType="HotelTagGroup">
+        UPDATE hotel_tag_group
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="revision != null">revision = #{revision},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = current_timestamp()
+        </set>
+        WHERE tag_group_id = #{tagGroupId}
+    </update>
+
+    <update id="incrementRelTagNum" parameterType="Long">
+        UPDATE hotel_tag_group SET rel_tag_num = rel_tag_num + 1 WHERE tag_group_id = #{tagGroupId}
+    </update>
+
+    <update id="decrementRelTagNum" parameterType="Long">
+        UPDATE hotel_tag_group SET rel_tag_num = rel_tag_num - 1 WHERE tag_group_id = #{tagGroupId}
+    </update>
+
+    <delete id="deleteHotelTagGroupByTagGroupId" parameterType="Long">
+        DELETE FROM hotel_tag_group WHERE tag_group_id = #{tagGroupId}
+    </delete>
+
+    <delete id="deleteHotelTagGroupByTagGroupIds" parameterType="Long[]">
+        DELETE FROM hotel_tag_group WHERE tag_group_id IN
+        <foreach collection="array" item="tagGroupId" open="(" separator="," close=")">
+            #{tagGroupId}
+        </foreach>
+    </delete>
+
+</mapper>

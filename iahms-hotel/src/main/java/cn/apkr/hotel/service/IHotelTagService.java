@@ -7,7 +7,7 @@ import cn.apkr.hotel.domain.HotelTag;
  * 标签Service接口
  * 
  * @author apkr
- * @date 2024-12-16
+ * @date 2024-12-21
  */
 public interface IHotelTagService {
 

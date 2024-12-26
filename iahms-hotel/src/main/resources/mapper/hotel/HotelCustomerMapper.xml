@@ -86,6 +86,12 @@
 <!--                    OR c.region LIKE concat('%', #{params.keyword}, '%')-->
                 )
             </if>
+            <if test="tagIds != null">
+                AND tc.tag_id IN
+                <foreach collection="tagIds" item="tagId" open="(" separator="," close=")">
+                    #{tagId}
+                </foreach>
+            </if>
             <!-- 生日 -->
             <if test="params.beginBirthday != null and params.beginBirthday != ''">
                 <![CDATA[ AND c.birthday >= #{params.beginBirthday} ]]>
