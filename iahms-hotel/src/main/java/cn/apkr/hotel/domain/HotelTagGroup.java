@@ -28,6 +28,7 @@ public class HotelTagGroup extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 标签组ID */
+    @Min(value = 0, message = "标签组ID不能小于0")
     @Schema(title = "标签组ID")
     private Long tagGroupId;
 
@@ -41,7 +42,6 @@ public class HotelTagGroup extends BaseEntity {
     private String createName;
 
     /** 关联标签数量 */
-    @NotNull(message = "关联标签数量不能为空")
     @Min(value = 0, message = "关联标签数量不能小于0")
     @Schema(title = "关联标签数量")
     private Integer relTagNum;

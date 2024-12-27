@@ -71,21 +71,12 @@ public class HotelTagServiceImpl implements IHotelTagService {
         if (hotelTagMapper.checkLabelExists(hotelTag.getLabel())) {
             throw new ServiceException("标签名已存在");
         }
-        // 验证标签组是否合规并插入标签
-        Long tagGroupId = hotelTag.getTagGroupId();
-        // 判断新标签组ID是否合法
-        if (tagGroupId == 0) {
-            result = hotelTagMapper.insertHotelTag(hotelTag);
-        } else if (hotelTagGroupMapper.checkTagGroupIdExists(tagGroupId)) {
-            result = hotelTagMapper.insertHotelTag(hotelTag);
-            // 插入成功则更新标签组关联标签数量
-            if (result > 0) {
-                hotelTagGroupMapper.incrementRelTagNum(tagGroupId);
-            } else {
-                throw new ServiceException("新增标签失败");
-            }
-        } else {
+        if (!hotelTagGroupMapper.checkTagGroupIdExists(hotelTag.getTagGroupId())) {
             throw new ServiceException("标签组不存在");
+        }
+        result = hotelTagMapper.insertHotelTag(hotelTag);
+        if (result > 0) {
+            hotelTagGroupMapper.incrementRelTagNum(hotelTag.getTagGroupId());
         }
         return result;
     }
@@ -105,28 +96,23 @@ public class HotelTagServiceImpl implements IHotelTagService {
         if (oldTag == null) {
             throw new ServiceException("标签不存在");
         }
-        Long oldTagGroupId = oldTag.getTagGroupId();
-        Long newTagGroupId = hotelTag.getTagGroupId();
-        // 判断新标签组ID是否合法
-        if (newTagGroupId == 0) {
-            log.info("0表示未分组标签，任何想要把标签组ID重新设置为0的都跳过");
-            return 1;
+        String newTagLabel = hotelTag.getLabel();
+        if (!newTagLabel.equals(oldTag.getLabel()) && hotelTagMapper.checkLabelExists(newTagLabel)) {
+            throw new ServiceException(StringUtils.format("标签名 “{}” 已存在", newTagLabel));
         }
-        if (!hotelTagGroupMapper.checkTagGroupIdExists(newTagGroupId)) {
-            throw new ServiceException("标签组不存在");
-        }
-        // 修改标签
+        // 更新标签
         result = hotelTagMapper.updateHotelTag(hotelTag);
         if (result > 0) {
-            // 判断标签组是否发生变更
+            // 更新成功，则更新标签组关联标签数量
+            Long oldTagGroupId = oldTag.getTagGroupId();
+            Long newTagGroupId = hotelTag.getTagGroupId();
+            if (!hotelTagGroupMapper.checkTagGroupIdExists(newTagGroupId)) {
+                throw new ServiceException("标签组不存在");
+            }
             if (!oldTagGroupId.equals(newTagGroupId)) {
-                if (oldTagGroupId != 0) {
-                    hotelTagGroupMapper.decrementRelTagNum(oldTagGroupId);
-                }
+                hotelTagGroupMapper.decrementRelTagNum(oldTagGroupId);
                 hotelTagGroupMapper.incrementRelTagNum(newTagGroupId);
             }
-        } else {
-            throw new ServiceException("新增标签失败");
         }
         return result;
     }
@@ -140,7 +126,12 @@ public class HotelTagServiceImpl implements IHotelTagService {
     @Override
     @Transactional
     public int deleteHotelTagByTagIds(Long[] tagIds) {
-        // TODO
+        for (Long tagId : tagIds) {
+            Long tagGroupId = hotelTagMapper.selectHotelTagByTagId(tagId).getTagGroupId();
+            if (hotelTagGroupMapper.checkTagGroupIdExists(tagGroupId)) {
+                hotelTagGroupMapper.decrementRelTagNum(tagGroupId);
+            }
+        }
         return hotelTagMapper.deleteHotelTagByTagIds(tagIds);
     }
 
@@ -153,7 +144,10 @@ public class HotelTagServiceImpl implements IHotelTagService {
     @Override
     @Transactional
     public int deleteHotelTagByTagId(Long tagId) {
-        // TODO
+        Long tagGroupId = hotelTagMapper.selectHotelTagByTagId(tagId).getTagGroupId();
+        if (hotelTagGroupMapper.checkTagGroupIdExists(tagGroupId)) {
+            hotelTagGroupMapper.decrementRelTagNum(tagGroupId);
+        }
         return hotelTagMapper.deleteHotelTagByTagId(tagId);
     }
 }

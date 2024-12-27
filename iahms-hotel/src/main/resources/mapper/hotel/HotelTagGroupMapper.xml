@@ -53,7 +53,6 @@
 
     <insert id="insertHotelTagGroup" parameterType="HotelTagGroup">
         INSERT INTO hotel_tag_group (
-            <if test="tagGroupId != null">tag_group_id,</if>
             <if test="name != null and name != ''">name,</if>
             <if test="createName != null and createName != ''">create_name,</if>
             <if test="remark != null and remark != ''">remark,</if>
@@ -62,7 +61,6 @@
             <if test="createBy != null">create_by,</if>
             create_time
         ) VALUES (
-            <if test="tagGroupId != null">#{tagGroupId},</if>
             <if test="name != null and name != ''">#{name},</if>
             <if test="createName != null and createName != ''">#{createName},</if>
             <if test="remark != null and remark != ''">#{remark},</if>
