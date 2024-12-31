@@ -13,20 +13,27 @@ import org.apache.ibatis.annotations.Param;
 public interface HotelTagMapper {
 
     /**
+     * 查询标签列表
+     *
+     * @param hotelTag 标签
+     * @return 标签集合
+     */
+    public List<HotelTag> selectHotelTagList(HotelTag hotelTag);
+
+    /**
      * 查询标签
-     * 
+     *
      * @param tagId 标签主键
      * @return 标签
      */
     public HotelTag selectHotelTagByTagId(Long tagId);
 
     /**
-     * 查询标签列表
-     * 
-     * @param hotelTag 标签
+     * 根据标签组ID查询标签列表
+     * @param tagGroupId 标签组ID
      * @return 标签集合
      */
-    public List<HotelTag> selectHotelTagList(HotelTag hotelTag);
+    List<HotelTag> selectHotelTagByTagGroupId(Long tagGroupId);
 
     /**
      * 检查标签是否存在
@@ -57,6 +64,14 @@ public interface HotelTagMapper {
      * @return 结果
      */
     public int updateHotelTag(HotelTag hotelTag);
+
+    /**
+     * 设置标签关联客户数量
+     * @param tagId
+     * @param number
+     * @return
+     */
+    int updateRelCusNum(@Param("tagId") Long tagId, @Param("number") Integer number);
 
     /**
      * 客户关联数量+1

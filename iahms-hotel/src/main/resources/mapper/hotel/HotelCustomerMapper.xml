@@ -81,17 +81,14 @@
             <if test="params.keyword != null and params.keyword != ''">
                 AND ( c.name LIKE concat('%', #{params.keyword}, '%')
                     OR c.phone_number LIKE concat('%', #{params.keyword}, '%')
-<!--                    OR c.certificate_number LIKE concat('%', #{params.keyword}, '%')-->
-<!--                    OR c.email LIKE concat('%', #{params.keyword}, '%')-->
-<!--                    OR c.region LIKE concat('%', #{params.keyword}, '%')-->
                 )
             </if>
-            <if test="tagIds != null">
-                AND tc.tag_id IN
-                <foreach collection="tagIds" item="tagId" open="(" separator="," close=")">
-                    #{tagId}
-                </foreach>
-            </if>
+<!--            <if test="tagIds != null">-->
+<!--                AND tc.tag_id IN-->
+<!--                <foreach collection="tagIds" item="tagId" open="(" separator="," close=")">-->
+<!--                    #{tagId}-->
+<!--                </foreach>-->
+<!--            </if>-->
             <!-- 生日 -->
             <if test="params.beginBirthday != null and params.beginBirthday != ''">
                 <![CDATA[ AND c.birthday >= #{params.beginBirthday} ]]>

@@ -7,7 +7,7 @@ import cn.apkr.common.core.page.TableDataInfo;
 import cn.apkr.common.enums.BusinessType;
 import cn.apkr.common.utils.SecurityUtils;
 import cn.apkr.hotel.domain.HotelCustomer;
-import cn.apkr.hotel.domain.HotelTagCustomer;
+import cn.apkr.hotel.domain.HotelTag;
 import cn.apkr.hotel.service.IHotelCustomerService;
 import cn.apkr.hotel.service.IHotelTagCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,24 +92,29 @@ public class HotelCustomerController extends BaseController {
     @PutMapping("/batch/setBlackFlag")
     public AjaxResult batchSetBlackFlag(@RequestParam("customerIds") Long[] customerIds,
                                         @RequestParam("blackFlag") Boolean blackFlag) {
-    	return AjaxResult.success(hotelCustomerService.batchSetBlackFlag(customerIds, blackFlag));
+        return success(hotelCustomerService.batchSetBlackFlag(customerIds, blackFlag));
     }
 
+    @Operation(summary = "获取客户标签信息")
+    @GetMapping("/{customerId}/tags")
+    public TableDataInfo getCustomerTags(@PathVariable("customerId") Long customerId) {
+        List<HotelTag> tagList = tagCustomerService.selectHotelTagByCustomerId(customerId);
+        return getDataTable(tagList);
+    }
 
-    @Operation(summary = "批量加标签")
+    @Operation(summary = "批量修改客户标签关联")
     @Log(title = "客户&标签", businessType = BusinessType.UPDATE)
-    @PutMapping("/batch/setTags")
-    public AjaxResult batchTagCustomer(@RequestParam("customerIds") Long[] customerIds,
-                                       @RequestParam("tagIds") Long[] tagIds) {
-        List<HotelTagCustomer> tagCustomerList = new ArrayList<>();
-        HotelTagCustomer tempTagCustomer = new HotelTagCustomer();
-        for (long customerId : customerIds) {
-            tempTagCustomer.setCustomerId(customerId);
-            for (long tagId : tagIds) {
-                tempTagCustomer.setTagId(tagId);
-                tagCustomerList.add(tempTagCustomer);
-            }
-        }
-    	return AjaxResult.success(tagCustomerService.batchTagCustomer(tagCustomerList));
+    @PutMapping("/batch/tags")
+    public AjaxResult editCustomerTags(@RequestParam("customerIds") Long[] customerIds,
+                                         @RequestParam("tagIds") Long[] tagIds) {
+        return toAjax(tagCustomerService.updateTagCustomerForCustomer(customerIds, tagIds));
     }
+
+//    // 暂时不需要单独删除
+//    @Operation(summary = "删除客户标签关联")
+//    @DeleteMapping("/{customerId}/tags/{tagId}")
+//    public AjaxResult delCustomerTagLink(Long customerId, Long[] tagIds) {
+//        return toAjax(tagCustomerService.deleteTagCustomerForTag(customerId, tagIds));
+//    }
+
 }

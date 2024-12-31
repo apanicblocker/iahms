@@ -1,8 +1,12 @@
 package cn.apkr.hotel.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import cn.apkr.common.utils.DateUtils;
 import cn.apkr.common.utils.SecurityUtils;
+import cn.apkr.hotel.domain.HotelTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cn.apkr.hotel.mapper.HotelCustomerMapper;
@@ -40,7 +44,26 @@ public class HotelCustomerServiceImpl implements IHotelCustomerService {
      */
     @Override
     public List<HotelCustomer> selectHotelCustomerList(HotelCustomer hotelCustomer) {
-        return hotelCustomerMapper.selectHotelCustomerList(hotelCustomer);
+        List<HotelCustomer> customerList = hotelCustomerMapper.selectHotelCustomerList(hotelCustomer);
+        // 过滤标签
+        Long[] tagIds = hotelCustomer.getTagIds();
+        if (tagIds != null && tagIds.length > 0) {
+            List<Long> tagIdList = List.of(tagIds); // 牺牲一点性能换可读性
+            List<HotelCustomer> filterTagsCustomerList = new ArrayList<>();
+            for (HotelCustomer customer : customerList) {
+                Set<HotelTag> tags = customer.getTags();
+                if (tags != null && !tags.isEmpty()) {
+                    for (HotelTag tag : tags) {
+                        if (tagIdList.contains(tag.getTagId())) {
+                            filterTagsCustomerList.add(customer);
+                        }
+                    }
+                }
+
+            }
+            customerList = filterTagsCustomerList;
+        }
+        return customerList;
     }
 
     /**

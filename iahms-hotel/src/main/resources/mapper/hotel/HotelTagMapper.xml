@@ -47,11 +47,16 @@
         WHERE tag_id = #{tagId}
     </select>
 
-    <select id="checkTagIdExists" resultType="boolean">
+    <select id="selectHotelTagByTagGroupId" parameterType="Long" resultMap="HotelTagResult">
+        <include refid="selectHotelTagVo" />
+        WHERE tag_group_id = #{tagGroupId}
+    </select>
+
+    <select id="checkTagIdExists" resultType="Boolean">
         SELECT COUNT(1) FROM hotel_tag WHERE tag_id = #{tagId}
     </select>
 
-    <select id="checkLabelExists" resultType="boolean">
+    <select id="checkLabelExists" resultType="Boolean">
         SELECT COUNT(1) FROM hotel_tag WHERE label = #{label}
     </select>
 
@@ -83,11 +88,16 @@
             <if test="tagGroupId != null">tag_group_id = #{tagGroupId},</if>
             <if test="label != null and label != ''">label = #{label},</if>
             <if test="color != null and color != ''">color = #{color},</if>
+            <if test="relCusNum != null">rel_cus_num = #{relCusNum},</if>
             <if test="revision != null">revision = #{revision},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             update_time = current_timestamp()
         </set>
         WHERE tag_id = #{tagId}
+    </update>
+
+    <update id="updateRelCusNum">
+        UPDATE hotel_tag SET rel_cus_num = #{number} WHERE tag_id = #{tagId}
     </update>
 
     <update id="incrementRelCusNum">

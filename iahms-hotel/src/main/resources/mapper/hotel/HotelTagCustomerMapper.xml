@@ -9,9 +9,25 @@
         <result property="customerId" column="customer_id" />
     </resultMap>
 
+    <resultMap id="TagResult" type="HotelTag">
+        <result property="tagId" column="tag_id" />
+        <result property="label" column="label" />
+        <result property="color" column="color" />
+    </resultMap>
+
+    <select id="selectHotelTagByCustomerId" parameterType="Long" resultMap="TagResult">
+        SELECT t.tag_id, t.label, t.color
+        FROM hotel_tag_customer_link AS tc
+            LEFT JOIN hotel_tag AS t ON tc.tag_id = t.tag_id
+        WHERE tc.customer_id = #{customerId}
+    </select>
+
     <select id="countTagCustomerByCustomerId" parameterType="Long" resultType="Integer">
-        SELECT count(1) FROM hotel_tag_customer_link
-        WHERE customer_id = #{customerId}
+        SELECT count(1) FROM hotel_tag_customer_link WHERE customer_id = #{customerId}
+    </select>
+
+    <select id="countTagCustomerByTagId" parameterType="Long" resultType="Integer">
+        SELECT count(1) FROM hotel_tag_customer_link WHERE tag_id = #{tagId}
     </select>
 
     <insert id="batchTagCustomer">
@@ -21,14 +37,23 @@
         </foreach>
     </insert>
 
+    <delete id="deleteTagCustomerByCustomerId" parameterType="Long">
+        DELETE FROM hotel_tag_customer_link WHERE customer_id = #{customerId}
+    </delete>
+
+    <delete id="deleteTagCustomerByCustomerIds">
+        DELETE FROM hotel_tag_customer_link WHERE customer_id IN
+        <foreach collection="array" item="customerId" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+
     <delete id="deleteTagCustomerByTagId" parameterType="Long">
-        DELETE FROM hotel_tag_customer_link
-        WHERE tag_id = #{tagId}
+        DELETE FROM hotel_tag_customer_link WHERE tag_id = #{tagId}
     </delete>
 
     <delete id="deleteTagCustomerByTagIds" parameterType="Long[]">
-        DELETE FROM hotel_tag_customer_link
-        WHERE tag_id IN
+        DELETE FROM hotel_tag_customer_link WHERE tag_id IN
         <foreach collection="array" item="tagId" open="(" separator="," close=")">
             #{tagId}
         </foreach>
@@ -39,7 +64,15 @@
         WHERE tag_id = #{tagId} AND customer_id = #{customer_id}
     </delete>
 
-    <delete id="deleteTagCustomerInfos">
+    <delete id="deleteTagCustomerForCustomer">
+        DELETE FROM hotel_tag_customer_link
+        WHERE customer_d = #{customerId} AND tag_id IN
+        <foreach collection="tagIds" item="tagId" open="(" separator="," close=")">
+            #{tagId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteTagCustomerTag">
         DELETE FROM hotel_tag_customer_link
         WHERE tag_id = #{tagId} AND customer_id IN
         <foreach collection="customerIds" item="customerId" open="(" separator="," close=")">
