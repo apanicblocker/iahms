@@ -2,6 +2,9 @@ package cn.apkr.framework.web.service;
 
 import cn.apkr.common.constant.CacheConstants;
 import cn.apkr.common.core.domain.entity.SysUser;
+import cn.apkr.common.exception.user.IpRetryLimitExceedException;
+import cn.apkr.common.exception.user.UserPasswordNotMatchException;
+import cn.apkr.common.exception.user.UserPasswordRetryLimitExceedException;
 import cn.apkr.common.utils.CacheUtils;
 import cn.apkr.common.utils.SecurityUtils;
 import cn.apkr.common.utils.ip.IpUtils;
@@ -36,7 +39,7 @@ public class SysPasswordService {
 	 * 获取登录账户密码错误次数的缓存
 	 * @return 缓存Cache
 	 */
-	private Cache getCache() {
+	private Cache getPwdCache() {
 		return CacheUtils.getCache(CacheConstants.PWD_ERR_CNT_KEY);
 	}
 
@@ -57,24 +60,37 @@ public class SysPasswordService {
 		String username = usernamePasswordAuthenticationToken.getName();
 		String password = usernamePasswordAuthenticationToken.getCredentials().toString();
 
-		String ip = IpUtils.getIpAddr();
-		// TODO: 验证IP
+		// 验证ip登录错误次数
+		ipValidate(IpUtils.getIpAddress());
 		// 根据username获取对应用户名的尝试登录次数
-		Integer retryCount = getCache().get(username, Integer.class);
+		Integer retryCount = getPwdCache().get(username, Integer.class);
 		if (retryCount == null) {
 			retryCount = 0;
 		}
 		if (retryCount >= maxRetryCount) {
-			// TODO: 异步任务管理器
-			// TODO: 新异常类型
+			// TODO: 异步任务管理器（记录登录日志）
+			throw new UserPasswordRetryLimitExceedException(maxRetryCount, lockTime);
 		}
 		if (!matches(user, password)) {
 			retryCount = retryCount + 1;
-			// TODO: 异步任务管理器
+			// TODO: 异步任务管理器（记录登录日志）
 			CacheUtils.put(CacheConstants.PWD_ERR_CNT_KEY, username, retryCount, lockTime, TimeUnit.MINUTES);
-			// TODO: 新异常
+			throw new UserPasswordNotMatchException();
+		} else {
+			// 清除登录记录缓存
+			getPwdCache().evictIfPresent(username);
 		}
 
+	}
+
+	public void ipValidate(String ip) {
+		Integer ipRetryCount = getIpCache().get(ip, Integer.class);
+		if (ipRetryCount == null) {
+			ipRetryCount = 0;
+		}
+		if (ipRetryCount >= maxIpRetryCount) {
+			throw new IpRetryLimitExceedException(maxIpRetryCount, ipLockTime);
+		}
 	}
 
 	public void incrementIpFailCount(String ip) {

@@ -21,6 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private ISysUserService userService;
 
 	@Autowired
+	private SysPasswordService passwordService;
+
+	@Autowired
 	private SysPermissionService permissionService;
 
 	@Override
@@ -36,10 +39,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			log.info("登录用户：{} 已被停用.", username);
 			throw new ServiceException("对不起，您的帐号：" + username + " 已停用");
 		}
+		passwordService.validate(user);
 		return createLoginUser(user);
 	}
 
-	public UserDetails createLoginUser(SysUser user) {
+	private UserDetails createLoginUser(SysUser user) {
 		return new LoginUser(user.getUserId(), user);
 	}
 }

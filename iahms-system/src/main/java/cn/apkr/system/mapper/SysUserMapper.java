@@ -17,6 +17,13 @@ public interface SysUserMapper {
     List<SysUser> selectUserList(SysUser user);
 
     /**
+     * 更新用户信息
+     * @param user 用户信息
+     * @return 结果
+     */
+    int updateUser(SysUser user);
+
+    /**
      * 通过用户名查询用户
      * @param username 用户名
      * @return 用户对象信息

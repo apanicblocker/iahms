@@ -21,6 +21,13 @@ public interface ISysUserService {
     SysUser selectUserByUserName(String username);
 
     /**
+     * 更新用户信息
+     * @param user 用户信息
+     * @return 结果
+     */
+    int updateUserProfile(SysUser user);
+
+    /**
      * 检查用户名唯一
      * @param user 用户信息
      * @return 结果

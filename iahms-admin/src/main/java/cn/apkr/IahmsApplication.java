@@ -9,6 +9,7 @@ public class IahmsApplication {
     public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(IahmsApplication.class, args);
+		// 打印启动成功信息
         System.out.println("""
 				(♥◠‿◠)ﾉﾞ  IA启动成功   ლ(´ڡ`ლ)ﾞ \s
 				 .-------.       ____     __       \s
@@ -19,6 +20,7 @@ public class IahmsApplication {
 				 |  |\\ \\  |  ||   |(_,_)'        \s
 				 |  | \\ `'   /|   `-'  /          \s
 				 |  |  \\    /  \\      /          \s
-				 ''-'   `'-'    `-..-'             \s""");
+				 ''-'   `'-'    `-..-'             \s
+		""");
     }
 }

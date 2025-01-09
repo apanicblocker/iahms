@@ -21,6 +21,16 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     @Override
+    public SysUser selectUserByUserName(String username) {
+        return userMapper.selectUserByUsername(username);
+    }
+
+    @Override
+    public int updateUserProfile(SysUser user) {
+        return userMapper.updateUser(user);
+    }
+
+    @Override
     public boolean checkUsernameUnique(SysUser user) {
         return Objects.isNull(userMapper.selectUserByUsername(user.getUsername()));
     }
@@ -30,8 +40,4 @@ public class SysUserServiceImpl implements ISysUserService {
         return userMapper.insertUser(user) > 0;
     }
 
-    @Override
-    public SysUser selectUserByUserName(String username) {
-        return userMapper.selectUserByUsername(username);
-    }
 }

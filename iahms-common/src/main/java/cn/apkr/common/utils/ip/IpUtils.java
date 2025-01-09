@@ -18,8 +18,8 @@ public class IpUtils {
      * 获取客户端IP
      * @return IP地址
      */
-    public static String getIpAddr() {
-        return getIpAddr(ServletUtils.getRequest());
+    public static String getIpAddress() {
+        return getIpAddress(ServletUtils.getRequest());
     }
 
     /**
@@ -27,7 +27,7 @@ public class IpUtils {
      * @param request 请求对象
      * @return IP地址
      */
-    public static String getIpAddr(HttpServletRequest request) {
+    public static String getIpAddress(HttpServletRequest request) {
         if (request == null) {
             return "unknown";
         }
@@ -191,7 +191,8 @@ public class IpUtils {
      */
     public static String getMultistageReverseProxyIp(String ip) {
         // TODO;
-        return ip + "TODO";
+//        return ip + "TODO";
+        return ip;
     }
 
 }

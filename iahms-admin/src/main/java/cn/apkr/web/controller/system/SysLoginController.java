@@ -10,7 +10,9 @@ import cn.apkr.framework.web.service.SysPermissionService;
 import cn.apkr.framework.web.service.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +36,7 @@ public class SysLoginController {
 
 	@Operation(summary = "登录方法")
 	@PostMapping("/login")
-	public AjaxResult login(@RequestBody LoginBody loginBody) {
+	public AjaxResult login(@Validated @RequestBody LoginBody loginBody) {
 		AjaxResult ajax = AjaxResult.success();
 		String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(), loginBody.getUuid());
 		ajax.put(Constants.TOKEN, token);
