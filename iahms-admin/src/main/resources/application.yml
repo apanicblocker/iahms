@@ -35,14 +35,15 @@ spring:
     # 指定缓存类型 jcache 本地缓存 redis 缓存
     type: redis
     redis:
-      # 指定存活时间
-      time-to-live: 86400000
+      # 缓存过期时间（ms）
+      time-to-live: 86400000  # 86400000 = 1天
       # 指定前缀
       use-key-prefix: true
       # 是否缓存空值，可以防止缓存穿透
       cache-null-values: true
   mvc:
     pathmatch:
+      # 路径匹配策略
       matching-strategy: ANT_PATH_MATCHER
   # 资源信息
   messages:
@@ -55,17 +56,6 @@ spring:
     ansi:
       # 总是启用彩色日志
       enabled: always
-
-# 邮箱配置
-email:
-  # 用户名
-  user: waoprkkr@qq.com
-  # 授权码（邮箱服务器提供）
-  code: nlqdkorstzwohehb
-  # 邮箱服务器域名
-  host: smtp.qq.com
-  # 是否启用验证(根据使用的邮箱决定,邮箱内开启了就得开启)
-  auth: true
 
 # 用户配置
 user:
