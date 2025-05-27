@@ -2,6 +2,8 @@ package cn.apkr.hotel.mapper;
 
 import java.util.List;
 import cn.apkr.hotel.domain.HotelRoomType;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * 房型Mapper接口
@@ -58,4 +60,14 @@ public interface HotelRoomTypeMapper {
      * @return 结果
      */
     public int deleteHotelRoomTypeByRoomTypeIds(Long[] roomTypeIds);
+
+    /**
+     * 修改房型数量
+     *
+     * @param roomTypeId 房型主键
+     * @param quantity 房型数量
+     * @return 影响行数
+     */
+    @Update("update hotel_room_type set quantity = #{quantity} where room_type_id = #{roomTypeId}")
+    int updateHotelRoomTypeQuantity(@Param("roomTypeId") Long roomTypeId, @Param("quantity") int quantity);
 }

@@ -1,3 +1,5 @@
+USE iahms;
+
 -- 插入字典总表[sys_gender-性别]
 INSERT INTO sys_dict_type(dict_name, dict_type, revision) VALUES('性别', 'sys_gender', 1);
 -- 插入字典明细表

@@ -2,6 +2,8 @@ package cn.apkr.hotel.mapper;
 
 import java.util.List;
 import cn.apkr.hotel.domain.HotelRoom;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 房间Mapper接口
@@ -26,6 +28,15 @@ public interface HotelRoomMapper {
      * @return 房间集合
      */
     public List<HotelRoom> selectHotelRoomList(HotelRoom hotelRoom);
+
+    /**
+     * 校验房间编号是否唯一
+     *
+     * @param number 房间编号
+     * @return 结果
+     */
+    @Select("select count(1) from hotel_room where number = #{number}")
+    boolean checkRoomNumberExist(@Param("number") String number);
 
     /**
      * 新增房间

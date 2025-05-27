@@ -29,10 +29,10 @@
         <include refid="selectHotelRoomTypeVo" />
         <where>
             <if test="roomName != null and roomName != ''">
-                AND room_name like concat('%', #{roomName}, '%')
+                AND room_name LIKE concat('%', #{roomName}, '%')
             </if>
             <if test="nickName != null and nickName != ''">
-                AND nick_name like concat('%', #{nickName}, '%')
+                AND nick_name LIKE concat('%', #{nickName}, '%')
             </if>
             <if test="price != null">
                 AND price = #{price}
@@ -41,7 +41,7 @@
                 AND quantity = #{quantity}
             </if>
             <if test="description != null and description != ''">
-                AND description = #{description}
+                AND description LIKE concat('%', #{description}, '%')
             </if>
         </where>
     </select>

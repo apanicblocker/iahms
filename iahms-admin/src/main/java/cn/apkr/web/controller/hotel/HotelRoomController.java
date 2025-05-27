@@ -55,6 +55,7 @@ public class HotelRoomController extends BaseController {
     @Log(title = "房间", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HotelRoom hotelRoom) {
+        hotelRoom.setCreateBy(getUserId());
         return toAjax(hotelRoomService.insertHotelRoom(hotelRoom));
     }
 
@@ -65,6 +66,7 @@ public class HotelRoomController extends BaseController {
     @Log(title = "房间", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HotelRoom hotelRoom) {
+        hotelRoom.setUpdateBy(getUserId());
         return toAjax(hotelRoomService.updateHotelRoom(hotelRoom));
     }
 

@@ -117,6 +117,7 @@ public class SecurityConfig {
 									"/*/api-docs", "/druid/**", "/*/api-docs/**")
 							.permitAll()
 							.requestMatchers("/websocket/**").permitAll()
+							.requestMatchers("/test/**").permitAll()
 							// 除了上面外的所有请求都需要鉴权认证
 							.anyRequest().authenticated();
 				})

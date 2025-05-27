@@ -7,12 +7,14 @@ import cn.apkr.system.service.ISysUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Tag(name = "测试模块")
 @RestController
+@RequestMapping("/test")
 public class TestController {
 
     @Autowired
@@ -31,4 +33,5 @@ public class TestController {
         List<SysUser> sysUsers = userService.selectUserList(user);
         return AjaxResult.success("操作成功", sysUsers);
     }
+
 }

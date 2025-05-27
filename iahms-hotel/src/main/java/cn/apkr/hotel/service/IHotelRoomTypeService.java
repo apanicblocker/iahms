@@ -58,4 +58,6 @@ public interface IHotelRoomTypeService {
      * @return 结果
      */
     public int deleteHotelRoomTypeByRoomTypeId(Long roomTypeId);
+
+    int updateRoomTypeQuantity(Long roomTypeId, int quantity);
 }
